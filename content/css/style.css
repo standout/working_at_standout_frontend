@@ -18,5 +18,13 @@ html, body, #map, #edit {
     width: 75%;
 }
 #edit { 
-    width: 25%;
+    width: 24%;
+    padding: 0.5%;
 }
+#edit form div{
+    display: table-row;
+}
+	form  { display: table; text-align: left; }
+	label { display: table-cell; }
+	input { display: table-cell; }
+	select { display: table-cell; }

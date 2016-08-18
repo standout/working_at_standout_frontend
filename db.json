@@ -1,14 +1,34 @@
 {
-  "suppliers": [
-    {
-      "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
-    },
-    {
-      "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
-    }
-  ]
+    "suppliers": [
+        {
+            "id": 1,
+            "name": "Kalles livs",
+            "category": 1,
+            "other":"Other information.",
+            "latitude": 56.8790,
+            "longitude": 14.8059
+        },
+        {
+            "id": 2,
+            "name": "Konsum fjollträsk",
+            "category": 2,
+            "other":"",
+            "latitude": 56.8740,
+            "longitude": 14.8049
+        }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "name": "Dairy"
+        },
+        {
+            "id": 2,
+            "name": "Bread"
+        },
+        {
+            "id": 3,
+            "name": "Meat"
+        }
+    ]
 }
