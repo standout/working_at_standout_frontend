@@ -24,7 +24,10 @@ html, body, #map, #edit {
 #edit form div{
     display: table-row;
 }
-	form  { display: table; text-align: left; }
-	label { display: table-cell; }
-	input { display: table-cell; }
-	select { display: table-cell; }
+form  { 
+    display: table; 
+    text-align: left; 
+}
+label, input, select { 
+    display: table-cell;
+}
