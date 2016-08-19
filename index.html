@@ -47,9 +47,9 @@
                     <label>Other</label>
                     <input type="text" class="form-control" id="formOther" />
                 </div>
-                <button id="submitAdd" type="submit" class="btn btn-default">Add New</button>
-                <button id="submitUpdate" type="submit" class="btn btn-default">Update</button>
-                <button id="submitDelete" type="submit" class="btn btn-default">Delete</button>
+                <button type="submit" class="btn btn-default" onclick="sendForm('location','add')">Add New</button>
+                <button type="submit" class="btn btn-default" onclick="sendForm('location','update')">Update</button>
+                <button type="submit" class="btn btn-default" onclick="sendForm('location','delete')">Delete</button>
             </form>
             <h2>Edit categories</h2>
             <form class="editform" id="addform">
@@ -63,9 +63,9 @@
                     <label>Name</label>
                     <input type="text" placeholder="Meat"  class="form-control" id="formNameCat" />
                 </div>
-                <button id="submitAddCat" type="submit" class="btn btn-default">Add New</button>
-                <button id="submitUpdateCat" type="submit" class="btn btn-default">Update</button>
-                <button id="submitDeleteCat" type="submit" class="btn btn-default">Delete</button>
+                <button type="submit" class="btn btn-default" onclick="sendForm('category','add')">Add New</button>
+                <button type="submit" class="btn btn-default" onclick="sendForm('category','update')">Update</button>
+                <button type="submit" class="btn btn-default" onclick="sendForm('category','delete')">Delete</button>
             </form>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

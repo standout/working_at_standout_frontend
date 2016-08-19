@@ -30,60 +30,87 @@ function clearForm() {
     $("#formIdCat").val(0);
     $("#formNameCat").val("");
 }
-$("#submitAdd").click(function () {
-    var input = getInput();
-    input.id = 0;
-    addLocation(input).done(function () {
-        clearForm();
-        refreshData();
-    });
-});
-$("#submitUpdate").click(function () {
-    var input = getInput();
-    if (input.id == 0)
-        return console.log("No location selected.");
-    updateLocation(input).done(function () {
-        clearForm();
-        refreshData();
-    });
-});
-$("#submitDelete").click(function () {
-    var id = getInput().id;
-    if (id == 0)
-        return console.log("No location selected.");
-    deleteLocation(id).done(function () {
-        clearForm();
-        refreshData();
-    });
-});
-
-//Edit categories
-$("#submitAddCat").click(function () {
-    var input = getCatInput();
-    input.id = 0;
-    addCategory(input).done(function () {
-        clearForm();
-        refreshData();
-    });
-});
-$("#submitUpdateCat").click(function () {
-    var input = getCatInput();
-    if (input.id == 0)
-        return console.log("No location selected.");
-    updateCategory(input).done(function () {
-        clearForm();
-        refreshData();
-    });
-});
-$("#submitDeleteCat").click(function () {
-    var id = getCatInput().id;
-    if (id == 0)
-        return console.log("No location selected.");
-    deleteCategory(id).done(function () {
-        clearForm();
-        refreshData();
-    });
-});
+function sendLocation(method, input) {
+    var deferred = $.Deferred();
+    if (method === "delete" && input.id > 0) {
+        deleteLocation(input.id).done(function (response) {
+            deferred.resolve("Location Deleted.", response);
+        }).fail(function (response) {
+            deferred.reject("API Error", response);
+        });
+    } else if ((method === "add" || method === "update")
+            && input.name.length
+            && input.latitude > 0
+            && input.longitude > 0
+            && input.address.length
+            && input.category > 0) {
+        if (method === "add") {
+            input.id = 0;
+            addLocation(input).done(function (response) {
+                deferred.resolve("Location Added.", response);
+            }).fail(function (response) {
+                deferred.reject("API Error", response);
+            });
+        } else if (input.id > 0) {
+            updateLocation(input).done(function (response) {
+                deferred.resolve("Location Updated.", response);
+            }).fail(function (response) {
+                deferred.reject("API Error", response);
+            });
+        } else {
+            deferred.reject("Bad Input");
+        }
+    } else {
+        deferred.reject("Bad Input");
+    }
+    return deferred.promise();
+}
+function sendCategory(method, input) {
+    var deferred = $.Deferred();
+    if (method === "delete" && input.id > 0) {
+        deleteCategory(input.id).done(function (response) {
+            deferred.resolve("Category Deleted.", response);
+        }).fail(function (response) {
+            deferred.reject("API Error", response);
+        });
+    } else if ((method === "add" || method === "update")
+            && input.name.length) {
+        if (method === "add") {
+            input.id = 0;
+            addCategory(input).done(function (response) {
+                deferred.resolve("Category Added.", response);
+            }).fail(function (response) {
+                deferred.reject("API Error", response);
+            });
+        } else if (input.id > 0) {
+            updateCategory(input).done(function (response) {
+                deferred.resolve("Category Updated.", response);
+            }).fail(function (response) {
+                deferred.reject("API Error", response);
+            });
+        } else {
+            deferred.reject("Bad Input");
+        }
+    } else {
+        deferred.reject("Bad Input");
+    }
+    return deferred.promise();
+}
+function sendForm(type, method) {
+    if (type === "category") {
+        var input = getCatInput();
+        sendCategory(method, input).done(function () {
+            clearForm();
+            refreshData();
+        });
+    } else if (type === "location") {
+        var input = getInput();
+        sendLocation(method, input).done(function () {
+            clearForm();
+            refreshData();
+        });
+    }
+}
 
 //Checks for numbers and decimal symbol
 function isNumberKey(evt)
