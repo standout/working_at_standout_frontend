@@ -17,3 +17,22 @@ function deleteLocation(id) {
         method: 'DELETE'
     });
 }
+function getCategories() {
+    return $.get('http://' + window.location.hostname + ':3000/categories');
+}
+function addCategory(input) {
+    return $.post('http://' + window.location.hostname + ':3000/categories', input);
+}
+function updateCategory(input) {
+    return $.ajax({
+        url: 'http://' + window.location.hostname + ':3000/categories/' + input.id,
+        method: 'PUT',
+        data: input
+    });
+}
+function deleteCategory(id) {
+    return $.ajax({
+        url: 'http://' + window.location.hostname + ':3000/categories/' + id,
+        method: 'DELETE'
+    });
+}

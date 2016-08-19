@@ -9,7 +9,7 @@
     <body>
         <div id="map"></div>
         <div id="edit">
-            <h2>Add a new location</h2>
+            <h2>Edit locations</h2>
             <form class="editform" id="addform">
                 <div>
                     <label>ID</label>
@@ -20,6 +20,14 @@
                 <div>
                     <label>Name</label>
                     <input type="text" placeholder="Växjö"  class="form-control" id="formName" />
+                </div>
+                <div>
+                    <label>Address </label>
+                    <input type="text" placeholder="Storvägen 9" class="form-control" id="formAddress" />
+                </div>
+                <div>
+                    <label>Phone </label>
+                    <input type="text" placeholder="076-54 32 100" class="form-control" id="formPhone" />
                 </div>
                 <div>
                     <label>Latitude </label>
@@ -42,6 +50,22 @@
                 <button id="submitAdd" type="submit" class="btn btn-default">Add New</button>
                 <button id="submitUpdate" type="submit" class="btn btn-default">Update</button>
                 <button id="submitDelete" type="submit" class="btn btn-default">Delete</button>
+            </form>
+            <h2>Edit categories</h2>
+            <form class="editform" id="addform">
+                <div>
+                    <label>ID</label>
+                    <select id="formIdCat">
+                        <option value="0">New</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Name</label>
+                    <input type="text" placeholder="Meat"  class="form-control" id="formNameCat" />
+                </div>
+                <button id="submitAddCat" type="submit" class="btn btn-default">Add New</button>
+                <button id="submitUpdateCat" type="submit" class="btn btn-default">Update</button>
+                <button id="submitDeleteCat" type="submit" class="btn btn-default">Delete</button>
             </form>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

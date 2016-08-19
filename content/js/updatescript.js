@@ -1,13 +1,27 @@
 //Adds all the locations to the ID dropdown
 function populateIdSelect() {
     var options = $("#formId");
-    options
-            .find('option')
+    options.find('option')
             .remove()
             .end()
             .append('<option value=0>New</option>');
     $.each(locations, function () {
         options.append($("<option />").val(this.id).text(this.id + ':' + this.name));
+    });
+}//Adds all the locations to the ID dropdown
+function populateCatSelect() {
+    var idoptions = $("#formIdCat");
+    idoptions.find('option')
+            .remove()
+            .end()
+            .append('<option value=0>New</option>');
+    var catoptions = $("#formCategory");
+    catoptions.find('option')
+            .remove()
+            .end();
+    $.each(categories, function () {
+        idoptions.append($("<option />").val(this.id).text(this.id + ':' + this.name));
+        catoptions.append($("<option />").val(this.id).text(this.name));
     });
 }
 //Updates the form inputs using a new id or the currently selected id
@@ -19,6 +33,8 @@ function selectEditLocation(id) {
         return location.id == id;
     })[0];
     $("#formName").val(selected.name);
+    $("#formPhone").val(selected.phone);
+    $("#formAddress").val(selected.address);
     $("#formLatitude").val(selected.latitude);
     $("#formLongitude").val(selected.longitude);
     $("#formCategory").val(selected.category);
@@ -64,5 +80,8 @@ function refreshData() {
         populateIdSelect();
         updateMap();
     });
-    //getCategories().done(function(data){}
+    getCategories().done(function (data) {
+        categories = data;
+        populateCatSelect();
+    });
 }

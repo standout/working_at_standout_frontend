@@ -2,30 +2,37 @@ $(".editform").submit(function (event) {
     event.preventDefault();
 });
 function getInput() {
-    var id = $("#formId").val();
-    var name = $("#formName").val();
-    var latitude = $("#formLatitude").val();
-    var longitude = $("#formLongitude").val();
-    var category = $("#formCategory").val();
-    var other = $("#formOther").val();
     return {
-        id: id,
-        name: name,
-        latitude: latitude,
-        longitude: longitude,
-        category: category,
-        other: other
+        id: $("#formId").val(),
+        name: $("#formName").val(),
+        phone: $("#formPhone").val(),
+        address: $("#formAddress").val(),
+        latitude: $("#formLatitude").val(),
+        longitude: $("#formLongitude").val(),
+        category: $("#formCategory").val(),
+        other: $("#formOther").val()
+    };
+}
+function getCatInput() {
+    return {
+        id: $("#formIdCat").val(),
+        name: $("#formNameCat").val()
     };
 }
 function clearForm() {
     $("#formId").val(0);
     $("#formName").val("");
+    $("#formPhone").val("");
+    $("#formAddress").val("");
     $("#formLatitude").val("");
     $("#formLongitude").val("");
     $("#formOther").val("");
+    $("#formIdCat").val(0);
+    $("#formNameCat").val("");
 }
 $("#submitAdd").click(function () {
     var input = getInput();
+    input.id = 0;
     addLocation(input).done(function () {
         clearForm();
         refreshData();
@@ -45,6 +52,34 @@ $("#submitDelete").click(function () {
     if (id == 0)
         return console.log("No location selected.");
     deleteLocation(id).done(function () {
+        clearForm();
+        refreshData();
+    });
+});
+
+//Edit categories
+$("#submitAddCat").click(function () {
+    var input = getCatInput();
+    input.id = 0;
+    addCategory(input).done(function () {
+        clearForm();
+        refreshData();
+    });
+});
+$("#submitUpdateCat").click(function () {
+    var input = getCatInput();
+    if (input.id == 0)
+        return console.log("No location selected.");
+    updateCategory(input).done(function () {
+        clearForm();
+        refreshData();
+    });
+});
+$("#submitDeleteCat").click(function () {
+    var id = getCatInput().id;
+    if (id == 0)
+        return console.log("No location selected.");
+    deleteCategory(id).done(function () {
         clearForm();
         refreshData();
     });
