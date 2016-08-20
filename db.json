@@ -3,10 +3,12 @@
     {
       "id": 1,
       "name": "Kalles livs",
-      "category": 1,
-      "other": "Other information.",
+      "phone": "076-3333333",
+      "address": "Kallevägen 8",
       "latitude": 56.879,
-      "longitude": 14.8059
+      "longitude": 14.8059,
+      "category": 1,
+      "other": "Other information."
     },
     {
       "id": 2,
@@ -17,6 +19,36 @@
       "longitude": 14.8049,
       "category": 2,
       "other": "E-post: Kon.sum@tr.sk"
+    },
+    {
+      "id": 3,
+      "name": "Filmstaden",
+      "phone": "+46 8 562 600 00",
+      "address": "Oxtorget 10",
+      "latitude": 56.8784527,
+      "longitude": 14.7982475,
+      "category": 3,
+      "other": ""
+    },
+    {
+      "id": 4,
+      "name": "Systembolaget",
+      "phone": "0470-122 13",
+      "address": "Storgatan 40",
+      "latitude": 56.879272,
+      "longitude": 14.7996358,
+      "category": 4,
+      "other": ""
+    },
+    {
+      "id": 5,
+      "name": "Ingers Smörgåsar",
+      "phone": "+46 470 268 50",
+      "address": "Verkstadsgatan 18",
+      "latitude": 56.88719649999999,
+      "longitude": 14.7628532,
+      "category": 2,
+      "other": ""
     }
   ],
   "categories": [
@@ -31,6 +63,10 @@
     {
       "id": 3,
       "name": "Meat"
+    },
+    {
+      "id": 4,
+      "name": "Alkohol"
     }
   ]
 }

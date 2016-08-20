@@ -37,9 +37,14 @@ function getCatInput() {
         name: $("#formNameCat").val()
     };
 }
-function clearForm() {
-    $("#formId, #formIdCat").val(0);
-    $("#formName, #formPhone, #formAddress, #formLatitude, #formLongitude, #formOther, #formNameCat").val("");
+function clearForm(type) {
+    if (type == "location") {
+        $("#formId").val(0);
+        $("#formName, #formPhone, #formAddress, #formLatitude, #formLongitude, #formOther").val("");
+    } else {
+        $("formIdCat").val(0);
+        $("#formNameCat").val("");
+    }
 }
 function sendLocation(method, input) {
     var deferred = $.Deferred();
@@ -134,7 +139,7 @@ function sendForm(type, method) {
     if (type === "category") {
         var input = getCatInput();
         sendCategory(method, input).done(function () {
-            clearForm();
+            clearForm("category");
             refreshData();
         }).fail(function (msg) {
             alert(msg);
@@ -142,7 +147,7 @@ function sendForm(type, method) {
     } else if (type === "location") {
         var input = getInput();
         sendLocation(method, input).done(function () {
-            clearForm();
+            clearForm("location");
             refreshData();
         }).fail(function (msg) {
             alert(msg);
