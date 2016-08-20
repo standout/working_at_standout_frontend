@@ -19,7 +19,7 @@ html, body, #map, #edit {
 }
 #edit { 
     width: 24%;
-    padding: 0.5%;
+    padding: 0 0.5%;
 }
 #edit form div{
     display: table-row;

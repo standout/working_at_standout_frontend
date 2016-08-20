@@ -1,6 +1,24 @@
 $(".editform").submit(function (event) {
     event.preventDefault();
 });
+function getCoords() {
+    var url = "https://maps.googleapis.com/maps/api/geocode/json";
+    url += "?address=" + $("#formLocation").val();
+    url += "&key=AIzaSyDCTM-wlTR7UCPY9kOXVvH-Hh04ldrPo4U";
+    $.get(url, function (response) {
+        var location = response.results[0].geometry.location;
+        $("#formLatitudeOut").val(location.lat);
+        $("#formLongitudeOut").val(location.lng);
+    });
+}
+function markLocation() {
+    addMarkers([{
+            name: $("#formLocation").val(),
+            latitude: $("#formLatitudeOut").val(),
+            longitude: $("#formLongitudeOut").val()
+        }]);
+    map.setZoom(15); //Don't be right up in it's face
+}
 function getInput() {
     return {
         id: $("#formId").val(),
@@ -20,15 +38,8 @@ function getCatInput() {
     };
 }
 function clearForm() {
-    $("#formId").val(0);
-    $("#formName").val("");
-    $("#formPhone").val("");
-    $("#formAddress").val("");
-    $("#formLatitude").val("");
-    $("#formLongitude").val("");
-    $("#formOther").val("");
-    $("#formIdCat").val(0);
-    $("#formNameCat").val("");
+    $("#formId, #formIdCat").val(0);
+    $("#formName, #formPhone, #formAddress, #formLatitude, #formLongitude, #formOther, #formNameCat").val("");
 }
 function sendLocation(method, input) {
     var deferred = $.Deferred();
@@ -45,18 +56,36 @@ function sendLocation(method, input) {
             && input.address.length
             && input.category > 0) {
         if (method === "add") {
-            input.id = 0;
-            addLocation(input).done(function (response) {
-                deferred.resolve("Location Added.", response);
-            }).fail(function (response) {
-                deferred.reject("API Error", response);
-            });
+            //Check for duplicates (name or lat/lng)
+            if (locations.filter(function (loc) {
+                return loc.name == input.name ||
+                        (loc.latitude == input.latitude &&
+                                loc.longitude == input.longitude);
+            }).length > 0) {
+                deferred.reject("Duplicate Location");
+            } else {
+                input.id = 0;
+                addLocation(input).done(function (response) {
+                    deferred.resolve("Location Added.", response);
+                }).fail(function (response) {
+                    deferred.reject("API Error", response);
+                });
+            }
         } else if (input.id > 0) {
-            updateLocation(input).done(function (response) {
-                deferred.resolve("Location Updated.", response);
-            }).fail(function (response) {
-                deferred.reject("API Error", response);
-            });
+            //Check other locations for duplicates (name or lat/lng)
+            if (locations.filter(function (loc) {
+                return loc.id != input.id && (loc.name == input.name ||
+                        (loc.latitude == input.latitude &&
+                                loc.longitude == input.longitude));
+            }).length > 0) {
+                deferred.reject("Duplicate Location");
+            } else {
+                updateLocation(input).done(function (response) {
+                    deferred.resolve("Location Updated.", response);
+                }).fail(function (response) {
+                    deferred.reject("API Error", response);
+                });
+            }
         } else {
             deferred.reject("Bad Input");
         }
@@ -75,7 +104,12 @@ function sendCategory(method, input) {
         });
     } else if ((method === "add" || method === "update")
             && input.name.length) {
-        if (method === "add") {
+        //Check for duplicates
+        if (categories.filter(function (cat) {
+            return cat.name == input.name;
+        }).length > 0) {
+            deferred.reject("Duplicate Category");
+        } else if (method === "add") {
             input.id = 0;
             addCategory(input).done(function (response) {
                 deferred.resolve("Category Added.", response);
@@ -102,12 +136,16 @@ function sendForm(type, method) {
         sendCategory(method, input).done(function () {
             clearForm();
             refreshData();
+        }).fail(function (msg) {
+            alert(msg);
         });
     } else if (type === "location") {
         var input = getInput();
         sendLocation(method, input).done(function () {
             clearForm();
             refreshData();
+        }).fail(function (msg) {
+            alert(msg);
         });
     }
 }

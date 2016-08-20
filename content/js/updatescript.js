@@ -8,7 +8,9 @@ function populateIdSelect() {
     $.each(locations, function () {
         options.append($("<option />").val(this.id).text(this.id + ':' + this.name));
     });
-}//Adds all the locations to the ID dropdown
+}
+
+//Adds all the locations to the ID dropdown
 function populateCatSelect() {
     var idoptions = $("#formIdCat");
     idoptions.find('option')
@@ -24,6 +26,7 @@ function populateCatSelect() {
         catoptions.append($("<option />").val(this.id).text(this.name));
     });
 }
+
 //Updates the form inputs using a new id or the currently selected id
 function selectEditLocation(id) {
     if (id > -1)
@@ -43,11 +46,10 @@ function selectEditLocation(id) {
 $("#formId").change(function () {
     selectEditLocation();
 });
-function updateMap() {
-    var map = new google.maps.Map(document.getElementById('map'));
+
+function addMarkers(locations) {
     var bounds = new google.maps.LatLngBounds();
     var infowindow = new google.maps.InfoWindow();
-
     //Create markers for each location
     for (i = 0; i < locations.length; i++) {
         var marker = new google.maps.Marker({
@@ -74,6 +76,12 @@ function updateMap() {
         });
     }
 }
+
+function updateMap() {
+    window.map = new google.maps.Map(document.getElementById('map'));
+    addMarkers(locations);
+}
+
 function refreshData() {
     getLocations().done(function (data) {
         locations = data;
