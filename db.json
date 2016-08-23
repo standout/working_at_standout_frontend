@@ -1,33 +1,33 @@
 {
   "suppliers": [
     {
-      "id": 1,
-      "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
+      "name": "One",
+      "latitude": 59.314232,
+      "longitude": 17.960177,
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
+      "name": "Two",
+      "latitude": 56.881832,
+      "longitude": 14.879178,
+      "id": 2
     },
     {
-      "name": "ICA",
-      "latitude": 135,
-      "longitude": 246,
+      "name": "Three",
+      "latitude": 57.997191,
+      "longitude": 11.920494,
       "id": 3
     },
     {
-      "name": "Maxi",
-      "latitude": 1,
-      "longitude": 2,
+      "name": "Four",
+      "latitude": 63.783583,
+      "longitude": 20.029273,
       "id": 4
     },
     {
-      "name": "Google",
-      "latitude": -34.397,
-      "longitude": 150.644,
+      "name": "Five",
+      "latitude": 56.147084,
+      "longitude": 13.273186,
       "id": 5
     }
   ]
