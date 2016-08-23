@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Suppliers</title>
+		<link rel="stylesheet" href="screen.css?v=0.1">
+	</head>
+	<body>
+		<h1>Suppliers</h1>
+		<ol id="suppliers-list"></ol>
+		<form>
+			<fieldset><legend>Add new supplier</legend>
+				<div>
+					<label for="new-supplier-name">Name: </label><input type="text" id="new-supplier-name">
+				</div>
+				<div>
+					<label for="new-supplier-lat">Latitude: </label><input type="text" id="new-supplier-lat">
+				</div>
+				<div>
+					<label for="new-supplier-long">Longitude: </label><input type="text" id="new-supplier-long">
+				</div>
+				<div>
+					<label for="new-supplier-cat">Category: </label>
+					<select id="new-supplier-cat">
+						<option value="milk">Milk</option>
+						<option value="meat">Meat</option>
+						<option value="bread">Bread</option>
+					</select>
+				</div>
+				<div>
+					<input type="button" value="Add supplier" id="add-new-supplier">
+				</div>
+			</fieldset>
+		</form>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="suppliers.js"></script>
+	</body>
+</html>
