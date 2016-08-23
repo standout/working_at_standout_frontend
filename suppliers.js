@@ -17,7 +17,8 @@ function showSuppliers() {
 	var i,
 		ol = document.getElementById("suppliers-list"),
 		li,
-		button;
+		deleteButton,
+		showButton;
 	while (ol.firstChild) {
     	ol.removeChild(ol.firstChild);
 	}
@@ -26,15 +27,22 @@ function showSuppliers() {
 			(function(){
 				li = document.createElement("li");
 				li.appendChild(document.createTextNode("Name: " + suppliers[i].name));
-				button = document.createElement("input");
-				button.setAttribute("type", "button");
-				button.setAttribute("value", "Delete");
-				button.setAttribute("data-id", suppliers[i].id)
-				button.addEventListener("click", function () {
+				deleteButton = document.createElement("input");
+				deleteButton.setAttribute("type", "button");
+				deleteButton.setAttribute("value", "Delete");
+				deleteButton.setAttribute("data-id", suppliers[i].id)
+				deleteButton.addEventListener("click", function () {
 					deleteSupplier(this.getAttribute("data-id"));
-					console.log(this.getAttribute("data-id"));
 				}, false);
-				li.appendChild(button);
+				li.appendChild(deleteButton);
+				showButton = document.createElement("input");
+				showButton.setAttribute("type", "button");
+				showButton.setAttribute("value", "Show on map");
+				showButton.setAttribute("data-id", suppliers[i].id)
+				showButton.addEventListener("click", function () {
+					showOnMap(this.getAttribute("data-id"));
+				}, false);
+				li.appendChild(showButton);
 				ol.appendChild(li);
 			}());
 		}
@@ -48,5 +56,18 @@ function init() {
 		addSupplier(name, lat, long);
 	}, false);
 	showSuppliers();
+}
+function showOnMap(id) {
+	var map,
+		lat,
+		long;
+	$.get("http://localhost:3000/suppliers/" + id, function(supplier) {
+		lat = supplier.latitude;
+		long = supplier.longitude;
+		map = new google.maps.Map(document.getElementById("map"), {
+			center: {lat: lat, lng: long},
+			zoom: 18
+		});
+	});
 }
 window.onload = init;
