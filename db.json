@@ -1,33 +1,28 @@
 {
   "suppliers": [
     {
-      "name": "One",
-      "latitude": 59.314232,
-      "longitude": 17.960177,
+      "name": "Stockholm",
+      "address": "Stockholm Sweden",
       "id": 1
     },
     {
-      "name": "Two",
-      "latitude": 56.881832,
-      "longitude": 14.879178,
+      "name": "Malmö",
+      "address": "Malmö Sweden",
       "id": 2
     },
     {
-      "name": "Three",
-      "latitude": 57.997191,
-      "longitude": 11.920494,
+      "name": "Göteborg",
+      "address": "Göteborg",
       "id": 3
     },
     {
-      "name": "Four",
-      "latitude": 63.783583,
-      "longitude": 20.029273,
+      "name": "Luleå",
+      "address": "Luleå",
       "id": 4
     },
     {
-      "name": "Five",
-      "latitude": 56.147084,
-      "longitude": 13.273186,
+      "name": "Jönköping",
+      "address": "Jönköping",
       "id": 5
     }
   ]
