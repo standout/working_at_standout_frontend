@@ -45,9 +45,14 @@ function showCategories() {
 	var i,
 		ol = document.getElementById("categories-list"),
 		li,
-		deleteButton;
+		deleteButton,
+		select = document.getElementById("new-supplier-category"),
+		option;
 	while (ol.firstChild) {
 		ol.removeChild(ol.firstChild);
+	}
+	while (select.firstChild) {
+		select.removeChild(select.firstChild);
 	}
 	$.get("http://localhost:3000/categories", function (categories) {
 		for (i = 0; i < categories.length; i += 1) {
@@ -62,12 +67,15 @@ function showCategories() {
 			}, false);
 			li.appendChild(deleteButton);
 			ol.appendChild(li);
+			option = document.createElement("option");
+			option.setAttribute("value", categories[i].category);
+			option.appendChild(document.createTextNode(categories[i].category));
+			select.appendChild(option);
 		}
 	});
 }
 function addSupplier(name, address, category) {
 	"use strict";
-	//var geocoder = new google.maps.Geocoder;
 	$.post("http://localhost:3000/suppliers", {
 		name: name,
 		address: address,

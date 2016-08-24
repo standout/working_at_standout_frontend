@@ -29,6 +29,12 @@
       "address": "Luleå",
       "category": "Milk",
       "id": 5
+    },
+    {
+      "name": "Kalmar",
+      "address": "Kalmar",
+      "category": "Vegetables",
+      "id": 6
     }
   ],
   "categories": [
