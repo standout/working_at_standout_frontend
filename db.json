@@ -1,29 +1,48 @@
 {
   "suppliers": [
     {
-      "name": "Stockholm",
-      "address": "Stockholm Sweden",
+      "name": "Malmö",
+      "address": "Malmö",
+      "category": "Milk",
       "id": 1
     },
     {
-      "name": "Malmö",
-      "address": "Malmö Sweden",
+      "name": "Stockholm",
+      "address": "Stockholm",
+      "category": "Meat",
       "id": 2
     },
     {
       "name": "Göteborg",
       "address": "Göteborg",
+      "category": "Bread",
       "id": 3
+    },
+    {
+      "name": "Växjö",
+      "address": "Växjö",
+      "category": "Meat",
+      "id": 4
     },
     {
       "name": "Luleå",
       "address": "Luleå",
-      "id": 4
+      "category": "Milk",
+      "id": 5
+    }
+  ],
+  "categories": [
+    {
+      "category": "Milk",
+      "id": 1
     },
     {
-      "name": "Jönköping",
-      "address": "Jönköping",
-      "id": 5
+      "category": "Meat",
+      "id": 2
+    },
+    {
+      "category": "Bread",
+      "id": 3
     }
   ]
 }
