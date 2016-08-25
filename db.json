@@ -1,14 +1,36 @@
 {
   "suppliers": [
     {
-      "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
+      "name": "Test",
+      "address": "Malmö",
+      "category": "Meat",
+      "id": 1
     },
     {
-      "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
+      "name": "Firma AB",
+      "address": "Stockholm",
+      "category": "Fish",
+      "id": 2
+    },
+    {
+      "name": "Bolag",
+      "address": "Göteborg",
+      "category": "Vegetables",
+      "id": 3
+    }
+  ],
+  "categories": [
+    {
+      "category": "Meat",
+      "id": 1
+    },
+    {
+      "category": "Fish",
+      "id": 2
+    },
+    {
+      "category": "Vegetables",
+      "id": 3
     }
   ]
 }
