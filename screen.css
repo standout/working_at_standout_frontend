@@ -2,3 +2,10 @@
 	width: 350px;
 	height: 650px;
 }
+#suppliers-list {
+	width: 400px;
+	float: left;
+}
+#no-suppliers.false {
+	display: none;
+}

@@ -1,53 +1,35 @@
 {
   "suppliers": [
     {
-      "name": "Malmö",
+      "name": "Test",
       "address": "Malmö",
-      "category": "Milk",
+      "category": "Meat",
       "id": 1
     },
     {
-      "name": "Stockholm",
+      "name": "Firma AB",
       "address": "Stockholm",
-      "category": "Meat",
+      "category": "Fish",
       "id": 2
     },
     {
-      "name": "Göteborg",
+      "name": "Bolag",
       "address": "Göteborg",
-      "category": "Bread",
-      "id": 3
-    },
-    {
-      "name": "Växjö",
-      "address": "Växjö",
-      "category": "Meat",
-      "id": 4
-    },
-    {
-      "name": "Luleå",
-      "address": "Luleå",
-      "category": "Milk",
-      "id": 5
-    },
-    {
-      "name": "Kalmar",
-      "address": "Kalmar",
       "category": "Vegetables",
-      "id": 6
+      "id": 3
     }
   ],
   "categories": [
     {
-      "category": "Milk",
+      "category": "Meat",
       "id": 1
     },
     {
-      "category": "Meat",
+      "category": "Fish",
       "id": 2
     },
     {
-      "category": "Bread",
+      "category": "Vegetables",
       "id": 3
     }
   ]

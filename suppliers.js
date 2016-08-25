@@ -9,14 +9,20 @@ function showSuppliers() {
 			zoom: 5
 		}),
 		geocoder = new google.maps.Geocoder,
-		marker;
+		marker,
+		markerLabel = 0;
 	while (ol.firstChild) {
 		ol.removeChild(ol.firstChild); //clear list
 	}
 	$.get("http://localhost:3000/suppliers", function (suppliers) {
+		if (suppliers.length > 0) {
+			document.getElementById("no-suppliers").classList.add("false");
+		} else {
+			document.getElementById("no-suppliers").classList.remove("false");
+		}
 		for (i = 0; i < suppliers.length; i += 1) {
 			li = document.createElement("li");
-			li.appendChild(document.createTextNode("Name: " + suppliers[i].name + " " + suppliers[i].category));
+			li.appendChild(document.createTextNode(suppliers[i].name + ", " + suppliers[i].address + ", " + suppliers[i].category + " supplier "));
 			deleteButton = document.createElement("input");
 			deleteButton.setAttribute("type", "button");
 			deleteButton.setAttribute("value", "Delete");
@@ -31,7 +37,8 @@ function showSuppliers() {
 					//map.setCenter(results[0].geometry.location);
 					var marker = new google.maps.Marker({
 						map: map,
-						position: results[0].geometry.location
+						position: results[0].geometry.location,
+						label: ++markerLabel + "" //convert to string and increment
 					});
 				} else {
 					alert('Geocode was not successful for the following reason: ' + status);
@@ -108,15 +115,39 @@ function deleteCategory(id) {
 }
 function init() {
 	"use strict";
+	var geocoder;
 	document.getElementById("add-new-supplier").addEventListener("click", function () {
 		var name = document.getElementById("new-supplier-name").value,
 			address = document.getElementById("new-supplier-address").value,
 			category = document.getElementById("new-supplier-category").value;
-		addSupplier(name, address, category);
+		switch ("") {
+			case name:
+				alert("Name is empty");
+				break;
+			case address:
+				alert("Address is empty");
+				break;
+			case category:
+				alert("Add a category below");
+				break;
+			default:
+				geocoder = new google.maps.Geocoder;
+				geocoder.geocode({'address': address}, function (results, status) {
+					if (status === 'OK') {
+						addSupplier(name, address, category);
+					} else {
+						alert("Address is not valid");
+					}
+				});
+			}
 	}, false);
 	document.getElementById("add-new-category").addEventListener("click", function () {
 		var categoryName = document.getElementById("new-category-name").value;
-		addCategory(categoryName);
+		if (categoryName != "") {
+			addCategory(categoryName);
+		} else {
+			alert("Category is empty");
+		}
 	}, false);
 	showSuppliers();
 	showCategories();
