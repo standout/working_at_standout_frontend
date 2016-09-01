@@ -2,13 +2,19 @@
   "suppliers": [
     {
       "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
+	  "address": "Värendsgatan 12, 36030 Lammhult",
+	  "phone": "1234567890",
+	  "category": 1,
+      "latitude": 57.16,
+      "longitude": 14.58
     },
     {
       "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
+	  "address": "Storgatan 3, 352 33 Växjö, Sweden",
+	  "phone": "0987654321",
+	  "category": 3,
+      "latitude": 56.87,
+      "longitude": 14.81
     }
   ]
 }
