@@ -51,3 +51,7 @@ a.active:link, a.active:visited{
 .newSupplier{
 	margin-top: 100px;	
 }
+
+.deleteButton{
+	padding: 2px;
+}

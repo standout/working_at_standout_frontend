@@ -61,23 +61,36 @@ var App = {
 
         //For each message render it under category
         suppliers.forEach(function(supplier){
-            var incidentText = supplier.address + "</b><br />" + supplier.phone + "<br />Kategori: " + supplier.category;
+			
+			var deleteButton = document.createElement("input");
+			deleteButton.setAttribute("type", "button");
+			deleteButton.setAttribute("value", "Delete");
+			deleteButton.setAttribute("class", "btn btn-danger deleteButton");
+			deleteButton.setAttribute("data-id", supplier.id);
+			deleteButton.addEventListener("click", function (e) {
+				e.stopPropagation();
+				App.deleteSupplier(this.getAttribute("data-id"), supplier.name);
+			}, false);
+			
+            var incidentText = "Address: " + supplier.address + "</b><br />" + "Phone: " + supplier.phone + "<br />Category: " + App.categoriesArray[supplier.category] + "<br/>";
+			
 
-            var messageLink = document.createElement("div");
-            messageLink.innerHTML = "<a href='#'>" + supplier.name + "</a>";
-
+            var supplierLink = document.createElement("div");
+            supplierLink.innerHTML = "<a href='#'>" + supplier.name + "</a>";
+			
             var messageText = document.createElement("p");
             messageText.setAttribute("class", "supplierDetails");
             messageText.innerHTML = incidentText;
-
-            messageLink.appendChild(messageText);
-            listOfSuppliersContainer.appendChild(messageLink);
+			messageText.appendChild(deleteButton);
+			
+            supplierLink.appendChild(messageText);
+            listOfSuppliersContainer.appendChild(supplierLink);
 
             //Hide details
             $(".supplierDetails").hide();
 
             //If user clicks on incident then show details
-            messageLink.addEventListener('click', function(){
+            supplierLink.addEventListener('click', function(){
                App.renderDetails(this, supplier);
             });
         });
@@ -92,6 +105,20 @@ var App = {
         //Set view and open popup
         App.map.setView([supplier.latitude, supplier.longitude], 12);
     },
+	
+	deleteSupplier: function(id, name){
+		var confirmDialog = confirm("Are you sure you want to delete supplier " + name);
+		if (confirmDialog === true) {
+			$.ajax({
+			url: "http://localhost:3000/suppliers/" + id,
+			type: "DELETE"
+			});
+			location.reload();
+		}
+		else{
+			console.log("Cancel");
+		}
+	},
 	
 	renderCategories: function(){
       var div = document.getElementById('categories');
@@ -113,7 +140,7 @@ var App = {
                     }
                 });
                 a.setAttribute('class', 'active');
-               App.changeValue(a.innerHTML);
+               App.changeCategory(a.innerHTML);
             });
             div.appendChild(span);
         });
@@ -136,14 +163,18 @@ var App = {
 	},
 	
 	//Sort suppliers based on category
-    filterResponse: function(messages, value){
-        if(value !== undefined && value !== 'Se alla'){
-            messages = jQuery.grep(messages, function(incident){
-                var incidentCategory = incident.category;
+    filterResponse: function(suppliers, value){
+        if(value !== undefined && value !== 'See all'){
+            suppliers = jQuery.grep(suppliers, function(supplier){
+                var incidentCategory = supplier.category;
                 return App.categoriesArray[incidentCategory] === value;
             });
         }
-        return messages;
+        return suppliers;
+    },
+	
+	changeCategory: function(category){
+        App.renderSuppliers(category);
     },
 	
 	renderMarkers: function(supplier){
