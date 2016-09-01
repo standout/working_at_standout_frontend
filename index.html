@@ -44,33 +44,35 @@
     </div>
     
     <!-- Add new supplier -->
-    <div class="newSupplier">
-        <form>
+    <input type="button" id="showForm" class="btn btn-success" value="Create new supplier">
+    <div id="newSupplier">
+        <!--<form id="newForm">
                 <legend>Add new supplier</legend>
                 <div class="form-group">
-                    <label for="name">Name: </label>
-                    <input id="name" type="text" placeholder="Name of supplier"/>
+                    <label for="newName">Name: </label>
+                    <input id="newName" type="text" placeholder="Name of supplier"/>
                 </div>    
                 <div class="form-group">
-                    <label for="address">Address: </label>
-                    <input id="address" type="text" placeholder="Address for supplier"/>
+                    <label for="newAddress">Address: </label>
+                    <input id="newAddress" type="text" placeholder="Address for supplier"/>
                 </div>
                 <div class="form-group">    
-                    <label for="phone">Phone: </label>	
-                    <input id="phone" type="text" placeholder="Phonenumber for supplier"/>
+                    <label for="newPhone">Phone: </label>	
+                    <input id="newPhone" type="text" placeholder="Phonenumber for supplier"/>
                 </div>
-                <div class="form-group">
-                    <label for="supplierCategory">Catgory: </label>
-                    <select id="supplierCategory"></select>
-                </div>    
-                <input type="submit" class="btn btn-primary" id="addNewSupplier" value="Add new supplier">
-        </form>
+               <div class="form-group">
+                    <label>Catgory: </label>
+                    <select class="newSupplierCategory"></select>
+                </div>   
+                <input type="submit" class="btn btn-primary" id="createNewSupplier" value="Add new supplier">
+        </form>-->
      </div>
 </div>
 
 <script src="lib/leaflet.js"></script>
 <script src="lib/jquery-1.11.3.min.js"></script>
 <script src="lib/leaflet.extra-markers.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoa-xvr_TPQiur6N9GbVdV9WV5GRf6ffo&callback=initMap" async defer></script>
 <script src="app.js"></script>
 </body>
 </html>
