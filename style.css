@@ -1,3 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
 
+#map{
+	height: 500px;
+	width: 700px;
+	border: 1px solid #000;
+	margin: 0 auto;
+}
