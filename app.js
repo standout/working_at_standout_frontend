@@ -34,7 +34,7 @@ var App = {
         resetButton.addEventListener('click', function(){
            App.resetMap();
             App.renderSuppliers();
-            //App.map.closePopup();
+            App.map.closePopup();
 
             //Remove all "active" classes
             $("a").each(function() {
@@ -147,15 +147,16 @@ var App = {
 					alert("You must choose a category");
 					break;
 				default:
-				    var url = "https://maps.googleapis.com/maps/api/geocode/json";
-					url += "?address=" + address;
-					url += "&key=AIzaSyCoa-xvr_TPQiur6N9GbVdV9WV5GRf6ffo";
-					$.get(url, function (response) {
-						if(response.status === "OK"){
-							var location = response.results[0].geometry.location;
-							App.createNewSupplier(name, address, phone, categoryId, location.lat, location.lng);
-						}
-					});
+					//Use google maps geocoder to get coordinates from address input
+					var geocoder = new google.maps.Geocoder;
+					geocoder.geocode({'address': address}, function (results, status) {
+					if (status === 'OK') {
+						var location = results[0].geometry.location;
+						App.createNewSupplier(name, address, phone, categoryId, location.lat, location.lng);
+					} else {
+						alert('Geocode was not successful for the following reason: ' + status);
+					}
+				});
 			}
 		});
 	},
@@ -236,6 +237,13 @@ var App = {
 
         //Set view and open popup
         App.map.setView([supplier.latitude, supplier.longitude], 12);
+		
+        App.markers.forEach(function(marker){
+            //If first row of popup is same as the supplier name then open it
+            if(marker._popup._content.split("<br />")[0] === supplier.name){
+                marker.openPopup();
+            }
+        });
     },
 	
 	deleteSupplier: function(id, name){
@@ -329,6 +337,27 @@ var App = {
 			
             var marker = L.marker([info.latitude, info.longitude], {icon: icon}).addTo(App.map);
             App.markers.push(marker);
+			
+			//If user clicks on a marker
+            marker.addEventListener('click', function(mark){
+                App.map.setView([mark.latlng.lat, mark.latlng.lng], 12);
+
+                //Open info in list
+                $("a").each(function() {
+                    if($(this).text() === info.name){
+                        var details = this.parentNode.children[1];
+                        $(".supplierDetails").hide();
+                        details.style.display = "block";
+                    }
+                });
+            });
+
+            var popupText = info.name +
+                "<br />Address: " + info.address +
+				"<br />Phonenumber: " + info.phone +
+                "<br />Category: " + App.categoriesArray[info.category];
+
+            marker.bindPopup(popupText);
 
         });
     },

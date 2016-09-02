@@ -19,21 +19,21 @@
       "longitude": 14.81
     },
     {
-      "name": "Julia Sivartsson",
-      "address": "Fredsgatan 15",
+      "name": "Bananpaj",
+      "address": "Värendsgatan 12, 36030 Lammhult",
       "phone": 761108481,
-      "category": 2,
-      "latitude": 59.36593429999999,
-      "longitude": 17.9636311,
+      "category": 1,
+      "latitude": 57.1650635,
+      "longitude": 14.586058800000046,
       "id": 3
     },
     {
       "name": "Testar",
-      "address": "Fredsgatan 15",
-      "phone": 761108481,
-      "category": 1,
-      "latitude": 59.36593429999999,
-      "longitude": 17.9636311,
+      "address": "Värendsgatan 64 Växjö",
+      "phone": 123456,
+      "category": 0,
+      "latitude": 56.8657292,
+      "longitude": 14.801852499999995,
       "id": 4
     }
   ]
