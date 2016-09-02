@@ -53,75 +53,8 @@ var App = {
 			App.toggleVisibility(document.getElementById("newSupplier"));
 		});
 		
-		
-		//TEST CREATE FORM
-		var form = document.createElement("form");
-		
-		var div1 = document.createElement("div");
-		div1.setAttribute("class", "form-group");
-		var nameLabel = document.createElement("label");
-		nameLabel.innerHTML = "Name :";
-		var nameInput = document.createElement("input");
-		nameInput.setAttribute("type", "text");
-		nameInput.setAttribute("id", "newName");
-		div1.appendChild(nameLabel);
-		div1.appendChild(nameInput);
-		
-		var div2 = document.createElement("div");
-		div2.setAttribute("class", "form-group");
-		var addressLabel = document.createElement("label");
-		addressLabel.innerHTML = "Address :";
-		var addressInput = document.createElement("input");
-		addressInput.setAttribute("type", "text");
-		addressInput.setAttribute("id", "newAddress");
-		div2.appendChild(addressLabel);
-		div2.appendChild(addressInput);
-		
-		var div3 = document.createElement("div");
-		div3.setAttribute("class", "form-group");
-		var phoneLabel = document.createElement("label");
-		phoneLabel.innerHTML = "Phone :";
-		var phoneInput = document.createElement("input");
-		phoneInput.setAttribute("type", "text");
-		phoneInput.setAttribute("id", "newPhone");
-		div3.appendChild(phoneLabel);
-		div3.appendChild(phoneInput);
-		
-		var div4 = document.createElement("div");
-		div4.setAttribute("class", "form-group");
-		var categoryLabel = document.createElement("label");
-		categoryLabel.innerHTML = "Category :";
-		//Fill select list with categories
-		var categoryInput = document.createElement("select");
-		categoryInput.setAttribute("id", "newSupplierCategory");
-		
-		App.categoriesArray.forEach(function(category, i){
-			if(category !== 'See all'){
-				var opt = document.createElement('option');
-				opt.id = i;
-				opt.value = category;
-				opt.innerHTML = category;
-				categoryInput.appendChild(opt);
-			}
-		});
-		div4.appendChild(categoryLabel);
-		div4.appendChild(categoryInput);
-		
-		var createButton = document.createElement("button");
-		createButton.setAttribute("id", "createNewSupplier");
-		createButton.setAttribute("class", "btn btn-primary");
-		createButton.innerHTML = "Create new supplier";
-		
-		form.appendChild(div1);
-		form.appendChild(div2);
-		form.appendChild(div3);
-		form.appendChild(div4);
-		form.appendChild(createButton);
-		
-		document.getElementById("newSupplier").appendChild(form);
-		
-		
-
+		//Create form
+		App.createForm();
 		
 		//If user presses button to create new supplier
 		var createSupplierButton = document.getElementById("createNewSupplier");
@@ -154,110 +87,24 @@ var App = {
 						var location = results[0].geometry.location;
 						App.createNewSupplier(name, address, phone, categoryId, location.lat, location.lng);
 					} else {
-						alert('Geocode was not successful for the following reason: ' + status);
+						alert("Addressen verkar inte vara giltlig, försök igen!");
 					}
 				});
 			}
 		});
 	},
 	
-	createNewSupplier: function(name, address, phone, category, lat, long){
-		console.log(category);
-		$.post("http://localhost:3000/suppliers", {
-			name: name,
-			address: address,
-			phone: phone,
-			category: category,
-			latitude: lat,
-			longitude: long
+	renderSuppliers: function(value){
+		
+		$.get("http://localhost:3000/suppliers", function(suppliers){
+			if(suppliers.length > 0){
+				App.renderMarkers(App.filterResponse(suppliers, value));
+				App.renderInfo(App.filterResponse(suppliers, value));
+			}
+			else{
+				document.getElementById("noSuppliers").style.display = "block";
+			}
 		});
-		location.reload();
-	},
-	
-	toggleVisibility: function(e) {
-       if(e.style.display == 'block')
-          e.style.display = 'none';
-       else
-          e.style.display = 'block';
-    },
-	
-	resetMap: function(){
-        App.map.setView([App.defaultLat, App.defaultLong], App.defaultZoom);
-    },
-	
-	renderInfo: function(suppliers){
-		
-        var listOfSuppliersContainer = document.getElementById("listOfSuppliers");
-
-        //If list is rendered clear it
-        listOfSuppliersContainer.innerHTML = "";
-
-        //For each message render it under category
-        suppliers.forEach(function(supplier){
-			
-			var deleteButton = document.createElement("input");
-			deleteButton.setAttribute("type", "button");
-			deleteButton.setAttribute("value", "Delete");
-			deleteButton.setAttribute("class", "btn btn-danger deleteButton");
-			deleteButton.setAttribute("data-id", supplier.id);
-			deleteButton.addEventListener("click", function (e) {
-				e.stopPropagation();
-				App.deleteSupplier(this.getAttribute("data-id"), supplier.name);
-			}, false);
-			
-            var incidentText = "Address: " + supplier.address + "</b><br />" + "Phone: " + supplier.phone + "<br />Category: " + App.categoriesArray[supplier.category] + "<br/>";
-			
-
-            var supplierLink = document.createElement("div");
-            supplierLink.innerHTML = "<a href='#'>" + supplier.name + "</a>";
-			
-            var messageText = document.createElement("p");
-            messageText.setAttribute("class", "supplierDetails");
-            messageText.innerHTML = incidentText;
-			messageText.appendChild(deleteButton);
-			
-            supplierLink.appendChild(messageText);
-            listOfSuppliersContainer.appendChild(supplierLink);
-
-            //Hide details
-            $(".supplierDetails").hide();
-
-            //If user clicks on incident then show details
-            supplierLink.addEventListener('click', function(){
-               App.renderDetails(this, supplier);
-            });
-        });
-    },
-	
-	renderDetails: function(link, supplier){
-		
-        //Hide other details so only one can show
-        $(".supplierDetails").hide(link);
-        $(link).children().show();
-
-        //Set view and open popup
-        App.map.setView([supplier.latitude, supplier.longitude], 12);
-		
-        App.markers.forEach(function(marker){
-            //If first row of popup is same as the supplier name then open it
-            if(marker._popup._content.split("<br />")[0] === supplier.name){
-                marker.openPopup();
-            }
-        });
-    },
-	
-	deleteSupplier: function(id, name){
-		var confirmDialog = confirm("Are you sure you want to delete supplier " + name);
-		if (confirmDialog === true) {
-			$.ajax({
-			url: "http://localhost:3000/suppliers/" + id,
-			type: "DELETE"
-			});
-			location.reload();
-		}
-		else{
-			console.log("Cancel");
-		}
 	},
 	
 	renderCategories: function(){
@@ -289,25 +136,12 @@ var App = {
         $("span").children().last().removeClass("categoryLink").addClass("active");
     },
 	
-	renderSuppliers: function(value){
-		
-		$.get("http://localhost:3000/suppliers", function(suppliers){
-			if(suppliers.length > 0){
-				App.renderMarkers(App.filterResponse(suppliers, value));
-				App.renderInfo(App.filterResponse(suppliers, value));
-			}
-			else{
-				document.getElementById("noSuppliers").style.display = "block";
-			}
-		});
-	},
-	
 	//Sort suppliers based on category
     filterResponse: function(suppliers, value){
         if(value !== undefined && value !== 'See all'){
             suppliers = jQuery.grep(suppliers, function(supplier){
-                var incidentCategory = supplier.category;
-                return App.categoriesArray[incidentCategory] === value;
+                var supplierCategory = supplier.category;
+                return App.categoriesArray[supplierCategory] === value;
             });
         }
         return suppliers;
@@ -315,6 +149,68 @@ var App = {
 	
 	changeCategory: function(category){
         App.renderSuppliers(category);
+    },
+	
+	
+	renderInfo: function(suppliers){
+		
+        var listOfSuppliersContainer = document.getElementById("listOfSuppliers");
+
+        //If list is rendered clear it
+        listOfSuppliersContainer.innerHTML = "";
+
+        //For each supplier render it under category
+        suppliers.forEach(function(supplier){
+			
+			var deleteButton = document.createElement("input");
+			deleteButton.setAttribute("type", "button");
+			deleteButton.setAttribute("value", "Delete");
+			deleteButton.setAttribute("class", "btn btn-danger deleteButton");
+			deleteButton.setAttribute("data-id", supplier.id);
+			deleteButton.addEventListener("click", function (e) {
+				e.stopPropagation();
+				App.deleteSupplier(this.getAttribute("data-id"), supplier.name);
+			}, false);
+			
+            var supplierText = "Address: " + supplier.address + "</b><br />" + "Phone: " + supplier.phone + "<br />Category: " + App.categoriesArray[supplier.category] + "<br/>";
+			
+
+            var supplierLink = document.createElement("div");
+            supplierLink.innerHTML = "<a href='#'>" + supplier.name + "</a>";
+			
+            var messageText = document.createElement("p");
+            messageText.setAttribute("class", "supplierDetails");
+            messageText.innerHTML = supplierText;
+			messageText.appendChild(deleteButton);
+			
+            supplierLink.appendChild(messageText);
+            listOfSuppliersContainer.appendChild(supplierLink);
+
+            //Hide details
+            $(".supplierDetails").hide();
+
+            //If user clicks on supplier then show details
+            supplierLink.addEventListener('click', function(){
+               App.renderDetails(this, supplier);
+            });
+        });
+    },
+	
+	renderDetails: function(link, supplier){
+		
+        //Hide other details so only one can show
+        $(".supplierDetails").hide(link);
+        $(link).children().show();
+
+        //Set view and open popup
+        App.map.setView([supplier.latitude, supplier.longitude], 12);
+		
+        App.markers.forEach(function(marker){
+            //If first row of popup is same as the supplier name then open it
+            if(marker._popup._content.split("<br />")[0] === supplier.name){
+                marker.openPopup();
+            }
+        });
     },
 	
 	renderMarkers: function(supplier){
@@ -361,6 +257,112 @@ var App = {
 
         });
     },
+	
+	createNewSupplier: function(name, address, phone, category, lat, long){
+		console.log(category);
+		$.post("http://localhost:3000/suppliers", {
+			name: name,
+			address: address,
+			phone: phone,
+			category: category,
+			latitude: lat,
+			longitude: long
+		});
+		location.reload();
+	},
+	
+	deleteSupplier: function(id, name){
+		var confirmDialog = confirm("Are you sure you want to delete supplier " + name);
+		if (confirmDialog === true) {
+			$.ajax({
+			url: "http://localhost:3000/suppliers/" + id,
+			type: "DELETE"
+			});
+			location.reload();
+		}
+		else{
+			console.log("Cancel");
+		}
+	},
+	
+	createForm: function(){
+	var form = document.createElement("form");
+		
+		var div1 = document.createElement("div");
+		div1.setAttribute("class", "form-group");
+		var nameLabel = document.createElement("label");
+		nameLabel.innerHTML = "Name :";
+		var nameInput = document.createElement("input");
+		nameInput.setAttribute("type", "text");
+		nameInput.setAttribute("id", "newName");
+		div1.appendChild(nameLabel);
+		div1.appendChild(nameInput);
+		
+		var div2 = document.createElement("div");
+		div2.setAttribute("class", "form-group");
+		var addressLabel = document.createElement("label");
+		addressLabel.innerHTML = "Address :";
+		var addressInput = document.createElement("input");
+		addressInput.setAttribute("type", "text");
+		addressInput.setAttribute("id", "newAddress");
+		div2.appendChild(addressLabel);
+		div2.appendChild(addressInput);
+		
+		var div3 = document.createElement("div");
+		div3.setAttribute("class", "form-group");
+		var phoneLabel = document.createElement("label");
+		phoneLabel.innerHTML = "Phone :";
+		var phoneInput = document.createElement("input");
+		phoneInput.setAttribute("type", "text");
+		phoneInput.setAttribute("id", "newPhone");
+		div3.appendChild(phoneLabel);
+		div3.appendChild(phoneInput);
+		
+		var div4 = document.createElement("div");
+		div4.setAttribute("class", "form-group");
+		var categoryLabel = document.createElement("label");
+		categoryLabel.innerHTML = "Category :";
+		
+		//Fill select list with categories
+		var categoryInput = document.createElement("select");
+		categoryInput.setAttribute("id", "newSupplierCategory");
+		
+		App.categoriesArray.forEach(function(category, i){
+			if(category !== 'See all'){
+				var opt = document.createElement('option');
+				opt.id = i;
+				opt.value = category;
+				opt.innerHTML = category;
+				categoryInput.appendChild(opt);
+			}
+		});
+		div4.appendChild(categoryLabel);
+		div4.appendChild(categoryInput);
+		
+		var createButton = document.createElement("button");
+		createButton.setAttribute("id", "createNewSupplier");
+		createButton.setAttribute("class", "btn btn-primary");
+		createButton.innerHTML = "Create new supplier";
+		
+		form.appendChild(div1);
+		form.appendChild(div2);
+		form.appendChild(div3);
+		form.appendChild(div4);
+		form.appendChild(createButton);
+		
+		document.getElementById("newSupplier").appendChild(form);
+	},
+	
+	toggleVisibility: function(e) {
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    },
+	
+	resetMap: function(){
+        App.map.setView([App.defaultLat, App.defaultLong], App.defaultZoom);
+    }
 };
 
 window.onload = App.init;
