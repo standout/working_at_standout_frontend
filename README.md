@@ -1,3 +1,8 @@
+# To get the application up and running do the following steps:
+* npm install
+* npm start
+* Open file index.html in your browser
+
 # Your first assignment
 
 Hi there. 
