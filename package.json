@@ -10,6 +10,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "json-server": "^0.8.17"
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
+    "jsdom": "9.4.5",
+    "jsdom-global": "2.1.0",
+    "json-server": "^0.8.17",
+    "mocha-jsdom": "^1.1.0"
   }
 }

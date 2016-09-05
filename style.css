@@ -1,0 +1,62 @@
+@charset "utf-8";
+/* CSS Document */
+
+#map{
+    width: 800px;
+    height: 700px;
+    margin: 20px;
+}
+
+#noSuppliers{
+	display: none;
+}
+
+#listOfSuppliers{
+	
+}
+
+.categoryLink{
+    padding: 10px 5px 10px 5px;
+    background-color: #eee;
+    border: 1px solid #333;
+    border-radius: 10px;
+}
+
+a.categoryLink:link, a.categoryLink:visited{
+    color: #000;
+}
+
+.categoryContainer{
+    padding-bottom: 20px;
+    font-size: 13px;
+}
+
+.spanClass{
+    margin-left: 10px;
+}
+
+.active{
+    padding: 10px 5px 10px 5px;
+    background-color: #333;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+
+}
+
+a.active:link, a.active:visited{
+    color: #fff;
+}
+
+.newSupplier{
+	margin-top: 100px;	
+}
+
+.deleteButton{
+	padding: 2px;
+}
+
+#newSupplier{
+	margin-top: 50px;
+	display: none;
+}
