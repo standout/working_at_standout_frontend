@@ -1,14 +1,4 @@
 {
-  "suppliers": [
-    {
-      "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
-    },
-    {
-      "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
-    }
-  ]
+  "suppliers": [],
+  "labels": []
 }
