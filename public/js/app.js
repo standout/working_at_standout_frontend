@@ -7,7 +7,8 @@ Labels = {
 	create: function(label) {
 		let Obj = {
 			Parent: this,
-			data: {name:label.toLowerCase()}
+			data: {name:label.toLowerCase()},
+			callBack: this.callBack
 		}
 		label = new Data(Obj)
 		label.save()
@@ -15,7 +16,9 @@ Labels = {
 	read: function(Id) {},
 	update: function(Id) {},
 	delete: function(Id) {},
-	populate: function(Obj) {}
+	callBack: function(Obj) {
+		console.log(Obj)
+	}
 	
 }
 
@@ -24,18 +27,21 @@ Labels = {
 
 /* Functions - DRY */
 
-/* Data object */
+/* Data object 
+ * @param {object}
+ * @return none
+ */
 function Data(Obj) {
 	this.data = Obj.data
 	this.Parent = Obj.Parent
+	this.callBack = Obj.callBack
 	this.id = false;
 	this.save = function() {
-		console.log(this)
 		let Opts = {
 			url : '/'+this.Parent.name,
 			method: '',
 			body: '',
-			done: this.completed
+			done: this.callBack
 		}
 		if (this.data !== undefined) {
 			// Data isn't empty - create / update
@@ -55,26 +61,18 @@ function Data(Obj) {
 			Opts.url += '/'+this.id
 			Opts.method = 'DELETE'
 		}
-		makeRequest(Opts)
+		this.xhr(Opts)
 	}
-	this.completed = function(rsp) {
-		console.log(rsp)
+	this.xhr = function(Opts) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.open(Opts.method, Opts.url);
+	  xhr.setRequestHeader('Content-Type', 'application/json');
+	  xhr.onload = function() {
+	    if (xhr.status > 200 && xhr.status <= 299) {
+	        Opts.done(JSON.parse(xhr.responseText))
+	    }
+	  }
+	  xhr.send(JSON.stringify(Opts.body))		
 	}
 }
 
-/* Makes the request to API
- * @param {object} Params for request
- * @return {string} raw json data
- */
-
-function makeRequest(Opts) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(Opts.method, Opts.url);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.onload = function() {
-    if (xhr.status > 200 && xhr.status <= 299) {
-        Opts.done(JSON.parse(xhr.responseText))
-    }
-  }
-  xhr.send(JSON.stringify(Opts.body))
-}
