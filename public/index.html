@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Leverantörer</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">		
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+    	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    	<meta charset="utf-8">		
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5UXMjoPXI_xiFJabMlaoGmb3_8F9fnMQ"></script>
+		<script src="/js/document.js"></script>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-9 map no-padding">
+					<div id="map"></div> 
+				</div>
+				<div class="col-md-3 left-border">
+					<div>
+						<h3 class="no-select">Etiketter</h3><span class="glyphicon glyphicon-plus addLabel" title="Lägg till etikett"></span>
+
+						<form id="labelForm" class="form-inline labels-form">
+							<label for="name">Lägg till</label>
+							<input type="text" name="name" class="form-control" required>
+							<button class="btn btn-default">Spara</button>
+						</form>
+						<hr>
+						<div id="Labels"><span class="label label-success no-select" id="label-all" title="Visa alla">Alla</span></div>
+					</div>
+					<hr>
+					<div>
+						<h3 class="no-select">Leverantörer <span class="glyphicon glyphicon-plus addSupplier" title="Lägg till leverantör"></span></h3>
+						<form id="supplierForm" class="form-horizontal">
+							<label for="name">Namn</label>
+							<input type="text" name="name" class="form-control" required>
+							<label for="mail">E-post</label>
+							<input type="text" name="mail" class="form-control" required>							
+							<label for="phone">Telefonnummer</label>
+							<input type="text" name="phone" class="form-control" required>
+							<label for="adress">Address</label>
+							<input type="text" name="adress" class="form-control" required>
+							<label for="zipcode">Postnr</label>
+							<input type="text" name="zipcode" class="form-control" required>
+							<label for="city">Ort</label>
+							<input type="text" name="city" class="form-control" required>
+							<button class="btn btn-default">Spara</button>
+						</form>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</body>
+</html>
