@@ -6,21 +6,31 @@ Labels = {
 	List: [],
 	Data: {},
 	create: function(label) {
-		let Obj = {
-			Parent: this,
-			Data: {name:label.toLowerCase()},
-			callBack: this.callBack
+		label = label.toLowerCase()
+		if (this.List.indexOf(label) === -1) {
+			let Obj = {
+				Parent: this,
+				Data: {name:label},
+				callBack: this.callBack
+			}
+			data = new Data(Obj)
+			return data.save()
+		} else {
+			return false;
 		}
-		label = new Data(Obj)
-		label.save()
 	},
 	read: function(Obj) {},
 	update: function(id,label) {
+		label = label.toLowerCase()
 		if (this.Data[id] === undefined) {
 			return false
 		}
-		this.Data[id].update({name:label.toLowerCase()})
-		this.Data[id].save()
+		if (this.List.indexOf(label) === -1) {
+			this.Data[id].update({name:label})
+			return this.Data[id].save()
+		} else {
+			return false
+		}
 	},
 	delete: function(id) {
 		if (this.Data[id] === undefined) {
@@ -50,6 +60,9 @@ function Data(Obj) {
 	this.Parent = Obj.Parent
 	this.callBack = Obj.callBack
 	this.id = false;
+	this.read = function(Opts) {
+
+	}
 	this.update = function (data) {
 		this.Data = data
 	}
