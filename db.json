@@ -1,4 +1,9 @@
 {
   "suppliers": [],
-  "labels": []
+  "labels": [
+    {
+      "name": "smöörrt",
+      "id": 1
+    }
+  ]
 }
