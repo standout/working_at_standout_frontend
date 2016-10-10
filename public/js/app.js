@@ -5,13 +5,16 @@ Labels = {
 	name:'Labels',
 	List: [],
 	Data: {},
-	create: function(label) {
+	create: function(label,Func) {
 		label = label.toLowerCase()
 		if (this.List.indexOf(label) === -1) {
 			let Opts = {
 				Parent: this,
 				Data: {name:label},
 				callBack: this.callBackSave,
+			}
+			if (typeof(Func) === 'function') {
+				Opts.callBack = Func
 			}
 			data = new Data(Opts)
 			return data.save()
@@ -37,6 +40,7 @@ Labels = {
 		}
 		if (this.List.indexOf(label) === -1) {
 			this.Data[id].update({name:label})
+			this.Data[id].callBack = function () {}
 			return this.Data[id].save()
 		} else {
 			return false
@@ -47,6 +51,8 @@ Labels = {
 			return false
 		}
 		this.Data[id].delete()
+		delete this.Data[id]
+		delete this.List[id]
 	},
 	populate : function(Obj) {
 		var Rsp = Obj.Response
@@ -74,6 +80,80 @@ Labels = {
 
 /* Suppliers Object */
 
+/* Data Object */
+/* Data object 
+ * @param {object}
+ * @return none
+ */
+function Data(Obj) {
+	this.Data = Obj.Data
+	this.Parent = Obj.Parent
+	this.callBack = Obj.callBack
+	this.id = Obj.id || false
+	this.read = function() {
+		let Opts = {
+			url : '/'+this.Parent.name,
+			method: 'GET',
+			callBack: this.callBack
+		}
+		this.xhr(Opts)		
+	}
+	this.update = function (data) {
+		this.Data = data
+	}
+	this.delete = function() {
+		this.Data = undefined
+		this.save()
+	}
+	this.save = function() {
+		let Opts = {
+			url : '/'+this.Parent.name,
+			method: undefined,
+			body: this.Data,
+			callBack: this.callBack
+		}
+		if (this.Data !== undefined) {
+			// Data isn't empty - create / update
+			if (this.id === false) {
+				Opts.method = 'POST'
+				
+			} else {
+				Opts.url += '/'+this.id
+				Opts.method = 'PUT'
+				Opts.body.id = this.id
+			}
+		} else if (this.Data === undefined && this.id !== false) {
+			// We have id and empty data, send delete
+			Opts.url += '/'+this.id
+			Opts.method = 'DELETE'
+			Opts.callBack = function() {}
+		}
+		if (Opts.method === undefined) {
+			return false
+		}
+		this.xhr(Opts)
+		return true;
+	}
+	this.xhr = function(Opts) {
+		Parent = this
+		var xhr = new XMLHttpRequest();
+		xhr.open(Opts.method, Opts.url);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+    	xhr.onprogress = function () {
+        	// IE must die
+    	}		
+		xhr.onload = function() {
+			if (xhr.status >= 200 && xhr.status <= 299) {
+				Rsp = JSON.parse(xhr.responseText)
+				Opts.callBack({Response: Rsp ,Data: Parent})
+			}
+		}
+		xhr.send(JSON.stringify(Opts.body))
+	}
+}
+
+
+
 /* Functions - DRY */
 
 /* Get data from list 
@@ -99,74 +179,3 @@ function getData(index) {
 	}
 	return rtn
 }
-
-/* Data object 
- * @param {object}
- * @return none
- */
-function Data(Obj) {
-	this.Data = Obj.Data
-	this.Parent = Obj.Parent
-	this.callBack = Obj.callBack
-	this.id = Obj.id || false
-	this.read = function() {
-		let Opts = {
-			url : '/'+this.Parent.name,
-			method: 'GET',
-			callBack: Obj.callBack
-		}
-		this.xhr(Opts)		
-	}
-	this.update = function (data) {
-		this.Data = data
-	}
-	this.delete = function() {
-		this.Data = undefined
-		this.save()
-	}
-	this.save = function() {
-		let Opts = {
-			url : '/'+this.Parent.name,
-			method: undefined,
-			body: this.Data,
-			callBack: Obj.Parent.callBackSave
-		}
-		if (this.Data !== undefined) {
-			// Data isn't empty - create / update
-			if (this.id === false) {
-				Opts.method = 'POST'
-				
-			} else {
-				Opts.url += '/'+this.id
-				Opts.method = 'PUT'
-				Opts.body.id = this.id
-			}
-		} else if (this.Data === undefined && this.id !== false) {
-			// We have id and empty data, send delete
-			Opts.url += '/'+this.id
-			Opts.method = 'DELETE'
-		}
-		if (Opts.method === undefined) {
-			return false
-		}
-		this.xhr(Opts)
-		return true;
-	}
-	this.xhr = function(Opts) {
-		Parent = this
-		var xhr = new XMLHttpRequest();
-		xhr.open(Opts.method, Opts.url);
-		xhr.setRequestHeader('Content-Type', 'application/json');
-    	xhr.onprogress = function () {
-        	// IE must die
-    	}		
-		xhr.onload = function() {
-			if (xhr.status >= 200 && xhr.status <= 299) {
-				Rsp = JSON.parse(xhr.responseText)
-				return Opts.callBack({Response: Rsp ,Data: Parent})
-			}
-		}
-		xhr.send(JSON.stringify(Opts.body))
-	}
-}
-
