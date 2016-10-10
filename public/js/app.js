@@ -38,7 +38,7 @@ Labels = {
 		}
 		this.Data[id].delete()
 	},
-	callBack: function(Obj) {
+	callBackSave: function(Obj) {
 		Obj.Data.id = Obj.Response.id
 		Labels.Data[Obj.Response.id] = Obj.Data
 		Labels.List[Obj.Response.id] = Obj.Response.name
@@ -75,7 +75,7 @@ function Data(Obj) {
 			url : '/'+this.Parent.name,
 			method: undefined,
 			body: this.Data,
-			callBack: this.callBack
+			callBack: this.callBackSave
 		}
 		if (this.Data !== undefined) {
 			// Data isn't empty - create / update
