@@ -1,13 +1,6 @@
 {
   "suppliers": [],
   "labels": [
-    {
-      "name": "bröd",
-      "id": 1
-    },
-    {
-      "name": "mejerier",
-      "id": 2
-    }
+
   ]
 }

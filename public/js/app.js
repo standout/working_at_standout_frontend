@@ -11,7 +11,8 @@ Labels = {
 			let Obj = {
 				Parent: this,
 				Data: {name:label},
-				callBack: this.callBack
+				callBack: this.callBackSave,
+				sync: true
 			}
 			data = new Data(Obj)
 			return data.save()
@@ -75,7 +76,8 @@ function Data(Obj) {
 			url : '/'+this.Parent.name,
 			method: undefined,
 			body: this.Data,
-			callBack: this.callBackSave
+			sync: Obj.sync,
+			callBack: Obj.Parent.callBackSave
 		}
 		if (this.Data !== undefined) {
 			// Data isn't empty - create / update
@@ -101,8 +103,11 @@ function Data(Obj) {
 	this.xhr = function(Opts) {
 		Parent = this
 		var xhr = new XMLHttpRequest();
-		xhr.open(Opts.method, Opts.url);
+		xhr.open(Opts.method, Opts.url,Opts.sync);
 		xhr.setRequestHeader('Content-Type', 'application/json');
+    	xhr.onprogress = function () {
+        	// IE must die
+    	}		
 		xhr.onload = function() {
 			if (xhr.status >= 200 && xhr.status <= 299) {
 				Rsp = JSON.parse(xhr.responseText)
@@ -110,7 +115,7 @@ function Data(Obj) {
 				return Rsp 
 			}
 		}
-		xhr.send(JSON.stringify(Opts.body))		
+		xhr.send(JSON.stringify(Opts.body))
 	}
 }
 
