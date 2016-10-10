@@ -8,19 +8,28 @@ Labels = {
 	create: function(label) {
 		label = label.toLowerCase()
 		if (this.List.indexOf(label) === -1) {
-			let Obj = {
+			let Opts = {
 				Parent: this,
 				Data: {name:label},
 				callBack: this.callBackSave,
-				sync: true
 			}
-			data = new Data(Obj)
+			data = new Data(Opts)
 			return data.save()
 		} else {
 			return false;
 		}
 	},
-	read: function(Obj) {},
+	read: function(Func) {
+		let Opts = {
+			Parent: this,
+			callBack: this.populate
+		}
+		if (typeof(Func) === 'function') {
+			Opts.callBack = Func
+		}
+		data = new Data(Opts)
+		data.read()
+	},
 	update: function(id,label) {
 		label = label.toLowerCase()
 		if (this.Data[id] === undefined) {
@@ -39,11 +48,26 @@ Labels = {
 		}
 		this.Data[id].delete()
 	},
+	populate : function(Obj) {
+		var Rsp = Obj.Response
+		for (key in Rsp) {
+			Labels.List[Rsp[key].id] = Rsp[key].name
+			let Opts = {
+				id: Rsp[key].id,
+				Parent: Labels,
+				Data: {name:Rsp[key].name},
+				callBack: Labels.callBackSave
+			}
+			Labels.Data[Rsp[key].id] = new Data(Opts)
+		}
+	},
 	callBackSave: function(Obj) {
 		Obj.Data.id = Obj.Response.id
 		Labels.Data[Obj.Response.id] = Obj.Data
 		Labels.List[Obj.Response.id] = Obj.Response.name
-	}
+
+	},
+	get: getData
 	
 }
 
@@ -51,6 +75,30 @@ Labels = {
 /* Suppliers Object */
 
 /* Functions - DRY */
+
+/* Get data from list 
+ * @param {array} id's
+ * @return {array} Array of Labels
+ */  
+function getData(index) {
+	var rtn = []
+	if (index == undefined) {
+		return this.List
+	}
+	if (typeof(index) === 'object') {
+		for (i = 0; i < index.length; i++) {
+			if (index[i] !== null && !isNaN(parseInt(index[i]))) {
+				if (this.List[index[i]] !== undefined) {
+					var label = this.List[index[i]]
+					if (label !== undefined) {
+						rtn.push(label)
+					}
+				}
+			}
+		}
+	}
+	return rtn
+}
 
 /* Data object 
  * @param {object}
@@ -60,9 +108,14 @@ function Data(Obj) {
 	this.Data = Obj.Data
 	this.Parent = Obj.Parent
 	this.callBack = Obj.callBack
-	this.id = false;
-	this.read = function(Opts) {
-
+	this.id = Obj.id || false
+	this.read = function() {
+		let Opts = {
+			url : '/'+this.Parent.name,
+			method: 'GET',
+			callBack: Obj.callBack
+		}
+		this.xhr(Opts)		
 	}
 	this.update = function (data) {
 		this.Data = data
@@ -76,7 +129,6 @@ function Data(Obj) {
 			url : '/'+this.Parent.name,
 			method: undefined,
 			body: this.Data,
-			sync: Obj.sync,
 			callBack: Obj.Parent.callBackSave
 		}
 		if (this.Data !== undefined) {
@@ -103,7 +155,7 @@ function Data(Obj) {
 	this.xhr = function(Opts) {
 		Parent = this
 		var xhr = new XMLHttpRequest();
-		xhr.open(Opts.method, Opts.url,Opts.sync);
+		xhr.open(Opts.method, Opts.url);
 		xhr.setRequestHeader('Content-Type', 'application/json');
     	xhr.onprogress = function () {
         	// IE must die
@@ -111,8 +163,7 @@ function Data(Obj) {
 		xhr.onload = function() {
 			if (xhr.status >= 200 && xhr.status <= 299) {
 				Rsp = JSON.parse(xhr.responseText)
-				Opts.callBack({Response: Rsp ,Data: Parent})
-				return Rsp 
+				return Opts.callBack({Response: Rsp ,Data: Parent})
 			}
 		}
 		xhr.send(JSON.stringify(Opts.body))

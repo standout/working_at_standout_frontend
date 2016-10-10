@@ -1,6 +1,25 @@
 {
   "suppliers": [],
   "labels": [
-
+    {
+      "name": "disel",
+      "id": 1
+    },
+    {
+      "name": "mejerier",
+      "id": 2
+    },
+    {
+      "name": "chark",
+      "id": 3
+    },
+    {
+      "name": "godis",
+      "id": 4
+    },
+    {
+      "name": "dryck",
+      "id": 5
+    }
   ]
 }
