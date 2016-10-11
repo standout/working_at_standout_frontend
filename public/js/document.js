@@ -104,7 +104,10 @@ $.addEventListener('DOMContentLoaded',function() {
 				// Update label
 				if (Labels.update(id,label)) {
 					// All ok
-					$.querySelector('#Labels .label[data-id="'+id+'"]').childNodes[0].nodeValue = label
+					$Elms = $.querySelectorAll('.label[data-id="'+id+'"]')
+					for (i = 0;i<$Elms.length;i++) {
+						$Elms[i].childNodes[0].nodeValue = label
+					}
 					$label.removeAttribute('data-id')
 				}
 			}
