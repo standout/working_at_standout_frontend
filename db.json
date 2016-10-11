@@ -8,8 +8,8 @@
       "zipcode": 34250,
       "city": "Vislanda",
       "Labels": [
-        "1",
-        "2"
+        "2",
+        "3"
       ],
       "LatLng": {
         "lat": 56.7858694,
@@ -30,6 +30,10 @@
     {
       "name": "grönt",
       "id": 3
+    },
+    {
+      "name": "frukt",
+      "id": 4
     }
   ]
 }

@@ -40,7 +40,7 @@ Labels = {
 		}
 		if (this.List.indexOf(label) === -1) {
 			this.Data[id].update({name:label})
-			this.Data[id].callBack = function () {}
+			this.Data[id].callBack = this.callBackSave
 			return this.Data[id].save()
 		} else {
 			return false
@@ -103,7 +103,7 @@ Suppliers = {
 			return false
 		}
 		this.Data[id].update(Obj)
-		this.Data[id].callBack = function () {}
+		this.Data[id].callBack = this.callBackSave
 		return this.Data[id].save()
 	},
 	delete: deleteData,

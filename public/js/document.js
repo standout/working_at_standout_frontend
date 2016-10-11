@@ -216,6 +216,7 @@ $.addEventListener('DOMContentLoaded',function() {
 		
 		// Select Labels for that supplier
 		for (i = 0;i< Supplier[0].Labels.length;i++) {
+
 			$label = $.querySelector('#Labels .label[data-id="'+Supplier[0].Labels[i]+'"]')
 			$label.className = $label.className.replace('label-primary','label-success')
 		}
