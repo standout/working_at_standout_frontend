@@ -46,14 +46,7 @@ Labels = {
 			return false
 		}
 	},
-	delete: function(id) {
-		if (this.Data[id] === undefined) {
-			return false
-		}
-		this.Data[id].delete()
-		delete this.Data[id]
-		delete this.List[id]
-	},
+	delete: deleteData,
 	populate : function(Obj) {
 		var Rsp = Obj.Response
 		for (key in Rsp) {
@@ -113,14 +106,7 @@ Suppliers = {
 		this.Data[id].callBack = function () {}
 		return this.Data[id].save()
 	},
-	delete: function(id) {
-		if (this.Data[id] === undefined) {
-			return false
-		}
-		this.Data[id].delete()
-		delete this.Data[id]
-		delete this.List[id]
-	},
+	delete: deleteData,
 	populate : function(Obj) {
 		var Rsp = Obj.Response
 		for (key in Rsp) {
@@ -137,7 +123,7 @@ Suppliers = {
 	callBackSave: function(Obj) {
 		Obj.Data.id = Obj.Response.id
 		Suppliers.Data[Obj.Response.id] = Obj.Data
-		Suppliers.List[Obj.Response.id] = Obj.Response.name
+		Suppliers.List[Obj.Response.id] = Obj.Response
 	},
 	get: getData
 	
@@ -242,4 +228,17 @@ function getData(id) {
 		}
 	}
 	return rtn
+}
+
+/* Delete data 
+ * @param {number} id of data
+ * @return none
+ */
+function deleteData(id) {
+	if (this.Data[id] === undefined) {
+		return false
+	}
+	this.Data[id].delete()
+	delete this.Data[id]
+	delete this.List[id]
 }

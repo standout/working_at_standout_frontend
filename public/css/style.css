@@ -17,6 +17,12 @@ h3 {
 	background-color: #f8fbff;
 }
 
+#Labels {
+	width: 100%;
+	word-wrap: break-word;
+	min-height: 60px
+}
+
 #Labels .label:first-letter  {
 	text-transform: uppercase;
 }
@@ -25,6 +31,13 @@ h3 {
 	margin: .3em 0.3em;;
 	padding: .3em .7em 0.4em;
 	display: inline-table;
+	text-transform: capitalize;
+}
+
+#Suppliers .label {
+	margin: .3em 0.3em;;
+	padding: .3em .7em 0.4em;
+	display: inline-block;
 	text-transform: capitalize;
 }
 
@@ -43,10 +56,7 @@ div.col-md-3 {
 }
 
 
-#labels {
-	width: 100%;
-	word-wrap: break-word;
-}
+
 
 #Labels span, .glyphicon {
 	cursor: pointer;
