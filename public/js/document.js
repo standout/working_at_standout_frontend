@@ -80,14 +80,7 @@ $.addEventListener('DOMContentLoaded',function() {
 			$.querySelector('#label-all').style.display='none'
 
 			// Store selected Labels
-			for (key in $selected) {
-				if (typeof($selected[key]) === 'object') {
-					if ($selected[key].className.match('label-success')) {
-						currSelectedLabel.push(key)
-					}
-					$selected[key].className = $selected[key].className.replace('label-success','label-primary')
-				}
-			}
+			storeSelectedLabels()
 		}
 	})	
 
@@ -171,7 +164,10 @@ $.addEventListener('DOMContentLoaded',function() {
 							}
 						}
 					}
-
+					$tdLabel = $.querySelector('#Suppliers tr[data-id="'+id+'"] > td[data-name="labels"]')
+					$tdLabel.innerHTML = ""
+					SupLabels = Labels.get(InputData.Labels)
+					genHTMLLabeltoSupplier($tdLabel,SupLabels,InputData)
 					$form.removeAttribute('data-id')
 					restoreLabels()
 				}
@@ -189,7 +185,7 @@ $.addEventListener('DOMContentLoaded',function() {
 
 	/* Live for edit Label */
 	live('click','#Labels .glyphicon-edit',function(event) {
-		event.stopImmediatePropagation();
+		event.stopImmediatePropagation()
 		event.preventDefault()
 		$form = $.querySelector('#labelForm')
 		$.querySelector('.addLabel').className = $.querySelector('.addLabel').className.replace('glyphicon-plus','glyphicon-minus')		
@@ -206,14 +202,26 @@ $.addEventListener('DOMContentLoaded',function() {
 
 	/* Live for edit Supplier */
 	live('click','#Suppliers .glyphicon-edit',function(event) {
-		event.stopImmediatePropagation();
+		event.stopImmediatePropagation()
 		event.preventDefault()
+
+		// Store previous selection of labels and reset to emtpy
+		storeSelectedLabels()
+		
 		$.querySelector('#Suppliers').style.display='none'
 		$form = $.querySelector('#supplierForm')
 		$.querySelector('.addSupplier').className = $.querySelector('.addSupplier').className.replace('glyphicon-plus','glyphicon-minus')
 		$inputs = $form.querySelectorAll('input')
 		id = this.parentElement.parentElement.getAttribute('data-id')
 		Supplier = Suppliers.get([id])
+		
+		// Select Labels for that supplier
+		for (i = 0;i< Supplier[0].Labels.length;i++) {
+			$label = $.querySelector('#Labels .label[data-id="'+Supplier[0].Labels[i]+'"]')
+			$label.className = $label.className.replace('label-primary','label-success')
+		}
+
+		$.querySelector('#label-all').style.display='none'
 		$form.setAttribute('data-id',id)
 		for (key in $inputs) {
 			if ($inputs[key].value !== undefined) {
@@ -325,17 +333,8 @@ function addSupplierHtml(Supplier) {
 	td = $.createElement('td')
 	td.setAttribute('data-name','labels')
 	SupLabels = Labels.get(Supplier.Labels)
-	for (i = 0;i<SupLabels.length;i++) {
-		span = $.createElement('span');
-		/* Add inne html and properties */
-		id = Supplier.Labels[i]
-		
-		span.innerHTML = SupLabels[i]
-		span.className += "label label-primary"
-		span.setAttribute('data-id',id)
-		td.appendChild(span)
-	}
-
+	td = genHTMLLabeltoSupplier(td,SupLabels,Supplier)
+	td.appendChild(span)
 	tr.appendChild(td)
 	td = $.createElement('td')
 	/* Edit icon */
@@ -363,6 +362,40 @@ function restoreLabels() {
 		$selected[key].className = $selected[key].className.replace('label-primary','label-success')
 	}
 	currSelectedLabel = []
+}
+
+/* generate htlm for labels to put in supplier table
+ * @param {object} Elm to append the html to
+ * @param {array} Array of labels
+ * @param {object} Supplier object
+ * @return {object} Elm that has Labels appended to it
+ */
+function genHTMLLabeltoSupplier(Elm,Labels,Supplier) {
+	for (i = 0;i<SupLabels.length;i++) {
+		span = $.createElement('span');
+		id = Supplier.Labels[i]	
+		span.innerHTML = SupLabels[i]
+		span.className += "label label-primary"
+		span.setAttribute('data-id',id)
+		Elm.appendChild(span)
+	}
+	return Elm
+}
+
+/* Stores the current selected labels 
+ * @param none
+ * @param none
+ */
+function storeSelectedLabels() {
+	$selected = $.querySelectorAll('#Labels .label:not(#label-all)')
+	for (key in $selected) {
+		if (typeof($selected[key]) === 'object') {
+			if ($selected[key].className.match('label-success')) {
+				currSelectedLabel.push(key)
+			}
+			$selected[key].className = $selected[key].className.replace('label-success','label-primary')
+		}
+	}
 }
 
 /* Live event handling - Thanks to http://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript */
