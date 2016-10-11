@@ -1,9 +1,9 @@
 {
   "suppliers": [
     {
-      "name": "Kenneth Eriksson",
-      "mail": "",
-      "phone": 46709990083,
+      "name": "Kenneth Erikssoms",
+      "mail": "eriksson.r.k@gmail.com",
+      "phone": 46709990084,
       "adress": "Trädgårdsgatan 6",
       "zipcode": 34250,
       "city": "Vislanda",
@@ -12,6 +12,15 @@
         "lng": 14.465063399999963
       },
       "id": 1
+    },
+    {
+      "name": "test",
+      "mail": "test",
+      "phone": "test",
+      "adress": "test",
+      "zipcode": "test",
+      "city": "test",
+      "id": 2
     }
   ],
   "labels": [

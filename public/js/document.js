@@ -83,8 +83,12 @@ $.addEventListener('DOMContentLoaded',function() {
 				if (Labels.update(id,label)) {
 					// All ok
 					$.querySelector('#label-'+id).childNodes[0].nodeValue = label
+					$label.removeAttribute('data-id')
 				}
 			}
+			$form.style.display = 'none'
+			$form.reset()
+			$.querySelector('.addLabel').className = $.querySelector('.addLabel').className.replace('glyphicon-minus','glyphicon-plus')			
 		}
 		return false;
 	}) 
@@ -92,6 +96,7 @@ $.addEventListener('DOMContentLoaded',function() {
 		event.preventDefault()
 		event.stopPropagation()
 		$inputs = $.querySelectorAll("#supplierForm  input")
+		$form = this.parentElement
 		var InputData = {}
 		for (key in $inputs) {
 			if ($inputs[key].value !== undefined) {
@@ -106,11 +111,31 @@ $.addEventListener('DOMContentLoaded',function() {
 					lng: results[0].geometry.location.lng()
 				}
 			}
-			Suppliers.create(InputData,function(Obj) {
-				Suppliers.callBackSave(Obj)
-				addSupplierHtml(Obj.Response)			
-			})
+			id = $form.getAttribute('data-id');
+			if (id === null) {
+				Suppliers.create(InputData,function(Obj) {
+					Suppliers.callBackSave(Obj)
+					addSupplierHtml(Obj.Response)			
+				})
+			} else {
+				if (Suppliers.update(id,InputData)) {
+					// All ok
+					$td = $.querySelectorAll('tr[data-id="'+id+'"] td[data-name]')
+					for (key in $td) {
+						if (typeof($td[key]) === 'object') {
+							valName = $td[key].getAttribute('data-name');
+							if (valName !== undefined && InputData[valName] !== undefined) {
+								$td[key].innerHTML = InputData[valName]
+							}
+						}
+					}
+					$form.removeAttribute('data-id')
+				}
+			}
  		})
+		$form.style.display = 'none'
+		$form.reset()
+		$.querySelector('.addSupplier').className = $.querySelector('.addSupplier').className.replace('glyphicon-minus','glyphicon-plus') 		
  		
 	})
 
@@ -130,17 +155,23 @@ $.addEventListener('DOMContentLoaded',function() {
 		$form.style.display = 'inline-block'
 	});	
 
-	/* Live for edit Label */
+	/* Live for edit Supplier */
 	live('click','#Suppliers .glyphicon-edit',function(event) {
 		event.stopPropagation()
 		event.preventDefault()
 		$form = $.querySelector('#supplierForm')
-		Label = this.parentElement.innerText
-		id = this.parentElement.parentElement.id
-		Supplier = Suppliers.get(id)
+		$inputs = $form.querySelectorAll('input')
+		id = this.parentElement.parentElement.getAttribute('data-id')
+		Supplier = Suppliers.get([id])
+		$form.setAttribute('data-id',id)
+		for (key in $inputs) {
+			if ($inputs[key].value !== undefined) {
+				elmName = $inputs[key].getAttribute('name')
+				$inputs[key].value = Supplier[0][elmName]
+			}
 
-		$form.querySelector('label').innerHTML = 'Ändra'
-
+ 		}
+		
 		$form.style.display = 'inline-block'
 	});		
 	
@@ -200,12 +231,15 @@ function addSupplierHtml(Supplier) {
 	td.innerHTML = Supplier.id
 	tr.appendChild(td)	
 	td = $.createElement('td')
+	td.setAttribute('data-name','name')
 	td.innerHTML = Supplier.name
 	tr.appendChild(td)
 	td = $.createElement('td')
+	td.setAttribute('data-name','phone')
 	td.innerHTML = Supplier.phone
 	tr.appendChild(td)
 	td = $.createElement('td')
+	td.setAttribute('data-name','labels')
 	td.innerHTML = 'WIP'
 	tr.appendChild(td)
 	td = $.createElement('td')

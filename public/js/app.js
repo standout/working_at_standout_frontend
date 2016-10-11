@@ -1,5 +1,5 @@
 /* Objects */
-var geocoder = new google.maps.Geocoder();
+
 /* Labels Object */
 Labels = {
 	name:'Labels',
@@ -109,6 +109,8 @@ Suppliers = {
 		if (this.Data[id] === undefined) {
 			return false
 		}
+		this.Data[id].update(Obj)
+		this.Data[id].callBack = function () {}
 		return this.Data[id].save()
 	},
 	delete: function(id) {
