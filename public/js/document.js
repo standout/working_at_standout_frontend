@@ -1,7 +1,10 @@
 /* General stuff & fluff for browser */
 
 // I'm lazy - Do it jQuery Style! ;)
-$ = document
+var $ = document
+
+// Needed to get lat long from address
+var geocoder = new google.maps.Geocoder();
 
 /* When DOM has loaded */
 $.addEventListener('DOMContentLoaded',function() {
@@ -23,18 +26,42 @@ $.addEventListener('DOMContentLoaded',function() {
 			}
 	 	}
 	})
+	Suppliers.read(function(Obj) {
+		Suppliers.populate(Obj)
+	 	suppliers = Suppliers.get()
+	 	for(i = 0; i < suppliers.length; i++){
+	 		if (typeof(suppliers[i]) !== 'undefined') {
+	 			addSupplierHtml(suppliers[i])
+	 		}
+	 	}
+	})	
 
 
 	/* All the crazy bindings */ 
 
+	/* Show add label form */
 	$.querySelector(".addLabel").addEventListener("click",function() {
 		$form = document.querySelector('#labelForm')
 		if ($form.style.display === 'inline-block') {
 			$form.style.display = 'none'
+			this.className = this.className.replace('glyphicon-minus','glyphicon-plus')
 		} else {
 			$form.style.display = 'inline-block'
+			this.className = this.className.replace('glyphicon-plus','glyphicon-minus')
 		}
 	})
+
+	/* Show add supplier form */ 
+	$.querySelector(".addSupplier").addEventListener("click",function() {
+		$form = document.querySelector('#supplierForm')
+		if ($form.style.display === 'inline-block') {
+			$form.style.display = 'none'
+			this.className = this.className.replace('glyphicon-minus','glyphicon-plus')
+		} else {
+			$form.style.display = 'inline-block'
+			this.className = this.className.replace('glyphicon-plus','glyphicon-minus')
+		}
+	})	
 
 	/* Add / update label save */
 	$.querySelector("#labelForm > button").addEventListener("click",function(event) {
@@ -55,13 +82,37 @@ $.addEventListener('DOMContentLoaded',function() {
 				// Update label
 				if (Labels.update(id,label)) {
 					// All ok
-					console.log($.getElementById('#label-'+id))
 					$.querySelector('#label-'+id).childNodes[0].nodeValue = label
 				}
 			}
 		}
 		return false;
 	}) 
+	$.querySelector("#supplierForm > button").addEventListener("click",function(event) {
+		event.preventDefault()
+		event.stopPropagation()
+		$inputs = $.querySelectorAll("#supplierForm  input")
+		var InputData = {}
+		for (key in $inputs) {
+			if ($inputs[key].value !== undefined) {
+				InputData[$inputs[key].name] = $inputs[key].value
+			}
+ 		}
+ 		address = InputData.address+", "+InputData.zipcode+" "+InputData.city
+ 		geocoder.geocode({address:address},function(results, status) {
+ 			if (status == google.maps.GeocoderStatus.OK) {
+				InputData['LatLng'] = {
+					lat: results[0].geometry.location.lat(),
+					lng: results[0].geometry.location.lng()
+				}
+			}
+			Suppliers.create(InputData,function(Obj) {
+				Suppliers.callBackSave(Obj)
+				addSupplierHtml(Obj.Response)			
+			})
+ 		})
+ 		
+	})
 
 	/* Live for edit Label */
 	live('click','#Labels .glyphicon-edit',function(event) {
@@ -77,6 +128,20 @@ $.addEventListener('DOMContentLoaded',function() {
 		$form.querySelector('label').innerHTML = 'Ändra'
 
 		$form.style.display = 'inline-block'
+	});	
+
+	/* Live for edit Label */
+	live('click','#Suppliers .glyphicon-edit',function(event) {
+		event.stopPropagation()
+		event.preventDefault()
+		$form = $.querySelector('#supplierForm')
+		Label = this.parentElement.innerText
+		id = this.parentElement.parentElement.id
+		Supplier = Suppliers.get(id)
+
+		$form.querySelector('label').innerHTML = 'Ändra'
+
+		$form.style.display = 'inline-block'
 	});		
 	
 	/* Live for delete Label */
@@ -87,6 +152,15 @@ $.addEventListener('DOMContentLoaded',function() {
 		this.parentElement.remove()
 		Labels.delete(labelId)
 	});
+
+	/* Live for delete supplier */
+	live('click','#Suppliers .glyphicon-remove',function(event) {
+		event.stopPropagation()
+		event.preventDefault()
+		supplierId = this.parentElement.parentElement.getAttribute('data-id')
+		this.parentElement.parentElement.remove()
+		Suppliers.delete(supplierId)
+	});	
 
 })
 
@@ -101,7 +175,7 @@ function addLabelHtml(Label) {
 	span.className += "label label-primary no-select"
 	span.id = "label-"+Label.id
 
-	/* Add icon */
+	/* Edit icon */
 	icon = $.createElement('span');
 	icon.className = "glyphicon glyphicon-edit"
 	icon.setAttribute('aria-hidden','true')
@@ -116,6 +190,41 @@ function addLabelHtml(Label) {
 
 	// Add it to view
 	placeholder.appendChild(span)
+}
+
+/* Add supplier to table */
+function addSupplierHtml(Supplier) {
+	tr = $.createElement('tr')
+	tr.setAttribute('data-id',Supplier.id)
+	td = $.createElement('td')
+	td.innerHTML = Supplier.id
+	tr.appendChild(td)	
+	td = $.createElement('td')
+	td.innerHTML = Supplier.name
+	tr.appendChild(td)
+	td = $.createElement('td')
+	td.innerHTML = Supplier.phone
+	tr.appendChild(td)
+	td = $.createElement('td')
+	td.innerHTML = 'WIP'
+	tr.appendChild(td)
+	td = $.createElement('td')
+	/* Edit icon */
+	icon = $.createElement('span');
+	icon.className = "glyphicon glyphicon-edit"
+	icon.setAttribute('aria-hidden','true')
+	icon.title = "Ändra ettikett"
+	td.appendChild(icon)
+	/* Remove icon */
+	icon = $.createElement('span');
+	icon.className = "glyphicon glyphicon-remove"
+	icon.setAttribute('aria-hidden','true')
+	icon.title = "Ta bort ettikett"
+	td.appendChild(icon) 
+	tr.appendChild(td)
+
+	tbody = $.querySelector('#Suppliers tbody')
+	tbody.appendChild(tr)
 }
 
 /* Live event handling - Thanks to http://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript */

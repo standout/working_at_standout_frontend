@@ -16,21 +16,26 @@
 				<div class="col-md-9 map no-padding">
 					<div id="map"></div> 
 				</div>
-				<div class="col-md-3 left-border">
+				<div class="col-md-3 left-border no-select">
 					<div>
-						<h3 class="no-select">Etiketter</h3><span class="glyphicon glyphicon-plus addLabel" title="Lägg till etikett"></span>
-
+						<div>
+							<span class="glyphicon glyphicon-plus addLabel" title="Lägg till etikett"></span> 
+							<h3>Etiketter</h3>
+						</div>
 						<form id="labelForm" class="form-inline labels-form">
 							<label for="name">Lägg till</label>
 							<input type="text" name="name" class="form-control" required>
 							<button class="btn btn-default">Spara</button>
 						</form>
 						<hr>
-						<div id="Labels"><span class="label label-success no-select" id="label-all" title="Visa alla">Alla</span></div>
+						<div id="Labels"><span class="label label-success" id="label-all" title="Visa alla">Alla</span></div>
 					</div>
 					<hr>
 					<div>
-						<h3 class="no-select">Leverantörer <span class="glyphicon glyphicon-plus addSupplier" title="Lägg till leverantör"></span></h3>
+						<div>
+							<span class="glyphicon glyphicon-plus addSupplier" title="Lägg till leverantör"></span>
+							<h3>Leverantörer</h3>
+						</div>
 						<form id="supplierForm" class="form-horizontal">
 							<label for="name">Namn</label>
 							<input type="text" name="name" class="form-control" required>
@@ -44,9 +49,23 @@
 							<input type="text" name="zipcode" class="form-control" required>
 							<label for="city">Ort</label>
 							<input type="text" name="city" class="form-control" required>
-							<button class="btn btn-default">Spara</button>
+							<button type="submit" class="btn btn-default">Spara</button>
 						</form>
 					</div>
+					<hr>
+					<table class="table" id="Suppliers">
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>Namn</td>
+								<td>Tfn</td>
+								<td>Etiketter</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
 				</div>		
 			</div>
 		</div>

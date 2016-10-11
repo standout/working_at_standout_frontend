@@ -1,14 +1,20 @@
 {
-  "suppliers": [],
-  "labels": [
+  "suppliers": [
     {
-      "name": "disel",
+      "name": "Kenneth Eriksson",
+      "mail": "",
+      "phone": 46709990083,
+      "adress": "Trädgårdsgatan 6",
+      "zipcode": 34250,
+      "city": "Vislanda",
+      "LatLng": {
+        "lat": 56.7858694,
+        "lng": 14.465063399999963
+      },
       "id": 1
-    },
-    {
-      "name": "mejerier",
-      "id": 2
-    },
+    }
+  ],
+  "labels": [
     {
       "name": "chark",
       "id": 3
@@ -18,8 +24,16 @@
       "id": 4
     },
     {
-      "name": "dryck",
+      "name": "drycker",
       "id": 5
+    },
+    {
+      "name": "fefe",
+      "id": 6
+    },
+    {
+      "name": "mejerier",
+      "id": 7
     }
   ]
 }

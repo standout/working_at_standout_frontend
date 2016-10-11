@@ -1,5 +1,5 @@
 /* Objects */
-
+var geocoder = new google.maps.Geocoder();
 /* Labels Object */
 Labels = {
 	name:'Labels',
@@ -77,8 +77,70 @@ Labels = {
 	
 }
 
-
 /* Suppliers Object */
+Suppliers = {
+	name:'Suppliers',
+	List: [],
+	Data: {},
+	create: function(Obj,Func) {
+		let Opts = {
+			Parent: this,
+			Data: Obj,
+			callBack: this.callBackSave,
+		}
+		if (typeof(Func) === 'function') {
+			Opts.callBack = Func
+		}
+		data = new Data(Opts)
+		return data.save()
+	},
+	read: function(Func) {
+		let Opts = {
+			Parent: this,
+			callBack: this.populate
+		}
+		if (typeof(Func) === 'function') {
+			Opts.callBack = Func
+		}
+		data = new Data(Opts)
+		data.read()
+	},
+	update: function(id,Obj) {
+		if (this.Data[id] === undefined) {
+			return false
+		}
+		return this.Data[id].save()
+	},
+	delete: function(id) {
+		if (this.Data[id] === undefined) {
+			return false
+		}
+		this.Data[id].delete()
+		delete this.Data[id]
+		delete this.List[id]
+	},
+	populate : function(Obj) {
+		var Rsp = Obj.Response
+		for (key in Rsp) {
+			Suppliers.List[Rsp[key].id] = Rsp[key]
+			let Opts = {
+				id: Rsp[key].id,
+				Parent: Suppliers,
+				Data: Rsp[key],
+				callBack: Labels.callBackSave
+			}
+			Suppliers.Data[Rsp[key].id] = new Data(Opts)
+		}
+	},
+	callBackSave: function(Obj) {
+		Obj.Data.id = Obj.Response.id
+		Suppliers.Data[Obj.Response.id] = Obj.Data
+		Suppliers.List[Obj.Response.id] = Obj.Response.name
+	},
+	get: getData
+	
+}
+
 
 /* Data Object */
 /* Data object 
@@ -160,18 +222,18 @@ function Data(Obj) {
  * @param {array} id's
  * @return {array} Array of Labels
  */  
-function getData(index) {
+function getData(id) {
 	var rtn = []
-	if (index == undefined) {
+	if (id == undefined) {
 		return this.List
 	}
-	if (typeof(index) === 'object') {
-		for (i = 0; i < index.length; i++) {
-			if (index[i] !== null && !isNaN(parseInt(index[i]))) {
-				if (this.List[index[i]] !== undefined) {
-					var label = this.List[index[i]]
-					if (label !== undefined) {
-						rtn.push(label)
+	if (typeof(id) === 'object') {
+		for (i = 0; i < id.length; i++) {
+			if (id[i] !== null && !isNaN(parseInt(id[i]))) {
+				if (this.List[id[i]] !== undefined) {
+					let data = this.List[id[i]]
+					if (data !== undefined) {
+						rtn.push(data)
 					}
 				}
 			}
