@@ -102,6 +102,7 @@ Suppliers = {
 		if (this.Data[id] === undefined) {
 			return false
 		}
+		console.log(Obj)
 		this.Data[id].update(Obj)
 		this.Data[id].callBack = function () {}
 		return this.Data[id].save()

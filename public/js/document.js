@@ -49,6 +49,7 @@ $.addEventListener('DOMContentLoaded',function() {
 			$form.style.display = 'none'
 			this.className = this.className.replace('glyphicon-minus','glyphicon-plus')
 		} else {
+			storeSelectedLabels()
 			$form.style.display = 'inline-block'
 			this.className = this.className.replace('glyphicon-plus','glyphicon-minus')
 		}
@@ -103,7 +104,7 @@ $.addEventListener('DOMContentLoaded',function() {
 				// Update label
 				if (Labels.update(id,label)) {
 					// All ok
-					$.querySelector('#label-'+id).childNodes[0].nodeValue = label
+					$.querySelector('#Labels .label[data-id="'+id+'"]').childNodes[0].nodeValue = label
 					$label.removeAttribute('data-id')
 				}
 			}
@@ -128,6 +129,12 @@ $.addEventListener('DOMContentLoaded',function() {
  		}
  		address = InputData.address+", "+InputData.zipcode+" "+InputData.city
 
+		// Loop labels
+		$selected = $.querySelectorAll('#Labels .label-success:not(#label-all)')
+		InputData.Labels = []
+		for (key = 0; key < $selected.length;key++) {
+			InputData.Labels.push($selected[key].getAttribute('data-id'))
+		}
  		// Get latlong for map
  		geocoder.geocode({address:address},function(results, status) {
  			if (status == google.maps.GeocoderStatus.OK) {
@@ -138,15 +145,8 @@ $.addEventListener('DOMContentLoaded',function() {
 			}
 			id = $form.getAttribute('data-id');
 
-			// Loop labels
-			$selected = $.querySelectorAll('#Labels .label-success:not(#label-all)')
-			InputData.Labels = []
-			for (key in $selected) {
-				if (typeof($selected[key]) === 'object') {
-					InputData.Labels.push($selected[key].getAttribute('data-id'))
-				}
-			}
 
+			
 			if (id === null) {
 				Suppliers.create(InputData,function(Obj) {
 					Suppliers.callBackSave(Obj)
@@ -169,15 +169,14 @@ $.addEventListener('DOMContentLoaded',function() {
 					SupLabels = Labels.get(InputData.Labels)
 					genHTMLLabeltoSupplier($tdLabel,SupLabels,InputData)
 					$form.removeAttribute('data-id')
-					restoreLabels()
+					
 				}
 			}
-			$form.style.display = 'none'
-			$.querySelector('#Suppliers').style.display='table'
-
  		})
+ 		restoreLabels()
 		$form.style.display = 'none'
 		$.querySelector('#label-all').style.display='inline-block'
+		$.querySelector('#Suppliers').style.display='table'
 		$form.reset()
 		$.querySelector('.addSupplier').className = $.querySelector('.addSupplier').className.replace('glyphicon-minus','glyphicon-plus')
  		
@@ -332,9 +331,11 @@ function addSupplierHtml(Supplier) {
 	tr.appendChild(td)
 	td = $.createElement('td')
 	td.setAttribute('data-name','labels')
-	SupLabels = Labels.get(Supplier.Labels)
-	td = genHTMLLabeltoSupplier(td,SupLabels,Supplier)
-	td.appendChild(span)
+	if (Supplier.Labels.length > 0) {
+		// No need if we don't have an Labels on supplier
+		SupLabels = Labels.get(Supplier.Labels)
+		td = genHTMLLabeltoSupplier(td,SupLabels,Supplier)
+	}
 	tr.appendChild(td)
 	td = $.createElement('td')
 	/* Edit icon */
@@ -355,14 +356,7 @@ function addSupplierHtml(Supplier) {
 	tbody.appendChild(tr)
 }
 
-/* function for restore previous selected Labels */
-function restoreLabels() {
-	for (i = 0; i < currSelectedLabel.length; i++) {
-		key = currSelectedLabel[i]
-		$selected[key].className = $selected[key].className.replace('label-primary','label-success')
-	}
-	currSelectedLabel = []
-}
+
 
 /* generate htlm for labels to put in supplier table
  * @param {object} Elm to append the html to
@@ -380,6 +374,25 @@ function genHTMLLabeltoSupplier(Elm,Labels,Supplier) {
 		Elm.appendChild(span)
 	}
 	return Elm
+}
+
+/* function for restore previous selected Labels 
+ * @param None
+ * @return None
+ */
+function restoreLabels() {
+	$selected = $.querySelectorAll('#Labels .label:not(#label-all)')
+	// Remove old selects first.
+	$Elms = $.querySelectorAll('#Labels .label[data-id]')
+	for (i = 0; i < $Elms.length; i++) {
+		$Elms[i].className = $Elms[i].className.replace('label-success','label-primary')
+	}
+
+	for (i = 0; i < currSelectedLabel.length; i++) {
+		key = currSelectedLabel[i]
+		$selected[key].className = $selected[key].className.replace('label-primary','label-success')
+	}
+	currSelectedLabel = []
 }
 
 /* Stores the current selected labels 

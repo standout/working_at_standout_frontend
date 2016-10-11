@@ -2,56 +2,34 @@
   "suppliers": [
     {
       "name": "Kenneth Eriksson",
-      "mail": "",
-      "phone": 46709990083,
+      "mail": "eriksson.r.k@gmail.com",
+      "phone": 709990083,
       "adress": "Trädgårdsgatan 6",
       "zipcode": 34250,
       "city": "Vislanda",
+      "Labels": [
+        "1",
+        "2"
+      ],
       "LatLng": {
         "lat": 56.7858694,
         "lng": 14.465063399999963
       },
-      "Labels": [
-        "3",
-        "5",
-        "8",
-        "10"
-      ],
       "id": 1
     }
   ],
   "labels": [
     {
-      "name": "chark",
-      "id": 3
-    },
-    {
-      "name": "godis",
-      "id": 4
-    },
-    {
-      "name": "drycker",
-      "id": 5
-    },
-    {
-      "name": "fefe",
-      "id": 6
-    },
-    {
       "name": "mejerier",
-      "id": 7
+      "id": 1
     },
     {
-      "name": "kebab",
-      "id": 8
+      "name": "bröd",
+      "id": 2
     },
     {
-      "name": "sallad",
-      "id": 9
-    },
-    {
-      "name": "frukt",
-      "id": 10
+      "name": "grönt",
+      "id": 3
     }
   ]
 }
