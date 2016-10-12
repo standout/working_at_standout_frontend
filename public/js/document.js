@@ -3,6 +3,8 @@
 // I'm lazy - Do it jQuery Style! ;)
 var $ = document
 
+var Markers = {}
+
 // Predefined vars
 var currSelectedLabel = []
 
@@ -14,7 +16,7 @@ $.addEventListener('DOMContentLoaded',function() {
 	/* Init map */
 	map = new google.maps.Map($.getElementById('map'), {
 		center: {lat: 56.878510, lng: 14.803956},
-		zoom: 14,
+		zoom: 12,
 		mapTypeControl: 'terrain',
 		zoomControl: true,
 		streetViewControl: false
@@ -35,7 +37,13 @@ $.addEventListener('DOMContentLoaded',function() {
 	 		for (key in suppliers) {
 	 			if (typeof(suppliers[key]) === 'object') {
 	 				addSupplierHtml(suppliers[key])
-	 			}	 			
+		 			Markers[suppliers[key].id] = new google.maps.Marker({
+	 					position: suppliers[key].LatLng,
+	 					title: suppliers[key].name,
+	 					map: map,
+	 					label: {text:String(suppliers[key].id)}
+	 				})
+	 			}
 	 		}
 		})	
 	})
@@ -172,11 +180,12 @@ $.addEventListener('DOMContentLoaded',function() {
  
  		// Get latlong for map
 
- 		restoreLabels()
+ 		
 		$form.style.display = 'none'
 		$.querySelector('#label-all').style.display='inline-block'
 		$.querySelector('#Suppliers').style.display='table'
 		$form.reset()
+		restoreLabels()
 		$.querySelector('.addSupplier').className = $.querySelector('.addSupplier').className.replace('glyphicon-minus','glyphicon-plus')
  		
 	})
@@ -253,9 +262,10 @@ $.addEventListener('DOMContentLoaded',function() {
 	/* Live for delete supplier */
 	live('click','#Suppliers .glyphicon-remove',function(event) {
 		event.stopImmediatePropagation();
-
 		event.preventDefault()
 		supplierId = this.parentElement.parentElement.getAttribute('data-id')
+		Markers[supplierId].setMap(null)
+		delete Markers[supplierId]
 		this.parentElement.parentElement.remove()
 		Suppliers.delete(supplierId)
 	});
@@ -432,6 +442,10 @@ function restoreLabels() {
 		$Elms[i].className = $Elms[i].className.replace('label-success','label-primary')
 	}
 
+	if (currSelectedLabel.length === 0) {
+		let LblAll = $.querySelector('#label-all')
+		LblAll.className = LblAll.className.replace('label-primary','label-success')
+	}
 	for (i = 0; i < currSelectedLabel.length; i++) {
 		key = currSelectedLabel[i]
 		$selected[key].className = $selected[key].className.replace('label-primary','label-success')
@@ -467,9 +481,15 @@ function saveLatLng(Supplier) {
 				lng: results[0].geometry.location.lng()
 			}
 			Suppliers.update(Supplier.id,Supplier)
+ 			Markers[Supplier.id] = new google.maps.Marker({
+					position: Supplier.LatLng,
+					title: Supplier.name,
+					map: map,
+					label: {text:String(Supplier.id)}
+			})			
 		}
 	})
-}	
+}
 
 /* Live event handling - Thanks to http://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript */
 function live (eventType, elementQuerySelector, cb) {

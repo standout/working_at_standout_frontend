@@ -1,42 +1,4 @@
 {
-  "suppliers": [
-    {
-      "name": "Kenneth Eriksson",
-      "mail": "eriksson.r.k@gmail.com",
-      "phone": 709990083,
-      "adress": "Trädgårdsgatan 6",
-      "zipcode": 34250,
-      "city": "Vislanda",
-      "Labels": [
-        "1"
-      ],
-      "id": 1,
-      "LatLng": {
-        "lat": 56.7858694,
-        "lng": 14.465063399999963
-      }
-    },
-    {
-      "name": "Åke Nilsson",
-      "mail": "ake@nilsson.se",
-      "phone": 123456,
-      "adress": "Vingavägen 81",
-      "zipcode": 35261,
-      "city": "Växjö",
-      "Labels": [
-        "1"
-      ],
-      "id": 2,
-      "LatLng": {
-        "lat": 56.8790044,
-        "lng": 14.805852200000004
-      }
-    }
-  ],
-  "labels": [
-    {
-      "name": "bröd",
-      "id": 1
-    }
-  ]
+  "suppliers": [],
+  "labels": []
 }
