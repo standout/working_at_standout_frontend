@@ -46,7 +46,15 @@ Labels = {
 			return false
 		}
 	},
-	delete: deleteData,
+	delete: function(id) {
+		if (this.Data[id] === undefined) {
+			return false
+		}
+		this.Data[id].delete()
+		Suppliers.removeLabelFromSupplier(id)
+		delete this.Data[id]
+		delete this.List[id]
+	},
 	populate : function(Obj) {
 		var Rsp = Obj.Response
 		for (key in Rsp) {
@@ -98,7 +106,7 @@ Suppliers = {
 		data = new Data(Opts)
 		data.read()
 	},
-	update: function(id,Obj,Func) {
+	update: function(id,Obj,Func) { 
 		if (this.Data[id] === undefined) {
 			return false
 		}
@@ -109,7 +117,26 @@ Suppliers = {
 		this.Data[id].update(Obj)
 		return this.Data[id].save()
 	},
-	delete: deleteData,
+	delete: function(id) {
+		if (this.Data[id] === undefined) {
+			return false
+		}
+		this.Data[id].delete()
+		delete this.Data[id]
+		delete this.List[id]
+	},
+	removeLabelFromSupplier: function(labelId) {
+		for (s = 0; s < Suppliers.List.length; s++) {
+			Supplier = Suppliers.List[s]
+			if (Supplier !== undefined) {
+				haveLabel = Supplier['Labels'].indexOf(labelId)
+				if (haveLabel > -1 ) {
+					Supplier.Labels.splice(haveLabel,1)
+					Suppliers.update(Supplier['id'],Supplier)
+				}
+			}
+		}
+	},
 	populate : function(Obj) {
 		var Rsp = Obj.Response
 		for (key in Rsp) {
@@ -237,15 +264,3 @@ function getData(ids) {
 	return rtn
 }
 
-/* Delete data 
- * @param {number} id of data
- * @return none
- */
-function deleteData(id) {
-	if (this.Data[id] === undefined) {
-		return false
-	}
-	this.Data[id].delete()
-	delete this.Data[id]
-	delete this.List[id]
-}

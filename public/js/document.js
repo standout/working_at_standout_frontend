@@ -217,7 +217,9 @@ $.addEventListener('DOMContentLoaded',function() {
 		for (i = 0;i< Supplier[0].Labels.length;i++) {
 
 			$label = $.querySelector('#Labels .label[data-id="'+Supplier[0].Labels[i]+'"]')
-			$label.className = $label.className.replace('label-primary','label-success')
+			if ($label !== null) {
+				$label.className = $label.className.replace('label-primary','label-success')
+			}
 		}
 
 		$.querySelector('#label-all').style.display='none'
@@ -237,8 +239,14 @@ $.addEventListener('DOMContentLoaded',function() {
 	live('click','#Labels .glyphicon-remove',function(event) {
 		event.stopImmediatePropagation();
 		event.preventDefault()
-		labelId = this.parentElement.id.replace('label-','')
+		labelId = this.parentElement.getAttribute('data-id')
 		this.parentElement.remove()
+
+		// Time to remove all fancy frontend for label on supplier part
+		$Suppliers = $.querySelectorAll('#Suppliers tr td span[data-id="'+labelId+'"]')
+		for (s = 0;s < $Suppliers.length; s++) {
+			$Suppliers[s].remove()
+		}
 		Labels.delete(labelId)
 	});
 
