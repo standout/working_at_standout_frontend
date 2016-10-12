@@ -32,10 +32,10 @@ $.addEventListener('DOMContentLoaded',function() {
 	 	Suppliers.read(function(Obj) {
 			Suppliers.populate(Obj)
 	 		suppliers = Suppliers.get()
-	 		for(i = 0; i < suppliers.length; i++){
-	 			if (typeof(suppliers[i]) !== 'undefined') {
-	 				addSupplierHtml(suppliers[i])
-	 			}
+	 		for (key in suppliers) {
+	 			if (typeof(suppliers[key]) === 'object') {
+	 				addSupplierHtml(suppliers[key])
+	 			}	 			
 	 		}
 		})	
 	})
@@ -124,6 +124,7 @@ $.addEventListener('DOMContentLoaded',function() {
 		event.stopPropagation()
 		$inputs = $.querySelectorAll("#supplierForm  input")
 		$form = this.parentElement
+		id = $form.getAttribute('data-id')
 		var InputData = {}
 		for (key in $inputs) {
 			if ($inputs[key].value !== undefined) {
@@ -135,47 +136,42 @@ $.addEventListener('DOMContentLoaded',function() {
 		// Loop labels
 		$selected = $.querySelectorAll('#Labels .label-success:not(#label-all)')
 		InputData.Labels = []
-		for (key = 0; key < $selected.length;key++) {
-			InputData.Labels.push($selected[key].getAttribute('data-id'))
+		for (i = 0; i < $selected.length;i++) {
+			InputData.Labels.push($selected[i].getAttribute('data-id'))
 		}
- 		// Get latlong for map
- 		geocoder.geocode({address:address},function(results, status) {
- 			if (status == google.maps.GeocoderStatus.OK) {
-				InputData['LatLng'] = {
-					lat: results[0].geometry.location.lat(),
-					lng: results[0].geometry.location.lng()
-				}
-			}
-			id = $form.getAttribute('data-id');
 
-
-			
-			if (id === null) {
-				Suppliers.create(InputData,function(Obj) {
-					Suppliers.callBackSave(Obj)
-					addSupplierHtml(Obj.Response)			
-				})
-			} else {
-				if (Suppliers.update(id,InputData)) {
-					// All ok
-					$td = $.querySelectorAll('tr[data-id="'+id+'"] td[data-name]')
-					for (key in $td) {
-						if (typeof($td[key]) === 'object') {
-							valName = $td[key].getAttribute('data-name');
-							if (valName !== undefined && InputData[valName] !== undefined) {
-								$td[key].innerHTML = InputData[valName]
-							}
+		// Save user so we get an Id
+		if (id === null) {
+			Suppliers.create(InputData,function(Obj) {
+				Suppliers.callBackSave(Obj)
+				addSupplierHtml(Obj.Response)
+				saveLatLng(Obj.Response)
+				
+			})			
+		} else {
+			Suppliers.update(id,InputData,function(Obj) {
+				Suppliers.callBackSave(Obj)
+				saveLatLng(Obj.Response)
+		
+				$td = $.querySelectorAll('tr[data-id="'+id+'"] td[data-name]')
+				for (key in $td) {
+					if (typeof($td[key]) === 'object') {
+						valName = $td[key].getAttribute('data-name');
+						if (valName !== undefined && InputData[valName] !== undefined) {
+							$td[key].innerHTML = InputData[valName]
 						}
 					}
-					$tdLabel = $.querySelector('#Suppliers tr[data-id="'+id+'"] > td[data-name="labels"]')
-					$tdLabel.innerHTML = ""
-					SupLabels = Labels.get(InputData.Labels)
-					genHTMLLabeltoSupplier($tdLabel,SupLabels,InputData)
-					$form.removeAttribute('data-id')
-					
 				}
-			}
- 		})
+				$tdLabel = $.querySelector('#Suppliers tr[data-id="'+id+'"] > td[data-name="labels"]')
+				$tdLabel.innerHTML = ""
+				SupLabels = Labels.get(InputData.Labels)
+				genHTMLLabeltoSupplier($tdLabel,SupLabels,InputData)
+				$form.removeAttribute('data-id')
+			})
+		}
+ 
+ 		// Get latlong for map
+
  		restoreLabels()
 		$form.style.display = 'none'
 		$.querySelector('#label-all').style.display='inline-block'
@@ -268,6 +264,11 @@ $.addEventListener('DOMContentLoaded',function() {
 					$selected[key].className = $selected[key].className.replace('label-success','label-primary')
 				}
 			}
+			$Suppliers = $.querySelectorAll('#Suppliers tbody tr[data-id]')
+			for (i = 0; i < $Suppliers.length; i++) {
+				let Supplier = $Suppliers[i]
+				Supplier.style.display = 'table-row'
+			}
 		}		
 	})
 
@@ -285,6 +286,35 @@ $.addEventListener('DOMContentLoaded',function() {
 			$labelAll.className = $labelAll.className.replace('label-success','label-primary')
 		} else {
 			$labelAll.className = $labelAll.className.replace('label-primary','label-success')
+		}
+
+		// Handle All btn differently
+		$AllBtn = $.querySelector('#label-all')
+		if ($AllBtn.className.match("label-success") !== null) {
+			$Suppliers = $.querySelectorAll('#Suppliers tbody tr[data-id]')
+			for (i = 0; i < $Suppliers.length; i++) {
+				let Supplier = $Suppliers[i]
+				Supplier.style.display = 'table-row'
+			}			
+		} else {
+
+			// Time to hide all tr's for supplier's table
+			$Suppliers = $.querySelectorAll('#Suppliers tbody tr[data-id]')
+			for (i = 0; i < $Suppliers.length; i++) {
+				let Supplier = $Suppliers[i]
+				Supplier.style.display = 'none'
+			}
+
+			// Fetch all selected Labels and set proper 
+			$Labels = $.querySelectorAll('#Labels span[data-id].label-success')
+			for (i = 0; i < $Labels.length; i++) {
+				labelId = $Labels[i].getAttribute('data-id')
+				$Suppliers = $.querySelectorAll('#Suppliers span[data-id="'+labelId+'"]')
+					for (il = 0; il < $Suppliers.length; il++) {
+					let Supplier = $Suppliers[il]
+					Supplier.parentElement.parentElement.style.display = 'table-row'
+				}
+			}
 		}
 	});	
 
@@ -336,11 +366,13 @@ function addSupplierHtml(Supplier) {
 	td = $.createElement('td')
 	td.setAttribute('data-name','labels')
 	if (Supplier.Labels.length > 0) {
-		// No need if we don't have an Labels on supplier
+		// No need if we don't have Labels on supplier
+
 		SupLabels = Labels.get(Supplier.Labels)
 		td = genHTMLLabeltoSupplier(td,SupLabels,Supplier)
+
 	}
-	tr.appendChild(td)
+	tr.appendChild(td) 
 	td = $.createElement('td')
 	/* Edit icon */
 	icon = $.createElement('span');
@@ -369,14 +401,14 @@ function addSupplierHtml(Supplier) {
  * @return {object} Elm that has Labels appended to it
  */
 function genHTMLLabeltoSupplier(Elm,Labels,Supplier) {
-	for (i = 0;i<SupLabels.length;i++) {
-		span = $.createElement('span');
-		id = Supplier.Labels[i]	
-		span.innerHTML = SupLabels[i]
-		span.className += "label label-primary"
-		span.setAttribute('data-id',id)
-		Elm.appendChild(span)
-	}
+	for (i = 0;i<Labels.length;i++) {
+			span = $.createElement('span');
+			id = Supplier.Labels[i]	
+			span.innerHTML = Labels[i]
+			span.className += "label label-primary"
+			span.setAttribute('data-id',id)
+			Elm.appendChild(span)
+		}
 	return Elm
 }
 
@@ -414,6 +446,22 @@ function storeSelectedLabels() {
 		}
 	}
 }
+
+/*Gets Lat and Lng from address
+ * @param {Object} Supplier object
+ * @return {object} Lat and lng in an obj suited for google Maps
+ */
+function saveLatLng(Supplier) {
+	geocoder.geocode({address:address},function(results, status) {
+	 	if (status == google.maps.GeocoderStatus.OK) {
+			Supplier['LatLng'] = {
+				lat: results[0].geometry.location.lat(),
+				lng: results[0].geometry.location.lng()
+			}
+			Suppliers.update(Supplier.id,Supplier)
+		}
+	})
+}	
 
 /* Live event handling - Thanks to http://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript */
 function live (eventType, elementQuerySelector, cb) {

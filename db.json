@@ -1,6 +1,25 @@
 {
   "suppliers": [
     {
+      "name": "Axentus Web Solutions AB",
+      "mail": "support@axentus.se",
+      "phone": 470501060,
+      "adress": "Brandstorp",
+      "zipcode": "360 76",
+      "city": "Älghult",
+      "Labels": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "id": 1,
+      "LatLng": {
+        "lat": 57.0081016,
+        "lng": 15.572705700000029
+      }
+    },
+    {
       "name": "Kenneth Eriksson",
       "mail": "eriksson.r.k@gmail.com",
       "phone": 709990083,
@@ -8,19 +27,31 @@
       "zipcode": 34250,
       "city": "Vislanda",
       "Labels": [
-        "2",
-        "3"
+        "2"
       ],
+      "id": 2,
       "LatLng": {
         "lat": 56.7858694,
         "lng": 14.465063399999963
-      },
-      "id": 1
+      }
+    },
+    {
+      "name": "Sveinung Strand Pedersen",
+      "mail": "",
+      "phone": 32230000,
+      "adress": "Trondheimsvegen 306",
+      "zipcode": "0216",
+      "city": "Frogner",
+      "Labels": [
+        "3",
+        "4"
+      ],
+      "id": 3
     }
   ],
   "labels": [
     {
-      "name": "mejerier",
+      "name": "mejeriers",
       "id": 1
     },
     {
@@ -34,6 +65,10 @@
     {
       "name": "frukt",
       "id": 4
+    },
+    {
+      "name": "kläders",
+      "id": 5
     }
   ]
 }

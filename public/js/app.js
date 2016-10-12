@@ -67,7 +67,7 @@ Labels = {
 
 	},
 	get: getData
-	
+
 }
 
 /* Suppliers Object */
@@ -98,12 +98,15 @@ Suppliers = {
 		data = new Data(Opts)
 		data.read()
 	},
-	update: function(id,Obj) {
+	update: function(id,Obj,Func) {
 		if (this.Data[id] === undefined) {
 			return false
 		}
+		this.Data[id].callBack = this.callBackSave		
+		if(typeof(Func) === 'function') {
+			this.Data[id].callBack = Func
+		}
 		this.Data[id].update(Obj)
-		this.Data[id].callBack = this.callBackSave
 		return this.Data[id].save()
 	},
 	delete: deleteData,
@@ -210,16 +213,20 @@ function Data(Obj) {
  * @param {array} id's
  * @return {array} Array of Labels
  */  
-function getData(id) {
+function getData(ids) {
 	var rtn = []
-	if (id == undefined) {
+	if (ids == undefined) {
 		return this.List
 	}
-	if (typeof(id) === 'object') {
-		for (i = 0; i < id.length; i++) {
-			if (id[i] !== null && !isNaN(parseInt(id[i]))) {
-				if (this.List[id[i]] !== undefined) {
-					let data = this.List[id[i]]
+
+	if (typeof(ids) === 'object') {
+		for (i = 0; i < ids.length; i++) {
+			if (ids[i] !== null && !isNaN(parseInt(ids[i]))) {
+				if (this.List == undefined) {
+					continue;
+				}
+				if (this.List[ids[i]] !== undefined) {
+					let data = this.List[ids[i]]
 					if (data !== undefined) {
 						rtn.push(data)
 					}
