@@ -306,7 +306,7 @@ $.addEventListener('DOMContentLoaded',function() {
 		} else {
 			this.className = this.className.replace('label-success','label-primary')
 		}
-		if ($.querySelector('#supplierForm').style.display !== 'none') {
+		if ($.querySelector('#supplierForm').style.display !== '') {
 			return false;
 		}		
 		$selected = $.querySelectorAll('#Labels .label-success:not(#label-all)')
