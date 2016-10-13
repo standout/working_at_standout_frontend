@@ -1,4 +1,185 @@
 {
-  "suppliers": [],
-  "labels": []
+  "suppliers": [
+    {
+      "name": "Koh Thai Restaurang AB",
+      "mail": "",
+      "phone": "",
+      "adress": "Västra Esplanaden 6",
+      "zipcode": "352 31",
+      "city": "Växjö",
+      "Labels": [
+        "1"
+      ],
+      "id": 1,
+      "LatLng": {
+        "lat": 56.87945190000001,
+        "lng": 14.801894599999969
+      }
+    },
+    {
+      "name": "ICA Supermarket Cityhallen",
+      "mail": "",
+      "phone": "",
+      "adress": "Sandgärdsgatan 8",
+      "zipcode": 35230,
+      "city": "Växjö",
+      "Labels": [
+        "2",
+        "3",
+        "5"
+      ],
+      "id": 2,
+      "LatLng": {
+        "lat": 56.8778006,
+        "lng": 14.80764679999993
+      }
+    },
+    {
+      "name": " Hemmakväll",
+      "mail": "",
+      "phone": "",
+      "adress": "Storgatan 33",
+      "zipcode": "352 30 ",
+      "city": "Växjö",
+      "Labels": [
+        "5"
+      ],
+      "id": 3,
+      "LatLng": {
+        "lat": 56.8790589,
+        "lng": 14.799936800000069
+      }
+    },
+    {
+      "name": " Ristorante Bella LANTERNA",
+      "mail": "",
+      "phone": "",
+      "adress": "Norra Järnvägsgatan 6A",
+      "zipcode": "352 33",
+      "city": "Växjö",
+      "Labels": [
+        "1"
+      ],
+      "id": 4,
+      "LatLng": {
+        "lat": 56.8770652,
+        "lng": 14.808896499999946
+      }
+    },
+    {
+      "name": " Filmstaden",
+      "mail": "",
+      "phone": 123456789,
+      "adress": "OXTORGET 10",
+      "zipcode": "352 32",
+      "city": "Växjö",
+      "Labels": [
+        "6"
+      ],
+      "id": 5,
+      "LatLng": {
+        "lat": 56.8788946,
+        "lng": 14.797828799999934
+      }
+    },
+    {
+      "name": " Systembolaget",
+      "mail": "",
+      "phone": 123456789,
+      "adress": "Storgatan 40",
+      "zipcode": "352 31",
+      "city": "Växjö",
+      "Labels": [
+        "2"
+      ],
+      "id": 6,
+      "LatLng": {
+        "lat": 56.879272,
+        "lng": 14.799635800000033
+      }
+    },
+    {
+      "name": " Grand Samarkand ",
+      "mail": "",
+      "phone": 987654321,
+      "adress": "Hejaregatan 32",
+      "zipcode": "352 46 ",
+      "city": "Växjö",
+      "Labels": [
+        "7"
+      ],
+      "id": 7,
+      "LatLng": {
+        "lat": 56.8845532,
+        "lng": 14.766420499999981
+      }
+    },
+    {
+      "name": " Länstrafiken Kronoberg",
+      "mail": "",
+      "phone": 456789,
+      "adress": "Norra Järnvägsgatan 11",
+      "zipcode": "352 30",
+      "city": "Växjö",
+      "Labels": [
+        "4"
+      ],
+      "id": 8,
+      "LatLng": {
+        "lat": 56.8768616,
+        "lng": 14.807015800000045
+      }
+    },
+    {
+      "name": " PLUG/VXO",
+      "mail": "",
+      "phone": 1234789,
+      "adress": "Sandgärdsgatan 24",
+      "zipcode": 35254,
+      "city": "Växjö",
+      "Labels": [
+        "2",
+        "8"
+      ],
+      "id": 9,
+      "LatLng": {
+        "lat": 56.8780501,
+        "lng": 14.804031699999996
+      }
+    }
+  ],
+  "labels": [
+    {
+      "name": "restaurang",
+      "id": 1
+    },
+    {
+      "name": "dryck",
+      "id": 2
+    },
+    {
+      "name": "mat",
+      "id": 3
+    },
+    {
+      "name": "resa",
+      "id": 4
+    },
+    {
+      "name": "godis",
+      "id": 5
+    },
+    {
+      "name": "bio",
+      "id": 6
+    },
+    {
+      "name": "köpcentrum",
+      "id": 7
+    },
+    {
+      "name": "café",
+      "id": 8
+    }
+  ]
 }

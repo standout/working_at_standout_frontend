@@ -83,6 +83,11 @@ Suppliers = {
 	name:'Suppliers',
 	List: [],
 	Data: {},
+	/* Create supplier and save it to backend
+	 * @param {Object} Supplier data
+	 * @param {Function} Optional - Override the default callback function
+	 * @return {none}
+	 */
 	create: function(Obj,Func) {
 		let Opts = {
 			Parent: this,
@@ -95,6 +100,10 @@ Suppliers = {
 		data = new Data(Opts)
 		return data.save()
 	},
+	/* Read all suppliers
+	 * @param {Function} Optional - Override the default callback function
+	 * @return {none}
+	 */	
 	read: function(Func) {
 		let Opts = {
 			Parent: this,
@@ -106,6 +115,12 @@ Suppliers = {
 		data = new Data(Opts)
 		data.read()
 	},
+	/* Update supplier
+	 * @param {Number} Id of supplier
+	 * @param {Object} Supplier data
+	 * @param {Function} Optional - Override the default callback function
+	 * @return {none}
+	 */		
 	update: function(id,Obj,Func) { 
 		if (this.Data[id] === undefined) {
 			return false
@@ -115,8 +130,12 @@ Suppliers = {
 			this.Data[id].callBack = Func
 		}
 		this.Data[id].update(Obj)
-		return this.Data[id].save()
+		this.Data[id].save()
 	},
+	/* Delete supplier
+	 * @param {number} The supplier id
+	 * @return {none}
+	 */
 	delete: function(id) {
 		if (this.Data[id] === undefined) {
 			return false
@@ -125,6 +144,10 @@ Suppliers = {
 		delete this.Data[id]
 		delete this.List[id]
 	},
+	/* Removes a label from all suppliers
+	 * @param {Number} The label id
+	 * @return {none}
+	 */
 	removeLabelFromSupplier: function(labelId) {
 		for (s = 0; s < Suppliers.List.length; s++) {
 			Supplier = Suppliers.List[s]
@@ -137,6 +160,9 @@ Suppliers = {
 			}
 		}
 	},
+	/* Populate the suppliers data from backend to this object
+	 * @param {Object} response object from XHR
+	 */
 	populate : function(Obj) {
 		var Rsp = Obj.Response
 		for (key in Rsp) {
@@ -150,6 +176,10 @@ Suppliers = {
 			Suppliers.Data[Rsp[key].id] = new Data(Opts)
 		}
 	},
+	/* Default save action for Suppliers 
+	 * @param {Object} response object from XHR
+	 * @return {None}
+	 */
 	callBackSave: function(Obj) {
 		Obj.Data.id = Obj.Response.id
 		Suppliers.Data[Obj.Response.id] = Obj.Data
@@ -166,10 +196,18 @@ Suppliers = {
  * @return none
  */
 function Data(Obj) {
+	// Data storage
 	this.Data = Obj.Data
+	// Which parent does this have
 	this.Parent = Obj.Parent
+	// Set the callback function for XHR
 	this.callBack = Obj.callBack
+	// Id of Label or Supplier
 	this.id = Obj.id || false
+	/* Reads data for selected data
+	 * @param {none}
+	 * @return {none}
+	 */
 	this.read = function() {
 		let Opts = {
 			url : '/'+this.Parent.name,
@@ -178,13 +216,25 @@ function Data(Obj) {
 		}
 		this.xhr(Opts)		
 	}
+	/* Updates data for selected data
+	 * @param {Object} Data that is going to be XHR to backend
+	 * @return {none}
+	 */	
 	this.update = function (data) {
 		this.Data = data
 	}
+	/* Deletes selected data
+	 * @param {none} 
+	 * @return {none}
+	 */		
 	this.delete = function() {
 		this.Data = undefined
 		this.save()
 	}
+	/* Is for POST / PUT / DELETE operations for data before doing the actuall XHR
+	 * @param {none} 
+	 * @return {none}
+	 */		
 	this.save = function() {
 		let Opts = {
 			url : '/'+this.Parent.name,
@@ -214,6 +264,10 @@ function Data(Obj) {
 		this.xhr(Opts)
 		return true;
 	}
+	/* Do the actuall XHR
+	 * @param {Object} XHR options
+	 * @return {none}
+	 */	
 	this.xhr = function(Opts) {
 		Parent = this
 		var xhr = new XMLHttpRequest();
@@ -234,9 +288,7 @@ function Data(Obj) {
 
 
 
-/* Functions - DRY */
-
-/* Get data from list 
+/* Get data from list, used in both Suppliers and Labels
  * @param {array} id's
  * @return {array} Array of Labels
  */  

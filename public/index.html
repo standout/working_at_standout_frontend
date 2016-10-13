@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Leverantörer</title>
+		<title>Suppliers</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">		
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
     	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
@@ -20,36 +20,36 @@
 					<div>
 						<div>
 							<span class="glyphicon glyphicon-plus addLabel" title="Lägg till etikett"></span> 
-							<h3>Etiketter</h3>
+							<h3>Labels</h3>
 						</div>
 						<form id="labelForm" class="form-inline labels-form">
-							<label for="name">Lägg till</label>
+							<label for="name">All</label>
 							<input type="text" name="name" class="form-control" required>
-							<button class="btn btn-default">Spara</button>
+							<button class="btn btn-default">Save</button>
 						</form>
 						<hr>
-						<div id="Labels"><span class="label label-success" id="label-all" title="Visa alla">Alla</span></div>
+						<div id="Labels"><span class="label label-success" id="label-all" title="Visa alla">All</span></div>
 					</div>
 					<hr>
 					<div>
 						<div>
 							<span class="glyphicon glyphicon-plus addSupplier" title="Lägg till leverantör"></span>
-							<h3>Leverantörer</h3>
+							<h3>Suppliers</h3>
 						</div>
 						<form id="supplierForm" class="form-horizontal">
-							<label for="name">Namn</label>
+							<label for="name">Name</label>
 							<input type="text" name="name" class="form-control" required>
-							<label for="mail">E-post</label>
+							<label for="mail">Mail</label>
 							<input type="text" name="mail" class="form-control" required>							
-							<label for="phone">Telefonnummer</label>
+							<label for="phone">Phone</label>
 							<input type="text" name="phone" class="form-control" required>
 							<label for="adress">Address</label>
 							<input type="text" name="adress" class="form-control" required>
-							<label for="zipcode">Postnr</label>
+							<label for="zipcode">Zip-code</label>
 							<input type="text" name="zipcode" class="form-control" required>
-							<label for="city">Ort</label>
+							<label for="city">City</label>
 							<input type="text" name="city" class="form-control" required>
-							<button type="submit" class="btn btn-default">Spara</button>
+							<button type="submit" class="btn btn-default">Save</button>
 						</form>
 					</div>
 					<hr>
@@ -57,9 +57,9 @@
 						<thead>
 							<tr>
 								<td>#</td>
-								<td>Namn</td>
-								<td>Tfn</td>
-								<td>Etikett</td>
+								<td>Name</td>
+								<td>Phone</td>
+								<td>Labels</td>
 								<td></td>
 							</tr>
 						</thead>

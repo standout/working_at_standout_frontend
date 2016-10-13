@@ -5,6 +5,7 @@ var $ = document
 
 var Markers = {}
 
+
 // Predefined vars
 var currSelectedLabel = []
 
@@ -16,12 +17,17 @@ $.addEventListener('DOMContentLoaded',function() {
 	/* Init map */
 	map = new google.maps.Map($.getElementById('map'), {
 		center: {lat: 56.878510, lng: 14.803956},
-		zoom: 12,
+		zoom: 12 ,
 		mapTypeControl: 'terrain',
 		zoomControl: true,
 		streetViewControl: false
 	});
-
+	// Add default marker
+	Markers['you'] = new google.maps.Marker({
+		position: {lat: 56.878510, lng: 14.803956},
+		title: "You",
+		map: map,
+	})
 	// Start load Labels, Suppliers has dependencies to Labels
 	Labels.read(function(Obj) {
 		Labels.populate(Obj)
@@ -45,6 +51,7 @@ $.addEventListener('DOMContentLoaded',function() {
 	 				})
 	 			}
 	 		}
+ 			ViewallMarkers()
 		})	
 	})
 	/* All the crazy bindings */ 
@@ -340,7 +347,10 @@ $.addEventListener('DOMContentLoaded',function() {
 
 /* Small sweet helper functions :) */
 
-/* Add Label to html */
+/* Add label to table 
+ * @param {Object} Which label to add to HTML
+ * @return {none}
+ */
 function addLabelHtml(Label) {
 	placeholder = $.querySelector('#Labels')
 	span = $.createElement('span');
@@ -366,7 +376,10 @@ function addLabelHtml(Label) {
 	placeholder.appendChild(span)
 }
 
-/* Add supplier to table */
+/* Add supplier to table 
+ * @param {Object} Which Supplier to add to HTML
+ * @return {none}
+ */
 function addSupplierHtml(Supplier) {
 	tr = $.createElement('tr')
 	tr.setAttribute('data-id',Supplier.id)
@@ -474,6 +487,7 @@ function storeSelectedLabels() {
  * @return {object} Lat and lng in an obj suited for google Maps
  */
 function saveLatLng(Supplier) {
+	let address = Supplier.adress +", "+Supplier.zipcode +" "+Supplier.city
 	geocoder.geocode({address:address},function(results, status) {
 	 	if (status == google.maps.GeocoderStatus.OK) {
 			Supplier['LatLng'] = {
@@ -486,9 +500,24 @@ function saveLatLng(Supplier) {
 					title: Supplier.name,
 					map: map,
 					label: {text:String(Supplier.id)}
-			})			
+			})
+			ViewallMarkers()		
 		}
 	})
+}
+
+/* Zoom the map so all markers fit
+ * @param {none}
+ * @return {none}
+ */
+function ViewallMarkers() {
+	let bounds = new google.maps.LatLngBounds();
+	for (key in Markers) {
+		Mark = Markers[key]
+		position = new google.maps.LatLng(Mark.position.lat(),Mark.position.lng());
+		bounds.extend(position)
+	}
+	map.fitBounds(bounds);
 }
 
 /* Live event handling - Thanks to http://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript */
@@ -507,3 +536,5 @@ function live (eventType, elementQuerySelector, cb) {
 		}
 	});
 }
+
+
