@@ -299,12 +299,16 @@ $.addEventListener('DOMContentLoaded',function() {
 
 	/* Select Labels click event */
 	live('click','#Labels .label:not(#label-all)',function(event) {
+
 		currClass = this.className.replace(/ label/g,'');
 		if (currClass === 'label-primary' ) {
 			this.className = this.className.replace('label-primary','label-success')
 		} else {
 			this.className = this.className.replace('label-success','label-primary')
 		}
+		if ($.querySelector('#supplierForm').style.display !== 'none') {
+			return false;
+		}		
 		$selected = $.querySelectorAll('#Labels .label-success:not(#label-all)')
 		$labelAll = $.querySelector('#label-all')
 		if ($selected.length > 0) {
