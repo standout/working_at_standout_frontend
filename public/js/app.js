@@ -51,10 +51,14 @@ var Labels = {
 			return false
 		}
 	},
-	delete: function(id) {
+	delete: function(id,Func) {
 		if (this.Data[id] === undefined) {
 			return false
 		}
+		this.Data[id].callBack = function() {}
+		if (typeof(Func) == 'function') {
+			this.Data[id].callBack = Func
+		}			
 		this.Data[id].delete()
 		Suppliers.removeLabelFromSupplier(id)
 		delete this.Data[id]
@@ -139,13 +143,17 @@ var Suppliers = {
 	},
 	/* Delete supplier
 	 * @param {number} The supplier id
+	 * @param {function} Optional callback
 	 * @return {none}
 	 */
-	delete: function(id) {
+	delete: function(id,Func) {
 		if (this.Data[id] === undefined) {
 			return false
 		}
-		this.Data[id].callBack = undefined
+		this.Data[id].callBack = function() {}
+		if (typeof(Func) == 'function') {
+			this.Data[id].callBack = Func
+		}
 		this.Data[id].delete()
 		delete this.Data[id]
 		delete this.List[id]
@@ -262,7 +270,6 @@ function Data(Obj) {
 			// We have id and empty data, send delete
 			Opts.url += '/'+this.id
 			Opts.method = 'DELETE'
-			Opts.callBack = function() {}
 		}
 		if (Opts.method === undefined) {
 			return false

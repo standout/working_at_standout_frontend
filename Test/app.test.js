@@ -7,6 +7,8 @@ server.listen(3001, function () {
   console.log('JSON Server is running on port 3001')
 })
 
+var Hold = false
+
 var assert = require('assert')
 var app = require('../public/js/app')
 describe('Supplier App',function() {
@@ -63,6 +65,7 @@ describe('Supplier App',function() {
 			assert.equal(true,app.Labels.create('Test4'))
 		})
 		it ('Labels.get() should return entries with values ["test","test1","test2","test3","test4"]',function(done) {
+			Hold = true
 			app.Labels.read(function(Obj) {
 				app.Labels.populate(Obj)
 				assert.deepEqual([,"test","test1","test2","test3","test4"],app.Labels.get())
@@ -71,13 +74,21 @@ describe('Supplier App',function() {
 			})
 		})
 		it ('Labels.delete() multiple times until empty',function(done) {
+			var Finished = done
+
 			app.Labels.delete(1)
 			app.Labels.delete(2)
 			app.Labels.delete(3)
 			app.Labels.delete(4)
-			app.Labels.delete(5)
+			app.Labels.delete(5) 
+			
+			setTimeout(function() { 
+				// Ugly hack but wait until XHR of delete is completed
+				done() 
+			},100)
+
+
 			assert.deepEqual([],app.Labels.get())
-			done()
 		})
 	})
 	describe('Suppliers',function() {
