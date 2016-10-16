@@ -1,7 +1,12 @@
-/* Objects */
+"use strict"
 
+// Set baseURL, by default use empty string
+var baseURL = ''
+
+/* Objects */
 /* Labels Object */
-Labels = {
+
+var Labels = {
 	name:'Labels',
 	List: [],
 	Data: {},
@@ -16,7 +21,7 @@ Labels = {
 			if (typeof(Func) === 'function') {
 				Opts.callBack = Func
 			}
-			data = new Data(Opts)
+			let data = new Data(Opts)
 			return data.save()
 		} else {
 			return false;
@@ -30,7 +35,7 @@ Labels = {
 		if (typeof(Func) === 'function') {
 			Opts.callBack = Func
 		}
-		data = new Data(Opts)
+		let data = new Data(Opts)
 		data.read()
 	},
 	update: function(id,label) {
@@ -57,7 +62,7 @@ Labels = {
 	},
 	populate : function(Obj) {
 		var Rsp = Obj.Response
-		for (key in Rsp) {
+		for (let key in Rsp) {
 			Labels.List[Rsp[key].id] = Rsp[key].name
 			let Opts = {
 				id: Rsp[key].id,
@@ -79,7 +84,7 @@ Labels = {
 }
 
 /* Suppliers Object */
-Suppliers = {
+var Suppliers = {
 	name:'Suppliers',
 	List: [],
 	Data: {},
@@ -97,7 +102,7 @@ Suppliers = {
 		if (typeof(Func) === 'function') {
 			Opts.callBack = Func
 		}
-		data = new Data(Opts)
+		let data = new Data(Opts)
 		return data.save()
 	},
 	/* Read all suppliers
@@ -112,7 +117,7 @@ Suppliers = {
 		if (typeof(Func) === 'function') {
 			Opts.callBack = Func
 		}
-		data = new Data(Opts)
+		let data = new Data(Opts)
 		data.read()
 	},
 	/* Update supplier
@@ -140,6 +145,7 @@ Suppliers = {
 		if (this.Data[id] === undefined) {
 			return false
 		}
+		this.Data[id].callBack = undefined
 		this.Data[id].delete()
 		delete this.Data[id]
 		delete this.List[id]
@@ -149,10 +155,10 @@ Suppliers = {
 	 * @return {none}
 	 */
 	removeLabelFromSupplier: function(labelId) {
-		for (s = 0; s < Suppliers.List.length; s++) {
+		for (let s = 0; s < Suppliers.List.length; s++) {
 			Supplier = Suppliers.List[s]
 			if (Supplier !== undefined) {
-				haveLabel = Supplier['Labels'].indexOf(labelId)
+				let haveLabel = Supplier['Labels'].indexOf(labelId)
 				if (haveLabel > -1 ) {
 					Supplier.Labels.splice(haveLabel,1)
 					Suppliers.update(Supplier['id'],Supplier)
@@ -164,8 +170,8 @@ Suppliers = {
 	 * @param {Object} response object from XHR
 	 */
 	populate : function(Obj) {
-		var Rsp = Obj.Response
-		for (key in Rsp) {
+		let Rsp = Obj.Response
+		for (let key in Rsp) {
 			Suppliers.List[Rsp[key].id] = Rsp[key]
 			let Opts = {
 				id: Rsp[key].id,
@@ -269,16 +275,17 @@ function Data(Obj) {
 	 * @return {none}
 	 */	
 	this.xhr = function(Opts) {
-		Parent = this
-		var xhr = new XMLHttpRequest();
-		xhr.open(Opts.method, Opts.url);
+		let Parent = this
+		let xhr = new XMLHttpRequest();
+		xhr.open(Opts.method, baseURL + Opts.url);
 		xhr.setRequestHeader('Content-Type', 'application/json');
     	xhr.onprogress = function () {
         	// IE must die
     	}		
 		xhr.onload = function() {
 			if (xhr.status >= 200 && xhr.status <= 299) {
-				Rsp = JSON.parse(xhr.responseText)
+				let Rsp = JSON.parse(xhr.responseText)
+
 				Opts.callBack({Response: Rsp ,Data: Parent})
 			}
 		}
@@ -293,13 +300,13 @@ function Data(Obj) {
  * @return {array} Array of Labels
  */  
 function getData(ids) {
-	var rtn = []
+	let rtn = []
 	if (ids == undefined) {
 		return this.List
 	}
 
 	if (typeof(ids) === 'object') {
-		for (i = 0; i < ids.length; i++) {
+		for (var i = 0; i < ids.length; i++) {
 			if (ids[i] !== null && !isNaN(parseInt(ids[i]))) {
 				if (this.List == undefined) {
 					continue;
@@ -316,3 +323,10 @@ function getData(ids) {
 	return rtn
 }
 
+// For testing only, run if we don't have a document else ignore it.
+if(typeof(document) === 'undefined') {
+	var XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
+	module.exports = {'Labels' : Labels,'Suppliers':Suppliers}
+	// Override default url
+	baseURL = 'http://localhost:3001'
+}

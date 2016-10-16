@@ -273,6 +273,7 @@ $.addEventListener('DOMContentLoaded',function() {
 		supplierId = this.parentElement.parentElement.getAttribute('data-id')
 		Markers[supplierId].setMap(null)
 		delete Markers[supplierId]
+		ViewallMarkers()		
 		this.parentElement.parentElement.remove()
 		Suppliers.delete(supplierId)
 	});
@@ -540,5 +541,3 @@ function live (eventType, elementQuerySelector, cb) {
 		}
 	});
 }
-
-
