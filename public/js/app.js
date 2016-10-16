@@ -164,8 +164,8 @@ var Suppliers = {
 	 */
 	removeLabelFromSupplier: function(labelId) {
 		for (let s = 0; s < Suppliers.List.length; s++) {
-			Supplier = Suppliers.List[s]
-			if (Supplier !== undefined) {
+			if (Suppliers.List[s] !== undefined) {
+				let Supplier = Suppliers.List[s]
 				let haveLabel = Supplier['Labels'].indexOf(labelId)
 				if (haveLabel > -1 ) {
 					Supplier.Labels.splice(haveLabel,1)
