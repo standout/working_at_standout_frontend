@@ -1,0 +1,120 @@
+/* Populate proper height for both cols and need elm's*/
+html, body,.container-fluid, .row, .row > div, #map {
+	height:100%;
+}
+
+h3 {
+	font-weight: bold;
+	display: inline-block;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.left-border {
+	border-left: 2px solid #a59e9e;
+	background-color: #f8fbff;
+}
+
+#Labels {
+	width: 100%;
+	word-wrap: break-word;
+	min-height: 60px
+}
+
+#Labels .label:first-letter  {
+	text-transform: uppercase;
+}
+
+#Labels .label {
+	margin: .3em 0.3em;;
+	padding: .3em .7em 0.4em;
+	display: inline-table;
+	text-transform: capitalize;
+}
+
+#Suppliers .label {
+	margin: .3em 0.3em;;
+	padding: .3em .7em 0.4em;
+	display: inline-block;
+	text-transform: capitalize;
+}
+
+.no-select {
+	-webkit-touch-callout: none; 
+	-webkit-user-select: none;   
+	-khtml-user-select: none;    
+	-moz-user-select: none;      
+	-ms-user-select: none;       
+	user-select: none; 
+	overflow: hidden;
+}
+
+div.col-md-3 {
+	overflow-y: auto
+}
+
+
+
+
+#Labels span, .glyphicon {
+	cursor: pointer;
+	display: inline-block;	
+}
+
+#Labels span > .glyphicon {
+	margin: 0 0 0 0.4em;
+	top: 0.15em;
+	position: relative;
+}
+
+.labels-form {
+	box-sizing: border-box;
+	margin: 0.6em 1em 0.6em 0.6em;
+	padding: 0.4em;
+	overflow: hidden;
+
+}
+
+.labels-form h4 {
+	display: inline;
+}
+
+.labels-form {
+	display: none;
+}
+
+#Labels #label-all {
+	padding: 0.4em .7em .38em;
+}
+
+#supplierForm {
+	display: none;
+	width: 90%;
+}
+
+#Suppliers {
+	overflow: hidden;
+	border-spacing: 0;
+}
+
+#Suppliers {
+	width: 100%;
+	border-spacing: 0;
+}
+
+#Suppliers tbody > tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+#Suppliers tbody > tr:nth-child(even) {
+	background-color: #f3f3f3;
+}
+
+#Suppliers tbody > tr:hover {
+	background-color: #eff4ff;
+}
+
+#supplierForm button {
+	margin: 0.9em 0 0 0;
+}
