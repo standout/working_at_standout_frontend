@@ -153,6 +153,7 @@ var app = new Proxy({}, {
 
 // React when inserting or removing suppliers
 function interceptSupplierList(suppliers) {
+	var supplierContainer = document.getElementById('supplierContainer');
 	return new Proxy(suppliers, {
 		set: function (target, property, value) {
 			value.selected = false; // Set default value
@@ -165,6 +166,7 @@ function interceptSupplierList(suppliers) {
 				Reflect.set(target, property, value);
 				clearMapMarker(target[property])
 					.then(addMapMarker(value));
+				supplierContainer.insertBefore(createSupplierElement(property), supplierContainer.firstChild);
 			}
 			return Reflect.set(target, property, value);
 		},
@@ -175,6 +177,7 @@ function interceptSupplierList(suppliers) {
 				request('DELETE', 'http://localhost:3000/suppliers/' + supplier.id);
 			}
 			clearMapMarker(supplier);
+			supplierContainer.removeChild(supplier.element);
 			return Reflect.deleteProperty(target, property);
 		}
 	});
@@ -196,8 +199,10 @@ function interceptSupplier(supplier) {
 			}
 			if (property == 'selected') {
 				if (value) {
+					target.element.classList.add('supplierSelected');
 					target.marker.setAnimation(google.maps.Animation.BOUNCE);
 				} else {
+					target.element.classList.remove('supplierSelected');
 					target.marker.setAnimation(null);
 				}
 
@@ -214,4 +219,36 @@ function interceptSupplier(supplier) {
 			}
 		}
 	});
+}
+
+// Wrappers
+function createSupplierElement(property) {
+	// Todo insert adjacent HTML
+	var div = document.createElement('div');
+	var br1 = document.createElement('br');
+	var button = document.createElement('button');
+
+	div.appendChild(br1);
+	div.appendChild(button);
+	button.appendChild(document.createTextNode('✖'));
+
+	waitForSupplierList.then(function (supplierList) {
+		var supplier = supplierList[property];
+		var name = document.createTextNode(supplier.name);
+		var location = document.createTextNode(supplier.location);
+
+		div.insertBefore(name, br1);
+		div.insertBefore(location, button);
+
+		div.addEventListener('click', function () {
+			supplier.selected = !supplier.selected; // Toggle selected state
+		});
+
+		button.addEventListener('click', function () {
+			delete supplierList[property];
+		});
+
+		supplier.element = div;
+	});
+	return div;
 }
