@@ -32,3 +32,20 @@ function putSupplier(supplier) {
 function requestSuppliers() {
 	return requestJSON('http://localhost:3000/suppliers');
 }
+
+var initMap;
+var waitForMapsApi = new Promise(function (resolve) {
+	initMap = resolve;
+});
+
+var mapsApiLoaded = waitForMapsApi
+	.then(function () {
+		return new Promise(function (resolve) {
+			resolve(new google.maps.Map(document.getElementById('map'), {
+				center: { lat: 56.88, lng: 14.76 },
+				zoom: 11,
+				mapTypeId: 'terrain'
+			}));
+		});
+
+	});
