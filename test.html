@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1.0">
+	<meta charset=utf-8 />
+	<title></title>
+	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="test/custom.css" />
+	<script type="text/javascript" src="script/app.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.1.2/mocha.css" />
+	<script type="text/javascript" src="test/mocha.js"></script>
+  <script data-main="test/test" src="script/require.js"></script>
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="appContainer">
+    <div id="map"></div>
+    <div id="sideContainer">
+      <form id="supplierNew">
+        <fieldset>
+          <legend>Ny leverantör</legend>
+          <label for="supplierNewName">Namn: </label>
+          <input required type="text" name="supplierName" value="" id="supplierNewName"><br>
+          <label for="newSupplierLocation">Adress: </label>
+          <input required type="text" name="supplierLocation" value="" id="supplierNewLocation">
+          <button type="submit" name="button" id="buttonSubmit">Lägg till</button>
+        </fieldset>
+      </form>
+      <div id="category">
+        <select id="categorySelector">
+          <option value="none">Ingen kategori</option>
+          <option value="dairy">Mejeri</option>
+          <option value="meat">Kött</option>
+          <option value="fish">Fisk</option>
+          <option value="bread">Bröd</option>
+          <option value="household">Hushåll</option>
+        </select>
+      </div>
+      <div id="supplierContainer"></div>
+      <div id="direction">
+        <input type="checkbox" name="name" id="directionsToggle" value="">
+        <label for="directionsToggle">Visa kortaste vägen till valda leverantörer</label>
+      </div>
+    </div>
+  </div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXKmd-og0xD1pQSGrmEeIvQ8iL-p4KZMk&language=sv&callback=initMap"
+  async defer></script>
+</body>
+</html>
