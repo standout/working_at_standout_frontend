@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		.then(function (suppliers) {
 			app.supplierList = suppliers;
 			setupSupplierForm();
+			setupDirectionsToggle();
 		});
 });
 
@@ -329,4 +330,47 @@ function setupSupplierForm() {
 				buttonSubmit.disabled = true;
 			});
 	}
+}
+
+function setupDirectionsToggle() {
+	var directionsToggle = document.getElementById('directionsToggle');
+	var directions;
+
+	directionsToggle.addEventListener('change', function (event) {
+		if (event.target.checked) {
+			directions = selectedDirections();
+			directions.then(function () {
+				hideSupplierMarkers();
+			});
+		} else {
+			directions.then(function (directionsRenderer) {
+				directionsRenderer.setMap(null);
+			});
+			showSupplierMarkers();
+		}
+	});
+}
+
+function selectedDirections() {
+	var locations = [];
+	app.supplierList.forEach(function (supplier) {
+		if (supplier.selected) {
+			locations.push({ location: supplier.location });
+		}
+	});
+	return direct(locations);
+}
+
+function hideSupplierMarkers() {
+	app.supplierList.forEach(function (supplier) {
+		supplier.marker.setMap(null);
+	});
+}
+
+function showSupplierMarkers() {
+	mapsApiLoaded.then(function (map) {
+		app.supplierList.forEach(function (supplier) {
+			supplier.marker.setMap(map);
+		});
+	});
 }
