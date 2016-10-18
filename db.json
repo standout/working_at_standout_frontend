@@ -1,14 +1,80 @@
 {
   "suppliers": [
     {
-      "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
+      "name": "Kosterfiskarn",
+      "location": "Kopparv. 11 363 30 ROTTNE",
+      "latitude": 57.017608,
+      "longitude": 14.894681900000023,
+      "categories": [
+        "fish"
+      ],
+      "id": 1
     },
     {
-      "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
+      "name": "Tvätt-Lina",
+      "location": "Regementsg. 9, 352 36 VÄXJÖ",
+      "latitude": 56.8769419,
+      "longitude": 14.791349999999966,
+      "categories": [
+        "household"
+      ],
+      "id": 2
+    },
+    {
+      "name": "Bondens Butik",
+      "location": "Sandgärdsg. 1, 352 33 VÄXJÖ",
+      "latitude": 56.8774561,
+      "longitude": 14.810608300000013,
+      "categories": [
+        "dairy",
+        "meat"
+      ],
+      "id": 3
+    },
+    {
+      "name": "Trensums Food AB",
+      "location": "Storg. 37 362 30 TINGSRYD",
+      "latitude": 56.5273707,
+      "longitude": 14.972285599999964,
+      "selected": false,
+      "id": 4
+    },
+    {
+      "name": "Växjöbagarn",
+      "location": "Storg. 71, 352 36 VÄXJÖ",
+      "latitude": 56.8786237,
+      "longitude": 14.786137599999961,
+      "categories": [
+        "bread"
+      ],
+      "id": 5
+    },
+    {
+      "name": "Majsbågar D & G AB",
+      "location": "Måleråsv. 25, 360 76 ÄLGHULT",
+      "latitude": 57.0032401,
+      "longitude": 15.580179000000044,
+      "categories": [],
+      "id": 6
+    },
+    {
+      "name": "Odensjö Delikatesser",
+      "location": "Odensjö Storegård 1, 340 32 GRIMSLÖV",
+      "latitude": 56.73504,
+      "longitude": 14.539850000000001,
+      "categories": [
+        "dairy",
+        "meat"
+      ],
+      "id": 7
+    },
+    {
+      "name": "Bluefish Seafood",
+      "location": "Skåneg. 10 341 31 LJUNGBY",
+      "latitude": 56.8314967,
+      "longitude": 13.936500499999966,
+      "selected": false,
+      "id": 8
     }
   ]
 }
