@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	requestSuppliers()
 		.then(function (suppliers) {
 			app.supplierList = suppliers;
+			setupSupplierForm();
 		});
 });
 
@@ -268,3 +269,64 @@ var onceThisTime = (function () {
 		timeoutHandle = setTimeout(callback, milliseconds);
 	};
 })();
+
+function setupSupplierForm() {
+	var formSupplierNew = document.getElementById('supplierNew');
+	var inputName = document.getElementById('supplierNewName');
+	var inputLocation = document.getElementById('supplierNewLocation');
+	var buttonSubmit = document.getElementById('buttonSubmit');
+
+	var temporaryMarker;
+
+	inputLocation.addEventListener('input', function () {
+		onceThisTime(locationInputListener, 1000);
+	});
+
+	buttonSubmit.disabled = true;
+	formSupplierNew.addEventListener('submit', function (event) {
+
+		var supplierName = inputName.value;
+		var location = inputLocation.value;
+		var lat = temporaryMarker.position.lat();
+		var lng = temporaryMarker.position.lng();
+
+		app.supplierList.push({
+			'name': supplierName,
+			'location': location,
+			'latitude': lat,
+			'longitude': lng
+		});
+
+		temporaryMarker.setMap(null);
+		formSupplierNew.reset();
+		event.preventDefault();
+	});
+
+	function locationInputListener() {
+		buttonSubmit.disabled = true;
+		geocodeAddress(inputLocation.value)
+			.then(function (result) {
+				inputLocation.setCustomValidity(''); // Set as valid
+
+				mapsApiLoaded.then(function (map) {
+					if (temporaryMarker) { temporaryMarker.setMap(null); }
+
+					//Place marker
+					temporaryMarker = new google.maps.Marker({
+						map: map,
+						position: result.geometry.location,
+						animation: google.maps.Animation.BOUNCE
+					});
+
+					map.setCenter(temporaryMarker.position);
+					buttonSubmit.disabled = false;
+				});
+			})
+			.catch(function (status) {
+				inputLocation.setCustomValidity(status);
+				buttonSubmit.disabled = false;
+				buttonSubmit.click(); // To force validation check
+				buttonSubmit.disabled = true;
+			});
+	}
+}
