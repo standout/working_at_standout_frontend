@@ -106,3 +106,27 @@ function geocodeAddress(address) {
 		});
 	});
 }
+
+function addMapMarker(supplier) {
+	return mapsApiLoaded.then(function (map) {
+		// Create marker on map and store reference
+		supplier.marker = new google.maps.Marker({
+			map: map,
+			title: supplier.name,
+			position: { lat: supplier.latitude, lng: supplier.longitude }
+		});
+
+		supplier.marker.addListener('click', function () {
+			supplier.selected = !supplier.selected;
+		});
+	});
+}
+
+function clearMapMarker(oldSupplier) {
+	// Clear existing marker from
+	return mapsApiLoaded.then(function () {
+		if (oldSupplier && oldSupplier.marker) {
+			oldSupplier.marker.setMap(null);
+		}
+	});
+}
