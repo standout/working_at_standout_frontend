@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			app.supplierList = suppliers;
 			setupSupplierForm();
 			setupDirectionsToggle();
+			setupCategorySelector();
 		});
 });
 
@@ -170,7 +171,7 @@ function interceptSupplierList(suppliers) {
 				if (!value.id) { // No database id
 					postSupplier(value);
 				}
-				if(!value.categories) { value.categories = []; }
+				if (!value.categories) { value.categories = []; }
 				value = interceptSupplier(value);
 				Reflect.set(target, property, value);
 				clearMapMarker(target[property])
@@ -207,6 +208,7 @@ function interceptSupplier(supplier) {
 					});
 			}
 			if (property == 'selected') {
+				categoryAssigner(target, value);
 				if (value) {
 					target.element.classList.add('supplierSelected');
 					target.marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -373,4 +375,36 @@ function showSupplierMarkers() {
 			supplier.marker.setMap(map);
 		});
 	});
+}
+
+var categorySelector;
+
+function setupCategorySelector() {
+	categorySelector = document.getElementById('categorySelector');
+	categorySelector.addEventListener('change', function (event) {
+		app.supplierList.forEach(function (element) {
+			var index = element.categories.indexOf(event.target.value);
+			if (index >= 0) {
+				element.selected = true;
+			} else {
+				element.selected = false;
+			}
+		});
+	});
+}
+
+function categoryAssigner(target, add) {
+	var selectionValue = categorySelector.value;
+	if (selectionValue == 'none') { return; }
+
+	var categoryIndex = target.categories.indexOf(selectionValue);
+	var found = categoryIndex >= 0;
+	var jsonSupplier = jsonFilterSupplier(target);
+	if (add && !found) {
+		target.categories.push(selectionValue);
+		putSupplier(jsonSupplier);
+	} else if (!add && found) {
+		target.categories.splice(categoryIndex, 1);
+		putSupplier(jsonSupplier);
+	}
 }
