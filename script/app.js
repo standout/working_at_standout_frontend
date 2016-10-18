@@ -1,3 +1,10 @@
+document.addEventListener("DOMContentLoaded", function () {
+	requestSuppliers()
+		.then(function (suppliers) {
+			app.supplierList = suppliers;
+		});
+});
+
 // Network request methods
 
 function request(method, url, optionalJson) {
