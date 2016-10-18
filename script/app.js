@@ -61,3 +61,28 @@ var mapsApiLoaded = waitForMapsApi
 		});
 
 	});
+
+function direct(locations) {
+	return mapsApiLoaded
+		.then(function (map) {
+			var directionsService = new google.maps.DirectionsService();
+			var start = 'Växjö, Skiftesvägen 33';
+			return new Promise(function (resolve) {
+				directionsService.route({
+					origin: start,
+					destination: start,
+					travelMode: 'DRIVING',
+					waypoints: locations,
+					optimizeWaypoints: true,
+					region: 'sv'
+				}, function (response, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+						var directionsRenderer = new google.maps.DirectionsRenderer();
+						directionsRenderer.setMap(map);
+						directionsRenderer.setDirections(response);
+						resolve(directionsRenderer);
+					}
+				});
+			});
+		});
+}
