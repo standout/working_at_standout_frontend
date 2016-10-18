@@ -21,6 +21,10 @@ function requestJSON(url) {
 		});
 }
 
+function requestSuppliers() {
+	return requestJSON('http://localhost:3000/suppliers');
+}
+
 function postSupplier(supplier) {
 	request('POST', 'http://localhost:3000/suppliers', supplier);
 }
@@ -29,8 +33,16 @@ function putSupplier(supplier) {
 	request('PUT', 'http://localhost:3000/suppliers/' + supplier.id, supplier);
 }
 
-function requestSuppliers() {
-	return requestJSON('http://localhost:3000/suppliers');
+function jsonFilterSupplier(supplier) {
+	var filteredJson = {
+		name: supplier.name,
+		location: supplier.location,
+		latitude: supplier.latitude,
+		longitude: supplier.longitude,
+		categories: supplier.categories
+	};
+	if (supplier.id) { filteredJson.id = supplier.id; }
+	return filteredJson;
 }
 
 var initMap;
