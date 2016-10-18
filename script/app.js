@@ -35,12 +35,14 @@ function requestSuppliers() {
 	return requestJSON('http://localhost:3000/suppliers');
 }
 
-function postSupplier(supplier) {
-	request('POST', 'http://localhost:3000/suppliers', supplier);
-}
-
-function putSupplier(supplier) {
-	request('PUT', 'http://localhost:3000/suppliers/' + supplier.id, supplier);
+function storeSupplier(supplier) {
+	var method = 'POST';
+	var destination = 'http://localhost:3000/suppliers';
+	if (supplier.id) {
+		destination += '/' + supplier.id;
+		method = 'PUT';
+	}
+	request(method, destination, supplier);
 }
 
 function jsonFilterSupplier(supplier) {
@@ -169,7 +171,7 @@ function interceptSupplierList(suppliers) {
 			value.selected = false; // Set default value
 			if (property >= 0) {
 				if (!value.id) { // No database id
-					postSupplier(value);
+					storeSupplier(value);
 				}
 				if (!value.categories) { value.categories = []; }
 				value = interceptSupplier(value);
@@ -402,9 +404,9 @@ function categoryAssigner(target, add) {
 	var jsonSupplier = jsonFilterSupplier(target);
 	if (add && !found) {
 		target.categories.push(selectionValue);
-		putSupplier(jsonSupplier);
+		storeSupplier(jsonSupplier);
 	} else if (!add && found) {
 		target.categories.splice(categoryIndex, 1);
-		putSupplier(jsonSupplier);
+		storeSupplier(jsonSupplier);
 	}
 }
