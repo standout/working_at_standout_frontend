@@ -86,3 +86,23 @@ function direct(locations) {
 			});
 		});
 }
+
+function geocodeAddress(address) {
+	return mapsApiLoaded.then(function () {
+		var geocoder = new google.maps.Geocoder();
+		return new Promise(function (resolve, reject) {
+			geocoder.geocode({ 'address': address },
+				function (results, status) {
+					if (status == 'OK' && results.length == 1) {
+						resolve(results[0]);
+					} else if (status == 'OK' && results.length >= 1) {
+						reject('Flera platser hittades, var god specificera närmare');
+					} else if (status == 'ZERO_RESULTS') {
+						reject('Ingen plats med den beskrivningen hittades');
+					} else {
+						resolve(status);
+					}
+				});
+		});
+	});
+}
