@@ -25,13 +25,18 @@ html, body
 {
   height: 3em;
   padding: 0 0.5em;
+  margin-left: 0.75em;
 }
 
-#category { text-align: center; }
+#category
+{
+  text-align: center;
+  height: 1.5em;
+}
 
 #supplierContainer
 {
-  height: calc(100% - 10em);
+  height: calc(100% - 11.3em);
   overflow-y: auto;
 }
 
