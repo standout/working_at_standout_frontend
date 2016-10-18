@@ -3,9 +3,89 @@ html, body
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #map
 {
   height: 100%;
+  width: calc(100% - 24em);
+  display: inline-block;
+}
+
+#sideContainer
+{
+  height: 100%;
+  width: 24em;
+  float: right;
+  background-color: #ECFDE4;
+}
+
+#direction
+{
+  height: 3em;
+  padding: 0 0.5em;
+}
+
+#category { text-align: center; }
+
+#supplierContainer
+{
+  height: calc(100% - 10em);
+  overflow-y: auto;
+}
+
+#supplierContainer > div
+{
+  background-color: #DEFBD0;
+  border-radius: 0.31em;
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  cursor: default;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+#supplierContainer div:first-child
+{
+  margin-top: 0.75em;
+}
+
+#supplierContainer > div button
+{
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  border-radius: 1em;
+}
+
+#supplierNew
+{
+  padding: 0.5em;
+  margin: 0.5em;
+  margin-bottom: 0;
+  height: 6em;
+}
+
+#supplierNew label
+{
+  display: inline-block;
+  width: 3.5em;
+}
+
+#supplierNew label, #supplierNew input, #buttonSubmit
+{
+  margin: 2px;
+}
+
+.supplierSelected
+{
+  background-color: #BEF3A5 !important;
 }

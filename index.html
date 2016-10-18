@@ -9,16 +9,37 @@
 </head>
 <body>
   <div id="map"></div>
+  <div id="sideContainer">
+    <form id="supplierNew">
+      <fieldset>
+        <legend>Ny leverantör</legend>
+        <label for="supplierNewName">Namn: </label>
+        <input required type="text" name="supplierName" value="" id="supplierNewName"><br>
+        <label for="newSupplierLocation">Adress: </label>
+        <input required type="text" name="supplierLocation" value="" id="supplierNewLocation">
+        <button type="submit" name="button" id="buttonSubmit">Lägg till</button>
+      </fieldset>
+    </form>
+    <div id="category">
+      <select id="categorySelector">
+        <option value="none">Ingen kategori</option>
+        <option value="dairy">Mejeri</option>
+        <option value="meat">Kött</option>
+        <option value="fish">Fisk</option>
+        <option value="bread">Bröd</option>
+        <option value="household">Hushåll</option>
+      </select>
+    </div>
+    <div id="supplierContainer"></div>
+    <div id="direction">
+      <input type="checkbox" name="name" id="directionsToggle" value="">
+      <label for="directionsToggle">Visa kortaste vägen till valda leverantörer</label>
+    </div>
+  </div>
   <script>
-    var map;
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom: 8
-      });
-    }
+
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXKmd-og0xD1pQSGrmEeIvQ8iL-p4KZMk&callback=initMap"
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXKmd-og0xD1pQSGrmEeIvQ8iL-p4KZMk&language=sv&callback=initMap"
   async defer></script>
 </body>
 </html>
