@@ -259,3 +259,12 @@ function createSupplierElement(property) {
 	});
 	return div;
 }
+
+var onceThisTime = (function () {
+	var timeoutHandle;
+	// Call any amount of times within time limit, only the latest will execute
+	return function (callback, milliseconds) {
+		clearTimeout(timeoutHandle);
+		timeoutHandle = setTimeout(callback, milliseconds);
+	};
+})();
