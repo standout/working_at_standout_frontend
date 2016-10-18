@@ -130,3 +130,88 @@ function clearMapMarker(oldSupplier) {
 		}
 	});
 }
+
+var resolveSupplierList;
+var waitForSupplierList = new Promise(function (resolve) {
+	resolveSupplierList = resolve;
+});
+
+// Proxies are responsible for model realization
+var app = new Proxy({}, {
+	// React when the supplierList is set
+	set: function (target, property, value) {
+		if (property == 'supplierList') {
+			// Listen to placement or removal on any numbered position
+			var supplierList = interceptSupplierList([]);
+			// Place suppliers
+			value.forEach(function (supplier) { supplierList.push(supplier); });
+			resolveSupplierList(supplierList);
+		}
+		return Reflect.set(target, property, supplierList);
+	}
+});
+
+// React when inserting or removing suppliers
+function interceptSupplierList(suppliers) {
+	return new Proxy(suppliers, {
+		set: function (target, property, value) {
+			value.selected = false; // Set default value
+			if (property >= 0) {
+				if (!value.id) { // No database id
+					postSupplier(value);
+				}
+				if(!value.categories) { value.categories = []; }
+				value = interceptSupplier(value);
+				Reflect.set(target, property, value);
+				clearMapMarker(target[property])
+					.then(addMapMarker(value));
+			}
+			return Reflect.set(target, property, value);
+		},
+		deleteProperty: function (target, property) {
+			var supplier = target[property];
+
+			if (supplier.id) {
+				request('DELETE', 'http://localhost:3000/suppliers/' + supplier.id);
+			}
+			clearMapMarker(supplier);
+			return Reflect.deleteProperty(target, property);
+		}
+	});
+}
+
+// React on supplier modification
+function interceptSupplier(supplier) {
+	return new Proxy(supplier, {
+		set: function (target, property, value) {
+			if (property == 'location') {
+				geocodeAddress(value)
+					.then(function (results) {
+						var location = results[0].geometry.location;
+						target.latitude = location.lat();
+						target.longitude = location.lng();
+						clearMapMarker(target[property])
+							.then(addMapMarker(target));
+					});
+			}
+			if (property == 'selected') {
+				if (value) {
+					target.marker.setAnimation(google.maps.Animation.BOUNCE);
+				} else {
+					target.marker.setAnimation(null);
+				}
+
+			}
+			return Reflect.set(target, property, value);
+		},
+		get: function (target, name, receiver) {
+			if (name === 'toJSON') {
+				return function () {
+					return jsonFilterSupplier(target);
+				};
+			} else {
+				return Reflect.get(target, name, receiver);
+			}
+		}
+	});
+}
