@@ -1,0 +1,150 @@
+html, body {
+
+ 	height				: 100%;
+ 	margin				: 0;
+  	padding				: 0;
+}
+
+#map {
+
+	height				: 100%;
+}
+
+#page-wrapper {
+
+	position 			: absolute;
+	width 				: 170px;
+	padding 			: 10px;
+	opacity 			: 0.9;
+	background 			: #fff;
+	left 				: 75%;
+    top 				: 10%;
+	z-index 			: 2;
+	border-style 		: solid;
+	border-width 		: 2px;
+}
+
+#page-wrapper input{
+
+	margin-left 		: 3px;
+	margin-bottom 		: 15px;
+	padding 			: 5px;
+	height 				: 30px;
+	width 				: 100px;
+	cursor 				: pointer; 
+	font-size 			: 13px;
+	border 				: 1px solid;
+}
+
+#newPost-wrapper {
+
+	position 			: absolute;
+	width 				: 500px;
+	height 				: 460px;
+	padding 			: 10px;
+	opacity 			: 1;
+	background 			: #fff;
+   	left 				: 25%;
+    top 				: 10%;
+	z-index 			: 2;
+	border-style 		: solid;
+	border-width  		: 2px;
+}
+
+#smallmap {
+
+	height 				: 190px;
+	width 				: 200px;
+	margin-top 			: 10px; 
+	margin-left 		: 15px;
+}
+
+#newPost-wrapper h1 {
+
+	margin-left 		: 15px;
+	margin-top 			: 15px;
+
+}
+
+#newPost-wrapper input {
+
+	margin-left 		: 15px;
+	margin-top 			: -5px;
+	padding 			: 5px;
+	height 				: 30px;
+	width 				: 450px;
+	font-size 			: 13px;
+	border 				: 1px solid;
+	font-size 			: 13px;
+}
+
+#newPost-wrapper textarea {
+
+	resize 				: none;
+	margin-left 		: 15px;
+	margin-top 			: 15px;
+	padding 			: 5px;
+	height 				: 100px;
+	width 				: 450px;
+	font-size 			: 13px;
+	border 				: 1px solid;
+	font-family 		: Arial; 
+}
+
+#newPost-wrapper input[name=post] {
+
+	height 				: 35px;
+	width 				: 100px;
+	float 				: right; 
+	margin-right 		: 110px;
+	margin-top 			: -75px;
+	margin-left 		: 5px; 
+
+}
+
+#newPost-wrapper input[name=exit] {
+
+	height 				: 35px;
+	width 				: 100px;
+	float 				: right; 
+	margin-top 			: -75px;
+	margin-left 		: 5px; 
+
+}
+
+#newPost-wrapper input[name=lat] {
+
+	height 				: 30px;
+	width 				: 100px;
+	margin-top 			: -170px;
+	margin-right 		: 150px;
+	float 				: right; 
+
+}
+#newPost-wrapper input[name=lng] {
+
+	height 				: 30px;
+	width 				: 100px;
+	margin-top 			: -140px;
+	margin-right 		: 150px;
+	float 				: right; 
+
+}
+
+#title {
+
+	font-size 			: 15px;
+	font-weight			: bold;
+	margin-top 			: 5px;
+	width 				: 150px;
+}
+
+#text {
+
+	margin-top 			: 10px;
+	padding-bottom 		: 10px;
+	width 				: 150px;
+
+
+}
+
