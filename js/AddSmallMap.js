@@ -98,7 +98,11 @@ var DEFAULT_LOCATION_LNG = 14.8290924;
 		    		event.latLng.lat = latitude;
 		    		event.latLng.lat = longitude;
 
-				} else  alert("Address not found");
+				} else  {
+
+					alert("Address not found");
+					return;
+				}
 			}); 
 		} 
 
