@@ -47,7 +47,7 @@ var Main = {
 		var canvas				= document.getElementById('smallmap');
 		if (canvas != null) {
 
-			var writeNew = new NewPost();
+			var smallMap = new AddSmallMap();
 
 		}
 	},
@@ -61,16 +61,7 @@ var Main = {
 
 		Main.addDataToStage(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
 	
-	    var url = "http://localhost:3000/suppliers/";
-	    var request = new XMLHttpRequest();
-	    request.open("GET", url);
-	    request.onload = function() {
-	        if (request.status == 200) {
-	        	
-	            Main.onDataLoaded(request);
-	        }
-	    };
-	    request.send(null);
+	    var getSuppliers = new GetSuppliers();
 
 	},
 /*
@@ -96,14 +87,20 @@ var Main = {
 
 			for (var i = 0; i < responseData.length; i++) {
 
-				var id  	= responseData[i].id;
-	            var name   	= responseData[i].name;
-	            var lat     = responseData[i].latitude;
-	            var lng     = responseData[i].longitude;
+				var id  		= responseData[i].id;
+	            var name   		= responseData[i].name;
+	            var address   	= responseData[i].address;
+	            var postcode   	= responseData[i].postcode;
+	            var city   		= responseData[i].city;
+	            var phone   	= responseData[i].phone;
+	            var email   	= responseData[i].email;
+	            var category   	= responseData[i].category;
+	            var lat    	 	= responseData[i].latitude;
+	            var lng     	= responseData[i].longitude;
 
 				Main.addDataToStage(lat, lng);
 
-				var theMarker = new Marker(id, name, lat, lng);
+				var theMarker = new Marker(id, name, address, postcode, city, phone, email, category, lat, lng);
 				
 			}
 				

@@ -22,29 +22,49 @@ if (isset($_GET['newPost']) != 1) {
 		
 		echo '<div id="page-wrapper">
 
-	        <h1>Välkommen</h1>
+	        <h1>Suppliers</h1>
 
-	        <form action="indexAdmin.php?newPost=1" method="post">
-	         	<input type="submit" value="Posta Inlägg" />
+	        <form action="indexAdmin.php?seesuppliers=1" method="post">
+	         	<input type="submit" value="See List of Suppliers" />
 	        </form>
 
-	         <form action="php/SignOut.php" method="post">
-	         	<input type="submit" value="Logga ut" />
+	        <form action="indexAdmin.php?addsuppliers=1" method="post">
+	         	<input type="submit" value="Add Suppliers" />
 	        </form>
 
 	        </div>';
 	}
 
 
- if (isset($_GET['newPost']) == 1) {
+ if (isset($_GET['seesuppliers']) == 1) {
 
         echo '	<div id="newPost-wrapper"> 
 
-        			<h1>Skriv ett inlägg</h1>
+        			<h1>Suppliers:</h1>
 
-		        	<form action="php/WritePost.php" method="post">
-			        <input type="text" placeholder="Title" name="title"/><br/>
-			        <textarea placeholder="Skriv inlägg..." name="text"></textarea><br/>
+		        	<form action="" method="post">
+			        <input type="text" placeholder="Category" name="title"/><br/>
+			        <input type="submit" name="exit" value="Tillbaka" />
+			        </form>
+			        <br/>
+
+        		</div>';
+   	}
+
+   	if (isset($_GET['addsuppliers']) == 1) {
+
+        echo '	<div id="newPost-wrapper"> 
+
+        			<h1>Add Supplier</h1>
+
+		        	<form action="" method="post">
+			        <input type="text" placeholder="Name" name="name"/><br/>
+			        <input type="text" placeholder="Address" name="address"/><br/>
+			        <input type="text" placeholder="Postcode" name="postcode"/><br/>
+			        <input type="text" placeholder="City" name="city"/><br/>
+			        <input type="text" placeholder="Phonenumber" name="number"/><br/>
+			        <input type="text" placeholder="Email" name="email"/><br/>
+			        <input type="text" placeholder="Category" name="category"/><br/>
 			        <div id="smallmap" name="smallmap"></div><br/>
 			        <input type="text" placeholder="Latitude" name="lat" id="lat"/><br/>
 			        <input type="text" placeholder="Longitude" name="lng" id="lng"/><br/>

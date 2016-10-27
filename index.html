@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="sv-se">
+<head>
+<meta charset="UTF-8">
+
+		<link href="css/style.css" rel="stylesheet" type="text/css" media="screen" title="Default" />
+		
+		<script type="text/javascript" language="javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" language="javascript" src="js/GetSuppliers.js"></script>
+		<script type="text/javascript" language="javascript" src="js/Marker.js"></script>
+		<script type="text/javascript" language="javascript" src="js/AddSuppliers.js"></script>
+		<script type="text/javascript" language="javascript" src="js/Main.js"></script>
+	
+		<title>Suppliers</title>
+		
+	</head>
+	
+	<body>
+<?php
+
+if (isset($_GET['newPost']) != 1) {
+		
+		echo '<div id="newPost-wrapper">
+
+	        <h1>Suppliers</h1>
+
+			<h2>Search Suppliers:</h2>
+
+        	<form action="js/GetSuppliers.js" method="post">
+	        <input type="text" placeholder="Category" name="title"/><br/>
+	        <input type="submit" name="exit" value="Search" />
+	        </form>
+	        <br/>
+
+			<h2>Add Supplier</h2>
+
+	    	<form action="js/AddSupplier.js" method="post">
+	        <input type="text" placeholder="Name" name="name"/><br/>
+	        <input type="text" placeholder="Address" name="address"/><br/>
+	        <input type="text" placeholder="Postcode" name="postcode"/><br/>
+	        <input type="text" placeholder="City" name="city"/><br/>
+
+	        <input type="submit" name="post" value="Find address" />
+ 			<br/>
+	        <input type="text" placeholder="Phonenumber" name="number"/><br/>
+	        <input type="text" placeholder="Email" name="email"/><br/>
+	        <input type="text" placeholder="Category" name="category"/><br/>
+
+	        <div id="smallmap" name="smallmap"></div><br/>
+	        <input type="text" placeholder="Latitude" name="lat" id="lat"/><br/>
+	        <input type="text" placeholder="Longitude" name="lng" id="lng"/><br/>
+	        <input type="submit" name="exit" value="Exit" />
+	        <input type="submit" name="post" value="Add Supplier" />
+	        </form>
+	        <br/>
+
+		</div>';
+	}
+
+  
+?>	
+
+		<div id="map"></div>
+
+	</body>
+
+</html>

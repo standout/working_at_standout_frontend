@@ -2,19 +2,25 @@
 * Marker är en dynamisk klass.
 * Marker tar emot alla värderna för inläggen.
 */
-function Marker(theID, theName, theLat, theLng) {
+function Marker(theID, theName, theAddress, thePostcode, theCity, thePhone, theEmail, theCategory, theLat, theLng) {
 /*
 * Globala variabler.
 */
 self = this;
 
-this.marker = null;
+this.marker 	= null;
 this.infowindow = null;
 
-this.theID 		= theID;
-this.theName 	= theName;
-this.theLat 	= theLat;
-this.theLng 	= theLng;
+this.theID 			= theID;
+this.theName 		= theName;
+this.theAddress 	= theAddress;
+this.thePostcode 	= thePostcode;
+this.theCity 		= theCity;
+this.thePhone 		= thePhone;
+this.theEmail 		= theEmail;
+this.theCategory	= theCategory;
+this.theLat 		= theLat;
+this.theLng 		= theLng;
 /*
 * init är klassens konstruktor.
 * initMarker startas.
@@ -40,7 +46,7 @@ this.theLng 	= theLng;
 		var position = new google.maps.LatLng(self.theLat, self.theLng);
 
 		var optionsMarker			= new Object();
-			optionsMarker.name	 	= self.theName;
+			optionsMarker.name	 	= self.theID;
 			optionsMarker.map		= Main.map;
 			optionsMarker.draggable	= false;
 			optionsMarker.animation	= google.maps.Animation.DROP;
@@ -48,7 +54,13 @@ this.theLng 	= theLng;
 			
 		self.marker = new google.maps.Marker(optionsMarker);
 
-		var contentString = '<div id="name">' + self.theName + '</div>';
+		var contentString = '<div id="name">' 		+ self.theName + 		'</div>' + 
+							'<div id="category">' 	+ self.theCategory + 	'</div>' + 
+							'<div id="address">' 	+ self.theAddress + 	'</div>' + 
+							'<div id="postcode">' 	+ self.thePostcode + 	'</div>' + 
+							'<div id="city">' 		+ self.theCity + 		'</div>' + 
+							'<div id="phone">' 		+ self.thePhone + 		'</div>' + 
+							'<div id="email">'		+ self.theEmail + 		'</div>';
 
 		var optionsWindow			= new Object();
 			optionsWindow.content 	= contentString;
