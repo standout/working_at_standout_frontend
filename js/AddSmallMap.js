@@ -1,7 +1,7 @@
 /*
-* NewPost är en dynamisk klass.
+* AddSupplier är en dynamisk klass.
 */
-function AddSupplier() {
+function AddSmallMap() {
 /*
 * Globala variabler.
 */
@@ -11,7 +11,7 @@ var markersArray = new Array;
 var DEFAULT_LOCATION_LAT = 56.8556997;
 var DEFAULT_LOCATION_LNG = 14.8290924;
 /*
-* Funktionen startas när NewPost körs.
+* Funktionen startas när AddSupplier körs.
 */
 	function init() {
 
@@ -57,7 +57,7 @@ var DEFAULT_LOCATION_LNG = 14.8290924;
 
 		smallMap.setCenter(location);
 
-		google.maps.event.addListener(smallMap, 'click', newMarker);
+		//google.maps.event.addListener(smallMap, 'click', newMarker);
 		
 	}
 /*
@@ -71,7 +71,7 @@ var DEFAULT_LOCATION_LNG = 14.8290924;
 			
 		smallMap.setCenter(location);
 
-		google.maps.event.addListener(smallMap, 'click', newMarker);
+		//google.maps.event.addListener(smallMap, 'click', newMarker);
 		
 	}
 /*
@@ -81,25 +81,31 @@ var DEFAULT_LOCATION_LNG = 14.8290924;
 */
 	function newMarker(event) {	
 
+		if (event === null) {
+
+			var geocoder = new google.maps.Geocoder();
+			var street = document.getElementById("address").value;
+			var postcode = document.getElementById("postcode").value;
+			var city = document.getElementById("city").value;
+			var address = street + " " + postcode + " " + city;
+
+			geocoder.geocode( { 'address': address}, function(results, status) {
+
+				if (status == google.maps.GeocoderStatus.OK) {
+				   	var latitude = results[0].geometry.location.lat();
+					var longitude = results[0].geometry.location.lng();
+				   
+		    		event.latLng.lat = latitude;
+		    		event.latLng.lat = longitude;
+
+				} else  alert("Address not found");
+			}); 
+		} 
+
 		placeMarker(event.latLng);
 
-
-//ADDRESS TO LAT LNG
-		var geocoder = new google.maps.Geocoder();
-		var address = "new york";
-
-		geocoder.geocode( { 'address': address}, function(results, status) {
-
-		if (status == google.maps.GeocoderStatus.OK) {
-		   var latitude = results[0].geometry.location.lat();
-			var longitude = results[0].geometry.location.lng();
-		    alert(latitude);
-    
-		  } 
-		}); 
-
-		 document.getElementById("lat").value = event.latLng.lat();
-         document.getElementById("lng").value = event.latLng.lng();
+		document.getElementById("lat").value = event.latLng.lat();
+        document.getElementById("lng").value = event.latLng.lng();
 	}
 /*
 * Funktionen tar emot positionen.
@@ -113,20 +119,20 @@ var DEFAULT_LOCATION_LNG = 14.8290924;
 */
 	function placeMarker(location) {
 
-            deleteOverlays();
+        deleteOverlays();
 
-           	var options				= new Object();
-           		options.position 	= location;
-           		options.map 		= smallMap;
-           		options.draggable	= false;
-				options.animation	= google.maps.Animation.DROP;
+       	var options				= new Object();
+       		options.position 	= location;
+       		options.map 		= smallMap;
+       		options.draggable	= false;
+			options.animation	= google.maps.Animation.DROP;
 
 
-           var marker = new google.maps.Marker(options);
+       var marker = new google.maps.Marker(options);
 
-            markersArray.push(marker);
+        markersArray.push(marker);
 
-        }
+    }
 /*
 * Funktionen kollar fall det finns några makers i markersArray.
 * Om det finns markers ska alla markers sättas till null.

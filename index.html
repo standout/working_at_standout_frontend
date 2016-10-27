@@ -36,11 +36,12 @@ if (isset($_GET['newPost']) != 1) {
 
 	    	<form action="js/AddSupplier.js" method="post">
 	        <input type="text" placeholder="Name" name="name"/><br/>
-	        <input type="text" placeholder="Address" name="address"/><br/>
-	        <input type="text" placeholder="Postcode" name="postcode"/><br/>
-	        <input type="text" placeholder="City" name="city"/><br/>
-
-	        <input type="submit" name="post" value="Find address" />
+	        <form action="js/AddSmallMap.js" method="post"  onsubmit="newMarker(null);return false;">
+		        <input type="text" placeholder="Address" name="address"/><br/>
+		        <input type="text" placeholder="Postcode" name="postcode"/><br/>
+		        <input type="text" placeholder="City" name="city"/><br/>
+		        <input type="submit" name="post" value="Find address" />
+	        </form>
  			<br/>
 	        <input type="text" placeholder="Phonenumber" name="number"/><br/>
 	        <input type="text" placeholder="Email" name="email"/><br/>
