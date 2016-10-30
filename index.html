@@ -6,60 +6,50 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="screen" title="Default" />
 		
 		<script type="text/javascript" language="javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" language="javascript" src="js/Ajax.js"></script>
 		<script type="text/javascript" language="javascript" src="js/GetSuppliers.js"></script>
 		<script type="text/javascript" language="javascript" src="js/Marker.js"></script>
-		<script type="text/javascript" language="javascript" src="js/AddSuppliers.js"></script>
+		<script type="text/javascript" language="javascript" src="js/AddSupplier.js"></script>
+		<script type="text/javascript" language="javascript" src="js/AddSmallMap.js"></script>
 		<script type="text/javascript" language="javascript" src="js/Main.js"></script>
+		
 	
 		<title>Suppliers</title>
 		
 	</head>
 	
 	<body>
-<?php
-
-if (isset($_GET['newPost']) != 1) {
 		
-		echo '<div id="newPost-wrapper">
+		<div id="page-wrapper">
 
 	        <h1>Suppliers</h1>
 
 			<h2>Search Suppliers:</h2>
-
-        	<form action="js/GetSuppliers.js" method="post">
-	        <input type="text" placeholder="Category" name="title"/><br/>
-	        <input type="submit" name="exit" value="Search" />
-	        </form>
-	        <br/>
-
+	
+        	<form method="post" id="get-suppliers-form">
+		        <input type="text" placeholder="Category" name="category" required/><br/>
+		        <input type="submit" name="post" value="Search" />
+			</form>
+		    </br>
+			
 			<h2>Add Supplier</h2>
+		    <form method="post" id="add-form">
 
-	    	<form action="js/AddSupplier.js" method="post">
-	        <input type="text" placeholder="Name" name="name"/><br/>
-	        <form action="js/AddSmallMap.js" method="post"  onsubmit="newMarker(null);return false;">
-		        <input type="text" placeholder="Address" name="address"/><br/>
-		        <input type="text" placeholder="Postcode" name="postcode"/><br/>
-		        <input type="text" placeholder="City" name="city"/><br/>
-		        <input type="submit" name="post" value="Find address" />
-	        </form>
- 			<br/>
-	        <input type="text" placeholder="Phonenumber" name="number"/><br/>
-	        <input type="text" placeholder="Email" name="email"/><br/>
-	        <input type="text" placeholder="Category" name="category"/><br/>
+		        <input type="text" placeholder="Name" name="name" required/><br/>
+		        <input type="text" placeholder="Address" name="address" required/><br/>
+		        <input type="text" placeholder="Postcode" name="postcode" required/><br/>
+		        <input type="text" placeholder="City" name="city" required/><br/>
+		        <input type="text" placeholder="Phonenumber" name="number"/><br/>
+		        <input type="text" placeholder="Email" name="email"/><br/>
+		        <input type="text" placeholder="Category" name="category" required/><br/>
 
-	        <div id="smallmap" name="smallmap"></div><br/>
-	        <input type="text" placeholder="Latitude" name="lat" id="lat"/><br/>
-	        <input type="text" placeholder="Longitude" name="lng" id="lng"/><br/>
-	        <input type="submit" name="exit" value="Exit" />
-	        <input type="submit" name="post" value="Add Supplier" />
+		        <input type="submit" name="exit" value="Exit" />
+		        <input type="submit" name="postadd" value="Add Supplier"/>
 	        </form>
+
 	        <br/>
 
-		</div>';
-	}
-
-  
-?>	
+		</div>
 
 		<div id="map"></div>
 

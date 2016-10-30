@@ -69,8 +69,6 @@ this.theLng 		= theLng;
 
 
 		google.maps.event.addListener(self.marker, 'click', toggleInfoWindow);
-
-
 	
 	}
 /*

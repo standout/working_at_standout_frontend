@@ -10,6 +10,7 @@ var Main = {
 
 	DEFAULT_LOCATION_LAT : 56.8556997,
 	DEFAULT_LOCATION_LNG : 14.8290924,
+
 /*
 * Funktionen startas när Main körs.
 */
@@ -17,7 +18,8 @@ var Main = {
 		
 		Main.initMap();
 		Main.getLocations();
-		Main.initSmallMap();
+		Main.addSupplier();
+		Main.searchSupplier();
 
 	},
 /*
@@ -37,31 +39,13 @@ var Main = {
 		
 	},
 /*
-* Funktionen skapar en liten karta till när man skriver ett nytt blogginlägg
-* Om inte smallmap-id't finns så ska inte denna funktion gå vidare.
-* Zoomen på den lilla kartan ska ligga på 9.
-* initLocation startas.
-*/
-	initSmallMap : function() {
-
-		var canvas				= document.getElementById('smallmap');
-		if (canvas != null) {
-
-			var smallMap = new AddSmallMap();
-
-		}
-	},
-/*
 * Funktionen skapar en ny instans av Ajax.
 * Ajax går in i GetPosts och startar onDataLoaded.
 */
-
-
 	getLocations : function() {	
-
-		Main.addDataToStage(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
-	
-	    var getSuppliers = new GetSuppliers();
+		
+		var ajax = new Ajax();
+		ajax.get("http://localhost:3000/suppliers", Main.placeMarkers);
 
 	},
 /*
@@ -72,12 +56,8 @@ var Main = {
 * Bilden läggs in i en img-tagg.
 * addDataToStage startas och skickar med lat och lng
 * En ny instans av Marker skapas och skickar med alla värden. 
-*
-*
-*
-* ------------------------ERROR NÅGONSTANS!!!------------
 */
-	onDataLoaded : function(responseData) {	
+	placeMarkers : function(responseData) {	
 
 		responseData = responseData.responseText;
 
@@ -85,24 +65,25 @@ var Main = {
 
 			responseData = JSON.parse(responseData);
 
+			Main.addDataToStage(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
+
 			for (var i = 0; i < responseData.length; i++) {
 
 				var id  		= responseData[i].id;
 	            var name   		= responseData[i].name;
-	            var address   	= responseData[i].address;
-	            var postcode   	= responseData[i].postcode;
-	            var city   		= responseData[i].city;
-	            var phone   	= responseData[i].phone;
-	            var email   	= responseData[i].email;
-	            var category   	= responseData[i].category;
-	            var lat    	 	= responseData[i].latitude;
-	            var lng     	= responseData[i].longitude;
-
-				Main.addDataToStage(lat, lng);
+				var address  	= responseData[i].address;
+	            var postcode    = responseData[i].postcode;
+	            var city     	= responseData[i].city;
+	            var phone		= responseData[i].phone;
+	            var email		= responseData[i].email;
+	            var category	= responseData[i].category;
+	            var lat			= responseData[i].latitude;
+	            var lng			= responseData[i].longitude;
 
 				var theMarker = new Marker(id, name, address, postcode, city, phone, email, category, lat, lng);
-				
 			}
+
+			
 				
 		} else {
 
@@ -128,6 +109,59 @@ var Main = {
 		var defaultLocation = new google.maps.LatLng(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
 			Main.map.setCenter(defaultLocation);
 	}, 
+
+	addSupplier : function() {
+
+		document.getElementById('add-form').onsubmit=function() {
+
+			var name = document.forms["add-form"]["name"].value;
+			var address = document.forms["add-form"]["address"].value;
+			var postcode = document.forms["add-form"]["postcode"].value;
+			var city = document.forms["add-form"]["city"].value;
+			var phone = document.forms["add-form"]["phone"].value;
+			var email = document.forms["add-form"]["email"].value;
+			var category = document.forms["add-form"]["category"].value;
+
+			var data = JSON.stringify({"email":"hey@mail.com","password":"101010"});
+
+			var ajax = new Ajax();
+			ajax.post("http://localhost:3000/suppliers", data, Main.onDataLoaded);
+
+			alert(phone + "   ");
+/*
+			"name": name,
+	     	"address": address,
+	      	"postcode": postcode,
+	      	"city": city,
+	      	"phone": phone,
+	      	"email": email,
+	      	"category": category,
+	      	"latitude": lat,
+	      	"longitude": lng
+
+	      	URL, parameters, callback
+*/
+
+
+		  }
+
+	
+
+	},
+	
+	searchSupplier : function() {
+
+		document.getElementById('get-suppliers-form').onsubmit=function() {
+
+			var category = document.forms["get-suppliers-form"]["category"].value;
+
+			alert(category);
+
+		  } 
+
+	},
+
+	
     
 }//End Class 
 /**
