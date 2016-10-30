@@ -13,12 +13,13 @@ html, body {
 #page-wrapper {
 
 	position 			: absolute;
-	width 				: 170px;
+	width 				: 30%;
+	height				: 100%;
 	padding 			: 10px;
 	opacity 			: 0.9;
 	background 			: #fff;
-	left 				: 75%;
-    top 				: 10%;
+	left 				: 70%;
+ 
 	z-index 			: 2;
 	border-style 		: solid;
 	border-width 		: 2px;
@@ -30,25 +31,16 @@ html, body {
 	margin-bottom 		: 15px;
 	padding 			: 5px;
 	height 				: 30px;
-	width 				: 100px;
+	width 				: 80%;
 	cursor 				: pointer; 
 	font-size 			: 13px;
 	border 				: 1px solid;
 }
 
-#newPost-wrapper {
+.submit {
 
-	position 			: absolute;
-	width 				: 500px;
-	height 				: 460px;
-	padding 			: 10px;
-	opacity 			: 1;
-	background 			: #fff;
-   	left 				: 25%;
-    top 				: 10%;
-	z-index 			: 2;
-	border-style 		: solid;
-	border-width  		: 2px;
+	width 				: 2px; 
+
 }
 
 #smallmap {
@@ -59,55 +51,32 @@ html, body {
 	margin-left 		: 15px;
 }
 
-#newPost-wrapper h1 {
 
-	margin-left 		: 15px;
-	margin-top 			: 15px;
-
-}
-
-#newPost-wrapper input {
-
-	margin-left 		: 15px;
-	margin-top 			: -5px;
-	padding 			: 5px;
-	height 				: 30px;
-	width 				: 450px;
-	font-size 			: 13px;
-	border 				: 1px solid;
-	font-size 			: 13px;
-}
-
-#newPost-wrapper textarea {
-
-	resize 				: none;
-	margin-left 		: 15px;
-	margin-top 			: 15px;
-	padding 			: 5px;
-	height 				: 100px;
-	width 				: 450px;
-	font-size 			: 13px;
-	border 				: 1px solid;
-	font-family 		: Arial; 
-}
-
-#newPost-wrapper input[name=post] {
+#page-wrapper input[name=post] {
 
 	height 				: 35px;
 	width 				: 100px;
-	float 				: right; 
-	margin-right 		: 110px;
-	margin-top 			: -75px;
+	float 				: left; 
+	margin-right 		: 100%;
 	margin-left 		: 5px; 
 
 }
 
-#newPost-wrapper input[name=exit] {
+
+#page-wrapper input[name=postadd] {
+
+	height 				: 35px;
+	width 				: 130px;
+	float 				: right; 
+	margin-right 		: 20%; 
+
+}
+
+#page-wrapper input[name=exit] {
 
 	height 				: 35px;
 	width 				: 100px;
-	float 				: right; 
-	margin-top 			: -75px;
+	float 				: left; 
 	margin-left 		: 5px; 
 
 }
