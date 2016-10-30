@@ -3,12 +3,24 @@
     {
       "id": 1,
       "name": "Kalles livs",
+      "address": "",
+      "postcode": "",
+      "city": "",
+      "phone": "",
+      "email": "",
+      "category": "",
       "latitude": 56.879004,
       "longitude": 14.805852
     },
     {
       "id": 2,
       "name": "Konsum fjollträsk",
+      "address": "",
+      "postcode": "",
+      "city": "",
+      "phone": "",
+      "email": "",
+      "category": "",
       "latitude": 56.161224,
       "longitude": 15.5869
     }
