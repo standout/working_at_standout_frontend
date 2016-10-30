@@ -115,38 +115,77 @@ var Main = {
 		document.getElementById('add-form').onsubmit=function() {
 
 			var name = document.forms["add-form"]["name"].value;
-			var address = document.forms["add-form"]["address"].value;
+			var street = document.forms["add-form"]["address"].value;
 			var postcode = document.forms["add-form"]["postcode"].value;
 			var city = document.forms["add-form"]["city"].value;
 			var phone = document.forms["add-form"]["phone"].value;
 			var email = document.forms["add-form"]["email"].value;
 			var category = document.forms["add-form"]["category"].value;
 
-			var data = JSON.stringify({"email":"hey@mail.com","password":"101010"});
+			var address = street + ", " + postcode + ", " + city; 
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode({'address': address}, function(results, status) {
+	          if (status === 'OK') {
+	            var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
 
-			var ajax = new Ajax();
-			ajax.post("http://localhost:3000/suppliers", data, Main.onDataLoaded);
+                var data = JSON.stringify({	"name" : name , 
+                    						"address" : street ,
+                    						"postcode" : postcode , 
+											"city" : city , 
+											"phone" : phone , 
+											"email" : email , 
+											"category" : category , 
+											"latitude" : latitude , 
+											"longitude" : longitude 
+								});
 
-			alert(phone + "   ");
-/*
-			"name": name,
-	     	"address": address,
-	      	"postcode": postcode,
-	      	"city": city,
-	      	"phone": phone,
-	      	"email": email,
-	      	"category": category,
-	      	"latitude": lat,
-	      	"longitude": lng
+                alert(data);
 
-	      	URL, parameters, callback
-*/
+                var ajax = new Ajax();
+				ajax.post("http://localhost:3000/suppliers", data, Main.addSupplierDone);
+	           
+	            
+	          } else {
+	            alert('Geocode was not successful for the following reason: ' + status);
+	          }
+	        });
+			/*geocoder.geocode({ 'address': address }, function (results, status) {
 
+			
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+
+                    alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+
+                    console.log(latitude + " " + longitude);*/
+                   /* */
+
+
+
+					//
+
+            /*        alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+                } else {
+                    alert("Request failed.")
+                }
+            });*/
+
+            
+
+			return false;
 
 		  }
 
 	
 
+	},
+
+	addSupplierDone : function() {
+
+		//Empty response-function
+		alert("add request done");
 	},
 	
 	searchSupplier : function() {
