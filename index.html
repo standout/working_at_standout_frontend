@@ -24,15 +24,15 @@
 
 	        <h1>Suppliers</h1>
 
-			<h2>Search Suppliers:</h2>
+			<h3>Search Suppliers: (write "all" to see all)</h3>
 	
-        	<form method="post" id="get-suppliers-form">
+        	<form method="get" id="get-suppliers-form" onsubmit="return false">
 		        <input type="text" placeholder="Category" name="category" required/><br/>
 		        <input type="submit" name="post" value="Search" />
 			</form>
 		    </br>
 			
-			<h2>Add Supplier</h2>
+			<h3>Add Supplier</h3>
 		    <form method="post" id="add-form">
 
 		        <input type="text" placeholder="Name" name="name" required/><br/>
@@ -41,6 +41,7 @@
 		        <input type="text" placeholder="City" name="city" required/><br/>
 		        <input type="text" placeholder="Phonenumber" name="phone"/><br/>
 		        <input type="text" placeholder="Email" name="email"/><br/>
+		        <p id="categorytitle">Category: (if several, devide with ",")</p>
 		        <input type="text" placeholder="Category" name="category" required/><br/>
 
 		        <input type="submit" name="exit" value="Exit" />

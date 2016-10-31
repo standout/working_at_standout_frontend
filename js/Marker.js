@@ -1,5 +1,9 @@
 /*
-* Marker is a dynamic-class
+* Dynamic class that handles a marker on a Google Map
+*
+* 	@author		Anna Brun
+*	@email		anna.brun92@gmail.com
+*	@version	2.0
 *
 * @param theId - the id
 * @param theName - the name
@@ -16,11 +20,9 @@ function Marker(theID, theName, theAddress, thePostcode, theCity, thePhone, theE
 /*
 * Global.
 */
-self = this;
-
-self.marker 	= null;
-self.infowindow = null;
-
+self 				= this;
+self.marker 		= null;
+self.infowindow 	= null;
 self.theID 			= theID;
 self.theName 		= theName;
 self.theAddress 	= theAddress;
@@ -53,16 +55,22 @@ self.theLng 		= theLng;
 			optionsMarker.draggable	= false;
 			optionsMarker.animation	= google.maps.Animation.DROP;
 			optionsMarker.position	= position;
-			
+		var category 				= "";
+
 		self.marker = new google.maps.Marker(optionsMarker);
 
-		var contentString = '<div id="name">' 		+ self.theName + 		'</div>' + 
-							'<div id="category">' 	+ self.theCategory + 	'</div>' + 
+		for (i in self.theCategory) {
+
+			category = category + " " + self.theCategory[i].name;    	
+       	} 
+		var contentString = '<div id="name">' 		+ "" + self.theName + 		'</div>' + 
+							'<div id="category">' 	+ "Categories: " + category + 			'</div>' + 
 							'<div id="address">' 	+ self.theAddress + 	'</div>' + 
 							'<div id="postcode">' 	+ self.thePostcode + 	'</div>' + 
 							'<div id="city">' 		+ self.theCity + 		'</div>' + 
 							'<div id="phone">' 		+ self.thePhone + 		'</div>' + 
-							'<div id="email">'		+ self.theEmail + 		'</div>';
+							'<div id="email">'		+ self.theEmail + 		'</div>' +
+							'<input type="button" id="deleteMarker" value="Delete" onclick="Main.deleteMarker('+ self.theID + ');"/>';
 
 		var optionsWindow			= new Object();
 			optionsWindow.content 	= contentString;

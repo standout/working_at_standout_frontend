@@ -1,9 +1,9 @@
 /**
  *	Dynamic class to handle AJAX-based data transmission.
  *
- *	@author		Henrik Andersen
- *	@email		henrik.andersen@lnu.se
- *	@version	1.0
+ *	@author		Henrik Andersen & Anna Brun
+ *	@email		henrik.andersen@lnu.se & anna.brun92@gmail.com
+ *	@version	2.0
  *	@since		xxxx-xx-xx
  *	@requires	
  */
@@ -28,6 +28,11 @@ var Ajax = (function()
 	 *	DESC..
 	 */
 	var POST = 'POST';
+
+	/**
+	 *	DESC..
+	 */
+	var DELETE = 'DELETE';
 	
 	//-------------------------------------------------------------
 	//  Constructor method
@@ -86,6 +91,7 @@ var Ajax = (function()
 	
 		var request = this.getHTTPObject();
 			request.open(GET, URL, true);
+			request.setRequestHeader("Content-Type", "application/json");
 			request.onreadystatechange = function(){
 				if (request.readyState == request.DONE){
 					callback(request);
@@ -110,6 +116,7 @@ var Ajax = (function()
 	
 		var request = this.getHTTPObject();
 			request.open(POST, URL, true);
+			request.setRequestHeader("Content-Type", "application/json");
 			request.onreadystatechange = function(){
 				if (request.readyState == request.DONE){
 					callback(request);
@@ -118,6 +125,31 @@ var Ajax = (function()
 			}
 			
 			request.send(parameters);
+	})
+
+	/**
+	 *	Method to delete data asynchronously using JavaScript (AJAX).
+	 *
+	 *	@param	URL			The URL to the data source.
+	 *	@param	parameters	The information that will be sent via the POST-call.
+	 *	@param	callback	The callback method that is activated when 
+	 *						the transmission is complete.
+	 *
+	 *	@return undefined
+	 */
+	this.delete = (function(URL, callback){
+	
+		var request = this.getHTTPObject();
+			request.open(DELETE, URL, false);
+			request.setRequestHeader("Content-Type", "application/json");
+			request.onreadystatechange = function(){
+				if (request.readyState == request.DONE){
+					callback(request);
+					request = null;
+				}
+			}
+			
+			request.send();
 	})
 	
 	/**

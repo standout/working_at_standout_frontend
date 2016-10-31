@@ -10,51 +10,27 @@ html, body {
 	height				: 100%;
 }
 
-#page-wrapper {
-
-	position 			: absolute;
-	width 				: 30%;
-	height				: 100%;
-	padding 			: 10px;
-	opacity 			: 0.9;
-	background 			: #fff;
-	left 				: 70%;
- 
-	z-index 			: 2;
-	border-style 		: solid;
-	border-width 		: 2px;
-}
-
 #page-wrapper input{
 
 	margin-left 		: 3px;
 	margin-bottom 		: 15px;
 	padding 			: 5px;
-	height 				: 30px;
+	height 				: 100%;
 	width 				: 80%;
 	cursor 				: pointer; 
 	font-size 			: 13px;
 	border 				: 1px solid;
 }
 
-.submit {
+#categorytitle {
 
-	width 				: 2px; 
+	margin: 		: auto; 
 
 }
-
-#smallmap {
-
-	height 				: 190px;
-	width 				: 200px;
-	margin-top 			: 10px; 
-	margin-left 		: 15px;
-}
-
 
 #page-wrapper input[name=post] {
 
-	height 				: 35px;
+	height 				: 100%;
 	width 				: 100px;
 	float 				: left; 
 	margin-right 		: 100%;
@@ -65,7 +41,7 @@ html, body {
 
 #page-wrapper input[name=postadd] {
 
-	height 				: 35px;
+	height 				: 100%;
 	width 				: 130px;
 	float 				: right; 
 	margin-right 		: 20%; 
@@ -74,33 +50,28 @@ html, body {
 
 #page-wrapper input[name=exit] {
 
-	height 				: 35px;
+	height 				: 100%;
 	width 				: 100px;
 	float 				: left; 
 	margin-left 		: 5px; 
 
 }
 
-#newPost-wrapper input[name=lat] {
+#page-wrapper {
 
-	height 				: 30px;
-	width 				: 100px;
-	margin-top 			: -170px;
-	margin-right 		: 150px;
-	float 				: right; 
-
-}
-#newPost-wrapper input[name=lng] {
-
-	height 				: 30px;
-	width 				: 100px;
-	margin-top 			: -140px;
-	margin-right 		: 150px;
-	float 				: right; 
-
+	position 			: absolute;
+	width 				: 30%;
+	height				: 100%;
+	padding 			: 10px;
+	opacity 			: 0.9;
+	background 			: #fff;
+	left 				: 70%;
+	z-index 			: 2;
+	border-style 		: solid;
+	border-width 		: 2px;
 }
 
-#title {
+#name {
 
 	font-size 			: 15px;
 	font-weight			: bold;
@@ -108,12 +79,16 @@ html, body {
 	width 				: 150px;
 }
 
-#text {
+#category {
 
 	margin-top 			: 10px;
 	padding-bottom 		: 10px;
 	width 				: 150px;
 
+}
 
+#deleteMarker {
+
+	margin-top			: 20px;
 }
 
