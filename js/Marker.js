@@ -1,45 +1,47 @@
 /*
-* Marker är en dynamisk klass.
-* Marker tar emot alla värderna för inläggen.
+* Marker is a dynamic-class
+*
+* @param theId - the id
+* @param theName - the name
+* @param theAddress - the streetname
+* @param thePostcode - the postcode
+* @param theCity - the city
+* @param thePhone - the phonenumber
+* @param theEmail - the email
+* @param theCategory - the category
+* @param theLat - the latitude
+* @param theLng - the longitude
 */
 function Marker(theID, theName, theAddress, thePostcode, theCity, thePhone, theEmail, theCategory, theLat, theLng) {
 /*
-* Globala variabler.
+* Global.
 */
 self = this;
 
-this.marker 	= null;
-this.infowindow = null;
+self.marker 	= null;
+self.infowindow = null;
 
-this.theID 			= theID;
-this.theName 		= theName;
-this.theAddress 	= theAddress;
-this.thePostcode 	= thePostcode;
-this.theCity 		= theCity;
-this.thePhone 		= thePhone;
-this.theEmail 		= theEmail;
-this.theCategory	= theCategory;
-this.theLat 		= theLat;
-this.theLng 		= theLng;
+self.theID 			= theID;
+self.theName 		= theName;
+self.theAddress 	= theAddress;
+self.thePostcode 	= thePostcode;
+self.theCity 		= theCity;
+self.thePhone 		= thePhone;
+self.theEmail 		= theEmail;
+self.theCategory	= theCategory;
+self.theLat 		= theLat;
+self.theLng 		= theLng;
 /*
-* init är klassens konstruktor.
-* initMarker startas.
+* The Constructor
+* 
 */
 	function init() {
 
 		initMarker();
 	}
 /*
-* Funktionen skapar en ny marker.
-* En ny LatLng skapas med lat och lng från markern.
-* Markern får titeln till markens titel.
-* Markern ska läggas på den stora kartan.
-* Man ska inte kunna dra markern.
-* Animationen ska vara drop.
-* contentString skapar div-taggar för titlen, texten och bilden.
-* En inforuta skapas med contentString som värden.
-* Inforutan kopplas ihop med markern med info.
-* Ett klick-event skapas på markern och toggleInfoWindow startas.
+* Places a marker on the map with the right content
+* 
 */
 	function initMarker() {	
 
@@ -66,15 +68,12 @@ this.theLng 		= theLng;
 			optionsWindow.content 	= contentString;
 
 		self.marker.info = new google.maps.InfoWindow(optionsWindow);
-
-
-		google.maps.event.addListener(self.marker, 'click', toggleInfoWindow);
-	
+		google.maps.event.addListener(self.marker, 'click', toggleInfoWindow);	
 	}
 /*
-* Funktionen tar emot klick-eventet.
-* Om inforutan redan är öppnad så ska inforutan stängas.
-* Annars ska inforutan öppnas.
+* If the infowindow is closed/opened then open/close
+* 
+* @param event - the clickevent of the marker
 */		
 	function toggleInfoWindow(event) {
 
@@ -90,7 +89,7 @@ this.theLng 		= theLng;
 		}
 	}
 /*
-* init startas.
+* Start Constructor 
 */
 init();
 }

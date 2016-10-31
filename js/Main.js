@@ -1,10 +1,9 @@
 /*
-* Main är en statisk klass.
-* Main körs när sidan laddas in.
+* Main is a static class.
 */
 var Main = {
 /*
-* Globala variabler.
+* Global
 */
 	map : null,
 
@@ -12,7 +11,7 @@ var Main = {
 	DEFAULT_LOCATION_LNG : 14.8290924,
 
 /*
-* Funktionen startas när Main körs.
+* The Constructor.
 */
 	init : function() {	
 		
@@ -23,10 +22,8 @@ var Main = {
 
 	},
 /*
-* Funktionen skapar huvudkartan
-* Zoomen på kartan ska ligga på 6.
-* Kartan ska vara en Roadmap.
-* Kartan ska ligga i map-id't.
+* Adds the map to the page.
+* 
 */	
 	initMap : function() {
 
@@ -39,8 +36,9 @@ var Main = {
 		
 	},
 /*
-* Funktionen skapar en ny instans av Ajax.
-* Ajax går in i GetPosts och startar onDataLoaded.
+* Places markers of the Suppliers that are in the database
+* via an Ajax-class.
+*
 */
 	getLocations : function() {	
 		
@@ -49,23 +47,20 @@ var Main = {
 
 	},
 /*
-* Funktionen tar emot responseData.
-* responseData görs om till en text.
-* Om responseData är tom ska defaultLocationFunction startas.
-* Om responseData har värden loopas alla inlägg igenom och får en variabel.
-* Bilden läggs in i en img-tagg.
-* addDataToStage startas och skickar med lat och lng
-* En ny instans av Marker skapas och skickar med alla värden. 
+* The callback from the Ajax-class.
+* Makes a new Marker for every Supplier found in the database
+*
+* @param responseData - the response from the request.
 */
 	placeMarkers : function(responseData) {	
 
 		responseData = responseData.responseText;
 
+		Main.addDataToStage(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
+
 		if (!!responseData) {
 
 			responseData = JSON.parse(responseData);
-
-			Main.addDataToStage(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
 
 			for (var i = 0; i < responseData.length; i++) {
 
@@ -83,17 +78,13 @@ var Main = {
 				var theMarker = new Marker(id, name, address, postcode, city, phone, email, category, lat, lng);
 			}
 
-			
-				
-		} else {
-
-			Main.defaultLocationFunction();
-		}
+		} 
 	},
 /*
-* Funktionen tar emot lat och lng.
-* En ny LatLng skapas med värderna av lat och lng.
-* Kartan ska visa cental punkten av det sista blogginlägget.
+* Sets the center for the map according to Markers or default latlng
+* 
+* @param lat - the latitude
+* @param lng - the longitude
 */
 	addDataToStage : function(lat, lng) {
 		
@@ -101,93 +92,57 @@ var Main = {
 		Main.map.setCenter(location);
 	},
 /*
-* Funktionen skapar en ny LatLng med defaultvärderna.
-* Kartan ska visa cental punkten av defaultvärderna.
+* Adds a Supplier from the form in the GUI in the database
+* 
+* @return false
 */
-	defaultLocationFunction : function() {
-
-		var defaultLocation = new google.maps.LatLng(Main.DEFAULT_LOCATION_LAT, Main.DEFAULT_LOCATION_LNG);
-			Main.map.setCenter(defaultLocation);
-	}, 
-
 	addSupplier : function() {
 
 		document.getElementById('add-form').onsubmit=function() {
 
-			var name = document.forms["add-form"]["name"].value;
-			var street = document.forms["add-form"]["address"].value;
-			var postcode = document.forms["add-form"]["postcode"].value;
-			var city = document.forms["add-form"]["city"].value;
-			var phone = document.forms["add-form"]["phone"].value;
-			var email = document.forms["add-form"]["email"].value;
-			var category = document.forms["add-form"]["category"].value;
+			var name 		= document.forms["add-form"]["name"].value;
+			var street 		= document.forms["add-form"]["address"].value;
+			var postcode 	= document.forms["add-form"]["postcode"].value;
+			var city 		= document.forms["add-form"]["city"].value;
+			var phone 		= document.forms["add-form"]["phone"].value;
+			var email 		= document.forms["add-form"]["email"].value;
+			var category 	= document.forms["add-form"]["category"].value;
+			var address 	= street + ", " + postcode + ", " + city; 
+			var geocoder 	= new google.maps.Geocoder();
 
-			var address = street + ", " + postcode + ", " + city; 
-			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode({'address': address}, function(results, status) {
 	          if (status === 'OK') {
-	            var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
+	            var latitude 	= results[0].geometry.location.lat();
+                var longitude 	= results[0].geometry.location.lng();
 
-                var data = JSON.stringify({	"name" : name , 
-                    						"address" : street ,
-                    						"postcode" : postcode , 
-											"city" : city , 
-											"phone" : phone , 
-											"email" : email , 
-											"category" : category , 
-											"latitude" : latitude , 
-											"longitude" : longitude 
-								});
+                var data = JSON.stringify({"name":name,"address":street,"postcode":postcode,"city":city,"phone":phone,"email":email,"category":category,"latitude":latitude,"longitude":longitude});
 
                 alert(data);
 
                 var ajax = new Ajax();
 				ajax.post("http://localhost:3000/suppliers", data, Main.addSupplierDone);
 	           
-	            
 	          } else {
 	            alert('Geocode was not successful for the following reason: ' + status);
 	          }
 	        });
-			/*geocoder.geocode({ 'address': address }, function (results, status) {
-
-			
-                if (status == google.maps.GeocoderStatus.OK) {
-                    var latitude = results[0].geometry.location.lat();
-                    var longitude = results[0].geometry.location.lng();
-
-                    alert("Latitude: " + latitude + "\nLongitude: " + longitude);
-
-                    console.log(latitude + " " + longitude);*/
-                   /* */
-
-
-
-					//
-
-            /*        alert("Latitude: " + latitude + "\nLongitude: " + longitude);
-                } else {
-                    alert("Request failed.")
-                }
-            });*/
-
-            
 
 			return false;
-
-		  }
-
-	
-
+		 }
 	},
-
+/*
+* An empty callback-funktion from the addSupplier Ajax-class.
+* 
+*/
 	addSupplierDone : function() {
 
 		//Empty response-function
 		alert("add request done");
 	},
-	
+/*
+* Search for suppliers in a specific category from the form in the GUI 
+* 
+*/	
 	searchSupplier : function() {
 
 		document.getElementById('get-suppliers-form').onsubmit=function() {
@@ -199,11 +154,8 @@ var Main = {
 		  } 
 
 	},
-
-	
-    
-}//End Class 
+}
 /**
- *	När Main laddas in ska init-funktionen skapas. 
+ *	Constructor load.
  */
 google.maps.event.addDomListener(window, 'load', Main.init); // NOTE THIS NEW EVENT LISTENER FROM GOOGLE
