@@ -1,0 +1,88 @@
+html
+{
+    background-color:#EEEEEE;
+}
+body
+{
+    background-color:#EEEEEE;
+}
+.tab
+{
+    height: 90%;
+}
+.tab-content
+{
+    height: 90%;
+    background-color: #EEEEEE;
+}
+.card
+{
+    height: 100px;
+    cursor:pointer;
+}
+.card:hover
+{
+    border: 2px solid gray;
+}
+.question-nr
+{
+    opacity: 0.78;
+}
+.card-sakt
+{
+    border: 2px solid teal;
+    cursor:default;
+}
+.card-sakt:hover
+{
+    background-color:#EEEEEE;
+    cursor:default;
+}
+.card-gabim
+{
+    border: 2px solid red;
+    cursor:default;
+}
+.card-gabim:hover
+{
+    background-color:#EEEEEE;
+    cursor:default;
+}
+.caption
+{
+    opacity: 0.78;
+}
+.container
+{
+    height: 90%;
+}
+.frame
+{
+    background-color: white;
+    cursor:pointer;
+}
+#question
+{
+    margin-top: 50px;
+}
+.gabim
+{
+    color: red;
+}
+.sakt
+{
+    color:teal;
+}
+#btn_ktheu
+{
+    color: teal;
+}
+#filloBTN
+{
+    width: 120px;
+    height: 40px;
+}
+#cardID
+{
+    height: 50px;
+}

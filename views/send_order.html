@@ -1,0 +1,46 @@
+<div id="send_order_div" layout="column" flex="100">
+    <div>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+              <span>Send Order</span>
+              <!-- fill up the space between left and right area -->
+              <span flex></span>
+            </div>
+        </md-toolbar>
+    </div>
+    <div layout="column">
+        <div id="presend_div" layout="column" flex-offset="10">
+            <md-input-container class="md-block">
+              <label>Name</label>
+              <input ng-model="user.address" ng-disabled="true">
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Surname</label>
+              <input ng-model="user.address" ng-disabled="true">
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Enter Your Address</label>
+              <input ng-model="user.address">
+            </md-input-container>
+        </div>
+        <div id="orders" layout="column" layout-wrap>
+            <span id="my_orders_label" class="md-subhead">ORDER ITEMS </span>
+            <center><div layout="row" layout-wrap>
+                <md-card id="item_in_order" ng-repeat="item in MYORDERS" md-padding layout="row">
+                    <span class="md-subhead">{{item.amount}}&nbsp&nbsp&nbsp</span>
+                    <span class="md-subhead">{{item.name}}&nbsp&nbsp&nbsp</span>
+                    <span class="md-subhead">{{item.price |currency}}</span>
+                </md-card>
+            </div></center>
+        </div>
+        <div id="total_price" layout="column" layout-wrap>
+            <div layout="row">
+                <span class="md-display-1 label">TOTAL PRICE </span>
+                <span class="md-display-1 label">{{total_price |currency}}
+            </div>
+        </div>
+        <div id="place_order_div" layout="row">
+            <center><md-button class="md-raised md-primary">PLACE ORDER</md-button></center>
+        </div>
+    </div>
+</div>
