@@ -15,74 +15,13 @@ body
     height: 90%;
     background-color: #EEEEEE;
 }
-.card
-{
-    height: 100px;
-    cursor:pointer;
-}
-.card:hover
-{
-    border: 2px solid gray;
-}
-.question-nr
+.title
 {
     opacity: 0.78;
 }
-.card-sakt
+#itemCard
 {
-    border: 2px solid teal;
-    cursor:default;
-}
-.card-sakt:hover
-{
-    background-color:#EEEEEE;
-    cursor:default;
-}
-.card-gabim
-{
-    border: 2px solid red;
-    cursor:default;
-}
-.card-gabim:hover
-{
-    background-color:#EEEEEE;
-    cursor:default;
-}
-.caption
-{
-    opacity: 0.78;
-}
-.container
-{
-    height: 90%;
-}
-.frame
-{
-    background-color: white;
-    cursor:pointer;
-}
-#question
-{
-    margin-top: 50px;
-}
-.gabim
-{
-    color: red;
-}
-.sakt
-{
-    color:teal;
-}
-#btn_ktheu
-{
-    color: teal;
-}
-#filloBTN
-{
-    width: 120px;
-    height: 40px;
-}
-#cardID
-{
-    height: 50px;
+    height: 350px;
+    overflow: hidden;
+    position: relative;
 }
