@@ -8,7 +8,7 @@ var app = angular.module('Standout', ['ui.router', 'ngMaterial', 'ngMdIcons'])
       .state('home', {
           url:'/',
           templateUrl:'templates/home.html',
-          controller: 'homeController'
+          controller: 'supplierController'
       })
 
 });

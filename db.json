@@ -5,16 +5,16 @@
       "name": "Kalles livs",
       "type": "Meat",
       "phone": "0700505667",
-      "latitude": 123,
-      "longitude": 234
+      "latitude": 56.87767,
+      "longitude": 14.80906
     },
     {
       "owner": "John Doe", 
       "name": "Konsum fjollträsk",
       "type": "Bread",
       "phone": "0700505667",
-      "latitude": 567,
-      "longitude": 789
+      "latitude": 56.86767,
+      "longitude": 14.82906
     }
   ]
 }
