@@ -7,7 +7,7 @@ angular.module('Standout')
         constructor(lon = 56.8833333, lat = 14.8166667) {
             this.lon = lon;
             this.lat = lat;
-            this.zoom = 8;
+            this.zoom = 10;
             this.divMap = document.getElementById('map');
             this.map
         }
