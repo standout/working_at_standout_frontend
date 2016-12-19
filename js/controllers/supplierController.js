@@ -1,14 +1,27 @@
 angular.module('Standout')
 .controller('supplierController', ['$scope', '$rootScope', '$location', '$mdToast', '$mdDialog', '$http','Supplier',
 function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier) {
+    /**
+     * supplier - variable that holds the supplier object
+     */
     $rootScope.supplier = Array();
 
+    /**
+     * supplierTypes - is an array with the supplier types
+     */
     $rootScope.supplierTypes = ['Eggs', 'Bread', 'Drinks', 'Fruits', 'Meat'];
-    //onload
+    
+    /**
+     * when the page loads ..
+     */
     $scope.$on('$viewContentLoaded', function() {
         initSupplier();
     });
 
+    /**
+     * updateSupplier - this function is called when update button is clicked
+     * @return void
+     */
     $scope.updateSupplier = () => {
        const supplier = new Supplier();
        supplier.updateSupplier($rootScope.supplier, function(status) {
@@ -24,6 +37,9 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier) {
        });
     }
 
+    /**
+     * deleteSupplier - the function is called when delete button is clicked
+     */
     $scope.deleteSupplier = (supplierID) => {
         const supplier = new Supplier();
         supplier.deleteSupplier(supplierID, function(status) {

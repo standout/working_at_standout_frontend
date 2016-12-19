@@ -8,9 +8,6 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
     //onload
     $scope.$on('$viewContentLoaded', function() {
         initSuppliers();
-        console.log('this is the new supplier data');
-        console.log($scope.newSupplier);
-        console.log('this is the new supplier data');
     });
 
     /**
@@ -24,12 +21,18 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
         });
     }
 
+    /**
+     * initMap - initiates the map
+     */
     var initMap = () => {
         const map = new Map();
         map.createMap();
         map.addMarkersInTheMap($scope.allSuppliers);
     }
 
+    /**
+     * selectTab - triggered when a tab is clicked
+     */
     $scope.selectTab = (tab) => {
         if (tab == 'map') {
             //when the MAP tab is clicked then initiate the map
@@ -37,10 +40,17 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
         }
     }
 
+    /**
+     * editSupplier - when Edit button in one of the suppliers is clicked
+     * it redirects to the supplier view
+     */
     $scope.editSupplier = (supplierName) => {
         $location.path("/supplier/" + supplierName);
     }
 
+    /**
+     * saveNewSupplier - saves the new supplier that was entered by the user
+     */
     $scope.saveNewSupplier = () => {
         const newSupplier = new Supplier();
         newSupplier.storeToDB($scope.newSupplier, function(response) {
@@ -53,7 +63,7 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
                 $scope.newSupplier = {};
             }
             else {
-                $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG"));
+                $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
             }
         });
     }

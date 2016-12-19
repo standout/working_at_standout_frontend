@@ -31,6 +31,10 @@ angular.module('Standout')
 
        /**
         * getData - gets the data from our API through AJAX
+        * @param {String} reqMethod - GET, PUT, POST or DELETE
+        * @param {String} endpoint - the url for the request
+        * @param {Callback} callback
+        * @return {Object} data - the data from the server i.e. json-server db.json 
         */
         getData : (reqMethod, endpoint, callback) => {
             $http({
@@ -41,6 +45,14 @@ angular.module('Standout')
             });
         },
 
+        /**
+         * serverRequest - get the data from our json-server db.sjon
+         * @param {String} reqMethod - GET, PUT, POST or DELETE
+         * @param {String} endpoint - the url for the request
+         * @param {Object} data - the data object that we might want to POST or PUT into the db.json
+         * @param {Callback} callback
+         * @return {Object} data - the data from the server i.e. json-server db.json 
+         */
         serverRequest : (reqMethod, endpoint, data = {}, callback) => {
             const request = {method : reqMethod, url : Config.BASE_URL + endpoint};
             if (reqMethod == Config.POST || reqMethod == Config.PUT) {

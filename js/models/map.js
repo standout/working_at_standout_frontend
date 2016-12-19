@@ -4,6 +4,9 @@ angular.module('Standout')
 
     class Map 
     {
+        /**
+         * constructor - the map constructor
+         */
         constructor(lon = 56.8833333, lat = 14.8166667) {
             this.lon = lon;
             this.lat = lat;
@@ -12,6 +15,9 @@ angular.module('Standout')
             this.map
         }
 
+        /**
+         * createMap - creates the map in the given div
+         */
         createMap() {
             this.map = new google.maps.Map(this.divMap, {
                 center: {lat: this.lon, lng: this.lat},
@@ -19,6 +25,10 @@ angular.module('Standout')
             });
         }
 
+        /**
+         * addMarkersInTheMap - adds the given suppliers into the map
+         * @param suppliers {Array} an array of supplier objects
+         */
         addMarkersInTheMap(suppliers) {
             for (let supplier of suppliers) {
                 var marker = new google.maps.Marker({
