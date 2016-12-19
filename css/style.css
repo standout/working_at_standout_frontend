@@ -25,3 +25,32 @@ body
     overflow: hidden;
     position: relative;
 }
+#supplier_breadcrumb_div
+{
+    height: 60px;
+    padding-left: 15px;
+}
+.container
+{
+    margin-top: 20px;
+}
+.container_new_supplier
+{
+    margin-top: 10px;
+}
+#actionBTNDiv
+{
+    float: right;
+    margin-right: 100px;
+}
+#actionBTN
+{
+    position: fixed;
+    top: 320;
+    right: 300;
+}
+#actionBTNNewSupplier
+{
+    width: 200px;
+    float: right;
+}
