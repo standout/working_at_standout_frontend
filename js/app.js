@@ -8,6 +8,11 @@ var app = angular.module('Standout', ['ui.router', 'ngMaterial', 'ngMdIcons'])
       .state('home', {
           url:'/',
           templateUrl:'templates/home.html',
+          controller: 'suppliersController'
+      })
+      .state('supplier', {
+          url:'/supplier/:name',
+          templateUrl:'templates/supplier.html',
           controller: 'supplierController'
       })
 
