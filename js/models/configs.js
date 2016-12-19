@@ -22,12 +22,24 @@ angular.module('Standout')
        /**
         * getData - gets the data from our API through AJAX
         */
-        getData : function(reqMethod, endpoint, callback) {
+        getData : (reqMethod, endpoint, callback) => {
             $http({
                 method: reqMethod,
                 url: Config.BASE_URL + endpoint,
             }).then(function successCallback(response) {
                 callback(response.data);
+            });
+        },
+
+        serverRequest : (reqMethod, endpoint, data = {}, callback) => {
+            const request = {method : reqMethod, url : Config.BASE_URL + endpoint};
+            if (reqMethod == Config.POST) {
+                //we have to add the data too
+                request['data'] = data;
+            }
+            
+            $http(request).then(function successCallback(response) {
+                callback(response);
             });
         }
     };
