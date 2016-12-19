@@ -39,7 +39,13 @@ angular.module('Standout')
             Config.serverRequest(Config.POST, this.type, newSupplier, function(response) {
                 callback(response);
             });
-        } 
+        }
+
+        deleteSupplier(id, callback) {
+            Config.serverRequest(Config.DELETE, this.type + '/' + id, {}, function(response) {
+                callback(response.status);
+            });
+        }
 
     }
 

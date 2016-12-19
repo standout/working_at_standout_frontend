@@ -10,14 +10,19 @@ angular.module('Standout')
         BASE_URL : "http://localhost:3000/",
 
        /**
-        * GET method
+        * GET HTTP method
         */
         GET : "GET",
 
        /**
-        * POST method
+        * POST HTTP method
         */
         POST : "POST",
+
+        /**
+         * DELETE HTTP method
+         */
+        DELETE : "DELETE",
 
        /**
         * getData - gets the data from our API through AJAX
@@ -37,9 +42,11 @@ angular.module('Standout')
                 //we have to add the data too
                 request['data'] = data;
             }
-            
+
             $http(request).then(function successCallback(response) {
                 callback(response);
+            }, function errorCallback(response) {
+                console.log(response);
             });
         }
     };

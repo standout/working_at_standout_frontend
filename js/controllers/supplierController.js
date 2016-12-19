@@ -1,35 +1,53 @@
 angular.module('Standout')
-.controller('supplierController', ['$scope', '$rootScope', '$location', '$mdToast', '$mdDialog', '$http', 'Supplier','Map',
-function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Map) {
+.controller('supplierController', ['$scope', '$rootScope', '$location', '$mdToast', '$mdDialog', '$http','Supplier',
+function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier) {
+    $rootScope.supplier = Array();
 
-    $scope.allSuppliers = Array();
+    $rootScope.supplierTypes = ['Eggs', 'Bread', 'Drinks', 'Fruits', 'Meat'];
     //onload
     $scope.$on('$viewContentLoaded', function() {
-        initSuppliers();
+        initSupplier();
     });
 
-    /**
-     * init - this function is called first when the page is loaded to initiate the view
-     * @return void
-     */
-    var initSuppliers = () => {
-        const suppliers = new Supplier();
-        suppliers.getAllSuppliers(function(suppliers) {
-            $scope.allSuppliers = suppliers;
+    $scope.updateSupplier = (supplierID) => {
+        alert('udpating this supplier :' + supplierID);
+    }
+
+    $scope.deleteSupplier = (supplierID) => {
+        const supplier = new Supplier();
+        supplier.deleteSupplier(supplierID, function(status) {
+            if (status == 200) {
+                //the delete was successful
+                $mdToast.show($mdToast.simple().content("SUPPLIER DELETED SUCCESFULLY"));
+                $location.path("/#"); //go back to the suppliers view
+            }
+            else {
+                //the delete was successful
+                $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
+            }
         });
     }
 
-    var initMap = () => {
-        const map = new Map();
-        map.createMap();
-        map.addMarkersInTheMap($scope.allSuppliers);
+    /**
+     * initSUpplier - gets the supplier from our API
+     * @return void
+     */
+    initSupplier = () => {
+        const supplier = new Supplier();
+        supplier.getSupplierWithID(getSupplierID(), function(supplier) {
+            console.log(supplier);
+            $rootScope.supplier = supplier;
+        });
     }
 
-    $scope.selectTab = (tab) => {
-        if (tab == 'map') {
-            //when the MAP tab is clicked
-            initMap();
-        }
+    /**
+     * getSupplierID - reads the ID of the selected supplier from the URL
+     * @return {String} ID
+     */
+    getSupplierID = () => {
+        var paramValue = $location.path();
+        var res = paramValue.split("/");
+        return res[2];
     }
 
 }])
