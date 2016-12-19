@@ -52,6 +52,9 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
                 //we empty out the newSupplier scope
                 $scope.newSupplier = {};
             }
+            else {
+                $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG"));
+            }
         });
     }
 
