@@ -38,16 +38,10 @@ body
 {
     margin-top: 10px;
 }
-#actionBTNDiv
-{
-    float: right;
-    margin-right: 100px;
-}
 #actionBTN
 {
-    position: fixed;
-    top: 320;
-    right: 300;
+    float: right;
+    bottom: 100px;
 }
 #actionBTNNewSupplier
 {
