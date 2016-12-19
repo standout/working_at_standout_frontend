@@ -52,25 +52,33 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
      * saveNewSupplier - saves the new supplier that was entered by the user
      */
     $scope.saveNewSupplier = () => {
+        $scope.correctAddress = false;
         const map = new Map();
         map.getCoordinatesForAddress($scope.newSupplier.address, function(coordinates) {
-            //append the coordinates to the newSupplier object
-            $scope.newSupplier['longitude'] = coordinates.longitude;
-            $scope.newSupplier['latitude'] = coordinates.latitude;
-            const newSupplier = new Supplier();
-            newSupplier.storeToDB($scope.newSupplier, function(response) {
-                if (response.status == 201) {
-                    //the new supplier was created successfully
-                    $mdToast.show($mdToast.simple().content("SUPPLIER ADDED SUCCESFULLY"));
-                    //we push the new supplier in the scope.allSuppliers
-                    $scope.allSuppliers.push(response.data);
-                    //we empty out the newSupplier scope
-                    $scope.newSupplier = {};
-                }
-                else {
-                    $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
-                }
-            })
+            console.log(coordinates);
+            if (coordinates.status === 'found') {
+                //append the coordinates to the newSupplier object
+                $scope.newSupplier['longitude'] = coordinates.longitude;
+                $scope.newSupplier['latitude'] = coordinates.latitude;
+                const newSupplier = new Supplier();
+                newSupplier.storeToDB($scope.newSupplier, function(response) {
+                    if (response.status == 201) {
+                        //the new supplier was created successfully
+                        $mdToast.show($mdToast.simple().content("SUPPLIER ADDED SUCCESFULLY"));
+                        //we push the new supplier in the scope.allSuppliers
+                        $scope.allSuppliers.push(response.data);
+                        //redirect to the newly created supplier
+                        $location.path("/supplier/" + response.data.id);
+                    }
+                    else {
+                        $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
+                    }
+                })
+            }
+            else {
+                $mdToast.show($mdToast.simple().content("ADDRESS WAS WRONG!"));
+                $scope.newSupplier.address = ""; //empty out the address
+            }
         });
     }
 
