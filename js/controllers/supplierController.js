@@ -9,8 +9,19 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier) {
         initSupplier();
     });
 
-    $scope.updateSupplier = (supplierID) => {
-        alert('udpating this supplier :' + supplierID);
+    $scope.updateSupplier = () => {
+       const supplier = new Supplier();
+       supplier.updateSupplier($rootScope.supplier, function(status) {
+           if (status == 200) {
+               //the update was successful
+               $mdToast.show($mdToast.simple().content("SUPPLIER UPDATED SUCCESFULLY"));
+               $location.path("/#");
+           }
+           else {
+               //the update went wrong
+                $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
+           }
+       });
     }
 
     $scope.deleteSupplier = (supplierID) => {
@@ -19,10 +30,10 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier) {
             if (status == 200) {
                 //the delete was successful
                 $mdToast.show($mdToast.simple().content("SUPPLIER DELETED SUCCESFULLY"));
-                $location.path("/#"); //go back to the suppliers view
+                $location.path("/#");
             }
             else {
-                //the delete was successful
+                //the delete went wrong
                 $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
             }
         });

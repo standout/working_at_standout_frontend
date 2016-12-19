@@ -20,6 +20,11 @@ angular.module('Standout')
         POST : "POST",
 
         /**
+         * PUT HTTP method
+         */
+        PUT : "PUT",
+
+        /**
          * DELETE HTTP method
          */
         DELETE : "DELETE",
@@ -38,8 +43,8 @@ angular.module('Standout')
 
         serverRequest : (reqMethod, endpoint, data = {}, callback) => {
             const request = {method : reqMethod, url : Config.BASE_URL + endpoint};
-            if (reqMethod == Config.POST) {
-                //we have to add the data too
+            if (reqMethod == Config.POST || reqMethod == Config.PUT) {
+                //we have to add the data to the request too
                 request['data'] = data;
             }
 

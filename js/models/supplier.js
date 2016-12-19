@@ -35,6 +35,12 @@ angular.module('Standout')
             });
         }
 
+        updateSupplier(supplier, callback) {
+            Config.serverRequest(Config.PUT, this.type + '/' + supplier.id, supplier, function(response) {
+                callback(response.status);
+            });
+        }
+
         storeToDB(newSupplier, callback) {
             Config.serverRequest(Config.POST, this.type, newSupplier, function(response) {
                 callback(response);
