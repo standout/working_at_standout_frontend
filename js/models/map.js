@@ -37,15 +37,22 @@ angular.module('Standout')
          */
         addMarkersInTheMap(suppliers) {
             for (let supplier of suppliers) {
-                var marker = new google.maps.Marker({
+                const marker = new google.maps.Marker({
                     position: {lat: parseFloat(supplier.latitude), lng: parseFloat(supplier.longitude)},
                     map: this.map
                 });
+                //add Info window to the marker that will show up when clicked
+                const infowindow = new google.maps.InfoWindow();
+                const contents = `<span class = "md-subhead">${supplier.name}</span><br />
+                                  <span class = "md-body">${supplier.type}</span><br />
+                                  <span class = "md-body">${supplier.address}</span>`;
 
-                google.maps.event.addListener(marker, 'click', function () {
-                    // do something with this marker ...
-                    alert('marker is clicked');
-                });
+                google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.setContent(contents);
+                        infowindow.open(map,marker);
+                    };
+                })(marker,content,infowindow));  
             }
         }
 
