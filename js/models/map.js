@@ -34,6 +34,7 @@ angular.module('Standout')
         /**
          * addMarkersInTheMap - adds the given suppliers into the map
          * @param suppliers {Array} an array of supplier objects
+         * @return void
          */
         addMarkersInTheMap(suppliers) {
             for (let supplier of suppliers) {
@@ -47,12 +48,12 @@ angular.module('Standout')
                                   <span class = "md-body">${supplier.type}</span><br />
                                   <span class = "md-body">${supplier.address}</span>`;
 
-                google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+                google.maps.event.addListener(marker,'click', (function(marker, content, infowindow){ 
                     return function() {
                         infowindow.setContent(contents);
-                        infowindow.open(map,marker);
+                        infowindow.open(map, marker);
                     };
-                })(marker,content,infowindow));  
+                })(marker, content, infowindow));  
             }
         }
 
