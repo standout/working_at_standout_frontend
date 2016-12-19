@@ -4,6 +4,9 @@ angular.module('Standout')
 
     class Supplier 
     {
+        /**
+         * the constructor
+         */
         constructor() {
             /**
              * type - the type of request i.e. API route
@@ -21,6 +24,22 @@ angular.module('Standout')
                 return callback(suppliers);
             });
         }
+
+       /**
+        * getSupplierWithID - gets the selected supplier
+        * @return {Array} suppliers
+        */
+        getSupplierWithID(id, callback) {
+            Config.getData(Config.GET, this.type + '/' + id, function(suppliers) {
+                return callback(suppliers);
+            });
+        }
+
+        storeToDB(newSupplier, callback) {
+            Config.serverRequest(Config.POST, this.type, newSupplier, function(response) {
+                callback(response);
+            });
+        } 
 
     }
 

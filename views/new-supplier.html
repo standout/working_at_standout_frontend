@@ -1,1 +1,46 @@
-<h2> NEW SUPPLIER WILL GO HERE</h2>
+<div class = "column" flex = "100" flex-offset = "5">
+    <div class = "column container_new_supplier" flex = "50">
+        <form name="form_register" id="form_register">
+            <md-input-container class="md-block">
+                <label>Supplier Name </label>
+            <input ng-model="newSupplier.name" required>
+            </md-input-container>
+            <md-input-container md-no-float class="md-block">
+                <label>Owner</label>
+                <input ng-model="newSupplier.owner" required>
+            </md-input-container>
+            <md-input-container md-no-float class="md-block">
+                <label>Email</label>
+                <input name = "email" ng-model="newSupplier.email" type="email" required>
+                <div ng-messages = "">
+                    <div ng-show="form_register.email.$dirty && form_register.email.$error.required">
+                    <div ng-message="required">Email is required.</div>
+                    </div>
+                    <div ng-show="form_register.email.$dirty && form_register.email.$error.email">
+                    <div ng-message="email">Not a valid email.</div>
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container md-no-float class="md-block">
+                <label>Phone</label>
+                <input ng-model="newSupplier.phone" required>
+            </md-input-container>
+            <md-input-container md-no-float class="md-block">
+                <label>Latitude</label>
+                <input ng-model="newSupplier.latitude" required>
+            </md-input-container>
+            <md-input-container md-no-float class="md-block">
+                <label>Longitude</label>
+                <input ng-model="newSupplier.longitude" required>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Type Of Supplier</label>
+                <md-select ng-model="newSupplier.type" required>
+                <md-option ng-repeat="type in supplierTypes" value="{{type}}">{{type}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-button id = "actionBTNNewSupplier" class = "md-raised md-primary"  
+                ng-disabled = "form_register.$invalid " ng-click = "saveNewSupplier()"> Save </md-button>
+        </form>
+    </div>
+</div>
