@@ -13,6 +13,11 @@ angular.module('Standout')
 
         /**
          * createMap - creates the map in the given div
+         * @param {Float} lon - longitude the default is 56.8833333
+         * @param {Float} lat - latitude the default is 14.8166667
+         * @param {Integer} zoom - the zoom factor default is 10
+         * @param {DOM} dom - is the DOM element where we will attach the map
+         * @return void
          */
         createMap(lon = 56.8833333, lat = 14.8166667, zoom = 10, dom = 'map') {
             this.lon = lon;
