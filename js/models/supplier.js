@@ -17,11 +17,11 @@ angular.module('Standout')
        /**
         * getAllSuppliers - reads all the suppliers in our db
         * @param  {Callback} - a callback function
-        * @return {Object}  - suppliers object
+        * @return {Array}  - suppliers Array
         */
         getAllSuppliers(callback) {
-            Config.getData(Config.GET, this.type, function(suppliers) {
-                return callback(suppliers);
+            Config.serverRequest(Config.GET, this.type, {}, function(response) {
+                return callback(response.data);
             });
         }
 
@@ -29,11 +29,11 @@ angular.module('Standout')
         * getSupplierWithID - gets the selected supplier
         * @param {Integer} id
         * @param {Callback} callback
-        * @return {Array} suppliers
+        * @return {Object} supplier
         */
         getSupplierWithID(id, callback) {
-            Config.getData(Config.GET, this.type + '/' + id, function(suppliers) {
-                return callback(suppliers);
+            Config.serverRequest(Config.GET, this.type + '/' + id, {}, function(response) {
+                return callback(response.data);
             });
         }
 

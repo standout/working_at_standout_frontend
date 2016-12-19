@@ -29,22 +29,6 @@ angular.module('Standout')
          */
         DELETE : "DELETE",
 
-       /**
-        * getData - gets the data from our API through AJAX
-        * @param {String} reqMethod - GET, PUT, POST or DELETE
-        * @param {String} endpoint - the url for the request
-        * @param {Callback} callback
-        * @return {Object} data - the data from the server i.e. json-server db.json 
-        */
-        getData : (reqMethod, endpoint, callback) => {
-            $http({
-                method: reqMethod,
-                url: Config.BASE_URL + endpoint,
-            }).then(function successCallback(response) {
-                callback(response.data);
-            });
-        },
-
         /**
          * serverRequest - get the data from our json-server db.sjon
          * @param {String} reqMethod - GET, PUT, POST or DELETE
