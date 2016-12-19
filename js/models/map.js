@@ -7,18 +7,19 @@ angular.module('Standout')
         /**
          * constructor - the map constructor
          */
-        constructor(lon = 56.8833333, lat = 14.8166667) {
-            this.lon = lon;
-            this.lat = lat;
-            this.zoom = 10;
-            this.divMap = document.getElementById('map');
+        constructor() {
             this.map
         }
 
         /**
          * createMap - creates the map in the given div
          */
-        createMap() {
+        createMap(lon = 56.8833333, lat = 14.8166667, zoom = 10, dom = 'map') {
+            this.lon = lon;
+            this.lat = lat;
+            this.zoom = 10;
+            this.divMap = document.getElementById(dom);
+
             this.map = new google.maps.Map(this.divMap, {
                 center: {lat: this.lon, lng: this.lat},
                 zoom: this.zoom
