@@ -20,6 +20,10 @@
             <md-icon md-svg-icon = "img/phone.svg"></md-icon>
             <input ng-model="supplier.phone">
         </md-input-container>
+        <md-input-container md-no-float class="md-block">
+            <md-icon md-svg-icon = "img/pin.svg"></md-icon>
+            <input ng-model="supplier.address">
+        </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
             <label>Type Of Supplier</label>
             <md-select ng-model="supplier.type">
@@ -38,7 +42,7 @@
             <md-button aria-label="Delete" class="md-fab md-raised" ng-click = "deleteSupplier(supplier.id)">
                 <md-icon md-svg-src="img/delete.svg" aria-label="Delete"></md-icon>
             </md-button>
-            <md-button aria-label="Save" class="md-fab md-raised" ng-click = "updateSupplier(supplier.id)">
+            <md-button aria-label="Save" class="md-fab md-raised" ng-click = "updateSupplier()">
                 <md-icon md-svg-src="img/save.svg" aria-label="Save"></md-icon>
             </md-button>
             </md-fab-actions>

@@ -52,19 +52,25 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
      * saveNewSupplier - saves the new supplier that was entered by the user
      */
     $scope.saveNewSupplier = () => {
-        const newSupplier = new Supplier();
-        newSupplier.storeToDB($scope.newSupplier, function(response) {
-            if (response.status == 201) {
-                //the new supplier was created successfully
-                $mdToast.show($mdToast.simple().content("SUPPLIER ADDED SUCCESFULLY"));
-                //we push the new supplier in the scope.allSuppliers
-                $scope.allSuppliers.push(response.data);
-                //we empty out the newSupplier scope
-                $scope.newSupplier = {};
-            }
-            else {
-                $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
-            }
+        const map = new Map();
+        map.getCoordinatesForAddress($scope.newSupplier.address, function(coordinates) {
+            //append the coordinates to the newSupplier object
+            $scope.newSupplier['longitude'] = coordinates.longitude;
+            $scope.newSupplier['latitude'] = coordinates.latitude;
+            const newSupplier = new Supplier();
+            newSupplier.storeToDB($scope.newSupplier, function(response) {
+                if (response.status == 201) {
+                    //the new supplier was created successfully
+                    $mdToast.show($mdToast.simple().content("SUPPLIER ADDED SUCCESFULLY"));
+                    //we push the new supplier in the scope.allSuppliers
+                    $scope.allSuppliers.push(response.data);
+                    //we empty out the newSupplier scope
+                    $scope.newSupplier = {};
+                }
+                else {
+                    $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
+                }
+            })
         });
     }
 

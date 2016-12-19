@@ -43,6 +43,26 @@ angular.module('Standout')
             }
         }
 
+        /**
+         * getCoordinatesForAddress - returns the coordinates of the given address
+         * @param {String} theAddress
+         * @return {Object} coordinates - contains longitude and latitude
+         */
+        getCoordinatesForAddress(theAddress, callback) {
+            var geocoder = new google.maps.Geocoder();
+            const address = decodeURIComponent(escape(theAddress));
+            geocoder.geocode({'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var location = results[0].geometry.location;
+                    var coordinates = {status : 'found', latitude : location.lat(), longitude : location.lng()};
+                    return callback(coordinates);
+                }
+                else {
+                    return callback({status : 'not_found'});
+                }
+            });
+        }
+
     }
 
     return Map;
