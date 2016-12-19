@@ -3,15 +3,15 @@
         <form name="form_register" id="form_register">
             <md-input-container class="md-block">
                 <label>Supplier Name </label>
-            <input ng-model="newSupplier.name" required>
+            <input ng-model="newSupplier.name" required aria-label = "name">
             </md-input-container>
             <md-input-container md-no-float class="md-block">
                 <label>Owner</label>
-                <input ng-model="newSupplier.owner" required>
+                <input ng-model="newSupplier.owner" required aria-label = "owner">
             </md-input-container>
             <md-input-container md-no-float class="md-block">
                 <label>Email</label>
-                <input name = "email" ng-model="newSupplier.email" type="email" required>
+                <input name = "email" ng-model="newSupplier.email" type="email" required aria-label = "email">
                 <div ng-messages = "">
                     <div ng-show="form_register.email.$dirty && form_register.email.$error.required">
                     <div ng-message="required">Email is required.</div>
@@ -23,11 +23,11 @@
             </md-input-container>
             <md-input-container md-no-float class="md-block">
                 <label>Phone</label>
-                <input ng-model="newSupplier.phone" required>
+                <input ng-model="newSupplier.phone" required aria-label = "phone">
             </md-input-container>
             <md-input-container md-no-float class="md-block">
                 <label>Address</label>
-                <input name = "address" ng-model="newSupplier.address" required>
+                <input name = "address" ng-model="newSupplier.address" required aria-label = "address">
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Type Of Supplier</label>
