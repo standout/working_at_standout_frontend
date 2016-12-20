@@ -46,7 +46,9 @@ angular.module('Standout')
                 const infowindow = new google.maps.InfoWindow();
                 const contents = `<span class = "md-subhead">${supplier.name}</span><br />
                                   <span class = "md-body">${supplier.type}</span><br />
-                                  <span class = "md-body">${supplier.address}</span>`;
+                                  <span class = "md-body">${supplier.address}</span><br />
+                                  <span class = "md-body">${supplier.phone}</span><br />
+                                  <span class = "md-body">${supplier.email}</span><br />`;
 
                 google.maps.event.addListener(marker,'click', (function(marker, content, infowindow){ 
                     return function() {
