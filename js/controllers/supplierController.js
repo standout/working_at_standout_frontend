@@ -41,13 +41,13 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
                     }
                     else {
                         //the update went wrong
-                            $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
+                        $mdToast.show($mdToast.simple().content("SOMETHING WENT WRONG!"));
                     }
                 });
             }
             else {
                 $mdToast.show($mdToast.simple().content("ADDRESS WAS WRONG!"));
-                $scope.newSupplier.address = ""; //empty out the address
+                $rootScope.supplier.address = ""; //empty out the address
             }
        });
        
@@ -78,7 +78,6 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
     initSupplier = () => {
         const supplier = new Supplier();
         supplier.getSupplierWithID(getSupplierID(), function(supplier) {
-            console.log(supplier);
             $rootScope.supplier = supplier;
         });
     }
