@@ -55,7 +55,6 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
         $scope.correctAddress = false;
         const map = new Map();
         map.getCoordinatesForAddress($scope.newSupplier.address, function(coordinates) {
-            console.log(coordinates);
             if (coordinates.status === 'found') {
                 //append the coordinates to the newSupplier object
                 $scope.newSupplier['longitude'] = coordinates.longitude;
