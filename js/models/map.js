@@ -19,14 +19,14 @@ angular.module('Standout')
          * @param {DOM} dom - is the DOM element where we will attach the map
          * @return void
          */
-        createMap(lon = 56.8833333, lat = 14.8166667, zoom = 10, dom = 'map') {
+        createMap(lon = 14.8166667, lat = 56.8833333, zoom = 10, dom = 'map') {
             this.lon = lon;
             this.lat = lat;
             this.zoom = zoom;
             this.divMap = document.getElementById(dom);
 
             this.map = new google.maps.Map(this.divMap, {
-                center: {lat: this.lon, lng: this.lat},
+                center: {lat: this.lat, lng: this.lon},
                 zoom: this.zoom
             });
         }
