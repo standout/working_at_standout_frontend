@@ -22,7 +22,7 @@ angular.module('Standout')
         createMap(lon = 56.8833333, lat = 14.8166667, zoom = 10, dom = 'map') {
             this.lon = lon;
             this.lat = lat;
-            this.zoom = 10;
+            this.zoom = zoom;
             this.divMap = document.getElementById(dom);
 
             this.map = new google.maps.Map(this.divMap, {
@@ -63,12 +63,13 @@ angular.module('Standout')
          * @return {Object} coordinates - contains longitude and latitude
          */
         getCoordinatesForAddress(theAddress, callback) {
-            var geocoder = new google.maps.Geocoder();
+            const geocoder = new google.maps.Geocoder();
             const address = decodeURIComponent(escape(theAddress));
+            console.log(address);
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    var location = results[0].geometry.location;
-                    var coordinates = {status : 'found', latitude : location.lat(), longitude : location.lng()};
+                    const location = results[0].geometry.location;
+                    const coordinates = {status : 'found', latitude : location.lat(), longitude : location.lng()};
                     return callback(coordinates);
                 }
                 else {
