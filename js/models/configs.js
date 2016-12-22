@@ -49,7 +49,7 @@ angular.module('Standout')
             }, function errorCallback(response) {
                 console.log(response);
             });
-        }
+        },
     };
 
     return Config;

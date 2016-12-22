@@ -1,7 +1,7 @@
 angular.module('Standout')
 .controller('suppliersController', ['$scope', '$rootScope', '$location', '$mdToast', '$mdDialog', '$http', 'Supplier','Map',
 function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Map) {
-
+    
     //$rootScope.allSuppliers = Array();
     $rootScope.supplierTypes = ['Eggs', 'Bread', 'Drinks', 'Fruits', 'Meat'];
     $scope.newSupplier = {};
@@ -16,8 +16,8 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
      */
     var initSuppliers = () => {
         const suppliers = new Supplier();
-        suppliers.getAllSuppliers(function(suppliers) {
-            $scope.allSuppliers = suppliers;
+        suppliers.getAllSuppliers(function(response) {
+            $scope.allSuppliers = response.data;
         });
     }
 

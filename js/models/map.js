@@ -66,7 +66,8 @@ angular.module('Standout')
          */
         getCoordinatesForAddress(theAddress, callback) {
             const geocoder = new google.maps.Geocoder();
-            const address = decodeURIComponent(escape(theAddress));
+            //const address = decodeURIComponent(escape(theAddress));
+            const address = theAddress;
             console.log(address);
             geocoder.geocode({'address': address}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {

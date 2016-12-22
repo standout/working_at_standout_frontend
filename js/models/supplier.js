@@ -21,7 +21,7 @@ angular.module('Standout')
         */
         getAllSuppliers(callback) {
             Config.serverRequest(Config.GET, this.type, {}, function(response) {
-                return callback(response.data);
+                return callback(response);
             });
         }
 
@@ -33,6 +33,7 @@ angular.module('Standout')
         */
         getSupplierWithID(id, callback) {
             Config.serverRequest(Config.GET, this.type + '/' + id, {}, function(response) {
+                console.log(response);
                 return callback(response.data);
             });
         }
@@ -57,7 +58,7 @@ angular.module('Standout')
          */
         storeToDB(newSupplier, callback) {
             Config.serverRequest(Config.POST, this.type, newSupplier, function(response) {
-                callback(response);
+                return callback(response);
             });
         }
 
@@ -68,12 +69,13 @@ angular.module('Standout')
          * @return {String} status if the action was successful or not
          */
         deleteSupplier(id, callback) {
-            Config.serverRequest(Config.DELETE, this.type + '/' + id, {}, function(response) {
-                callback(response.status);
+            Config.serverRequest(Config.DELETE, this.type + '/' + id, {}, function(response) {;
+                return callback(response.status);
             });
         }
 
     }
-
+    
+    //module.exports = Supplier;
     return Supplier;
 }])

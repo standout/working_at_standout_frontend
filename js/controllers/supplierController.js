@@ -5,7 +5,7 @@ function($scope, $rootScope, $location, $mdToast, $mdDialog, $http, Supplier, Ma
      * supplier - variable that holds the supplier object
      */
     $rootScope.supplier = Array();
-
+    
     /**
      * supplierTypes - is an array with the supplier types
      */
