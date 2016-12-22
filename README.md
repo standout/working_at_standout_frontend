@@ -36,3 +36,12 @@ suppliers. See [API.md](API.md) for more information about the API.
    access.
  * Include an estimate on how much time you would think it takes to develop this
    kind of app.
+
+## HOW TO RUN THE PROJECT
+ * In order to run this project you should have Node installed on your machine and NPM
+ * Then from your terminal navigate to the project folder
+ * Write npm start
+ * Go to the browser and run the project
+ 
+## TIME ESTIMATE
+ * To complete this project it takes around 15 - 20 hours of work, mainly on the design to give a good user experience
