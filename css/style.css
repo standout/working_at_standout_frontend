@@ -1,0 +1,50 @@
+html
+{
+    background-color:#EEEEEE;
+}
+body
+{
+    background-color:#EEEEEE;
+}
+.tab
+{
+    height: 90%;
+}
+.tab-content
+{
+    height: 90%;
+    background-color: #EEEEEE;
+}
+.title
+{
+    opacity: 0.78;
+}
+#itemCard
+{
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+}
+#supplier_breadcrumb_div
+{
+    height: 60px;
+    padding-left: 15px;
+}
+.container
+{
+    margin-top: 20px;
+}
+.container_new_supplier
+{
+    margin-top: 10px;
+}
+#actionBTN
+{
+    float: right;
+    bottom: 100px;
+}
+#actionBTNNewSupplier
+{
+    width: 200px;
+    float: left;
+}

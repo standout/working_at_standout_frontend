@@ -1,0 +1,49 @@
+<html lang = "en" ng-app = "Standout">
+    <head>
+        <link rel = "stylesheet" href = "css/bootstrap/bootstrap.min.css">
+        <link rel = "stylesheet" href = "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.css">
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+        <link rel = "stylesheet" href = "css/style.css">
+        <meta name = "viewport" content = "initial-scale=1"/>
+    </head>
+
+    <body layout = "column" ng-controller = "AppCtrl">
+        <md-toolbar>
+            <div class = "md-toolbar-tools">
+                <span>Suppliers</span>
+                <!-- fill up the space between left and right area -->
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <div layout = "column" flex id = "content">
+            <div ui-view id = "views">
+
+            </div>
+        </div>
+        <!-- Angular Material Dependencies -->
+        <script src = "js/angularjs/angular.min.js"></script>
+        <script src = "js/angularjs/angular_animate.js"></script>
+        <script src = "js/angularjs/angular_aria.js"></script>
+        <script src = "js/angularjs/angular_material.js"></script>
+        <script src = "js/angularjs/angular_material_icons.js"></script>
+        <script src = "js/angularjs/angular-ui-router.min.js"></script>
+
+        <script src = "js/app.js"></script>
+
+        <!-- CONTROLLERS -->
+        <script src = "js/controllers/supplierController.js"></script>
+        <script src = "js/controllers/suppliersController.js"></script>
+        <script src = "js/controllers/newSupplierController.js"></script>
+        <script src = "js/controllers/mapOverViewController.js"></script>
+
+        <!-- DIRECTIVES -->
+        <script src = "js/directives/directives.js"></script>
+
+        <!-- MODELS -->
+        <script src = "js/models/configs.js"></script>
+        <script src = "js/models/supplier.js"></script>
+        <script src = "js/models/map.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXIUqHXtcSYnm2Ve3U49y2ma4pfEEGDfU" async defer></script>
+    </body>
+
+</html>

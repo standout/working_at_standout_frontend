@@ -1,14 +1,20 @@
 {
   "suppliers": [
     {
+      "owner": "Kushtrim Abdiju",
       "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
+      "type": "Meat",
+      "phone": "0700505667",
+      "latitude": 56.87767,
+      "longitude": 14.80906
     },
     {
+      "owner": "John Doe", 
       "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
+      "type": "Bread",
+      "phone": "0700505667",
+      "latitude": 56.86767,
+      "longitude": 14.82906
     }
   ]
 }

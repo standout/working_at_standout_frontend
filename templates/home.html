@@ -1,0 +1,23 @@
+<div layout="column">
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="SUPPLIERS" class = "tab" ng-click = "selectTab('list')">
+            <md-content class="md-padding tab-content" layout = "column" flex = "100" layout-wrap ng-cloak>
+                <suppliers-view flex = "100" ng-if = "allSuppliers.length > 0"></suppliers-view>
+                <div flex = "100" layout = "column" layout-align = "center center" ng-if = "allSuppliers.length == 0" ng-cloak>
+                    <span class = "md-display-3 title">NO SUPPLIER ADDED YET! </span>
+                    <md-button class="md-raised md-primary">Add Supplier</md-button>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab label="ADD SUPPLIER" class = "tab" ng-click = "selectTab('add')">
+            <md-content class="md-padding tab-content" layout = "row" flex = "100" layout-wrap>
+                <new-supplier flex = "100"></new-supplier>
+            </md-content>
+        </md-tab>
+        <md-tab label = "MAP OVERVIEW" class = "tab" ng-click = "selectTab('map')">
+            <md-content class="tab-content" layout = "row" flex = "100" layout-wrap>      
+                <map-view flex = "100"></map-view>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</div>

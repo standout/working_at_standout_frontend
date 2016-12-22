@@ -1,0 +1,44 @@
+<div id="filter" layout="row" layout-wrap flex-offset = "10"> 
+        <div layout="row" layout-wrap flex="80" flex-offset="10" layout="row">
+            <div flex="90">
+                <md-input-container md-no-float class="md-block">
+                    <md-icon md-svg-icon = "img/search.svg"></md-icon>
+                     <input ng-model="search" placeholder = "Search...">
+               </md-input-container>
+           </div>
+       </div>
+    </div>
+<div layout = "row" layout-wrap ng-cloak>
+    <md-card id = "itemCard" ng-repeat="supplier in allSuppliers | filter:search" flex = "30" flex-sm = "100" layout = "column">
+        <md-card-title-text layout-align = "center center" flex = "20">
+            <center><span class="md-headline title">{{supplier.name |uppercase}}</span></center>
+        </md-card-title-text>
+        <md-card-content layout = "column" flex = "65">
+            <div layout = "row" flex = "100" flex-offset = "10">
+                <div><md-icon md-svg-icon = "img/face.svg"></md-icon>&nbsp&nbsp&nbsp</div>
+                <div><span class = "md-subhead">{{supplier.owner}}</span></div>
+            </div>
+            <div layout = "row" flex = "100" flex-offset = "10">
+                <div><md-icon md-svg-icon = "img/supplier_type.svg"></md-icon>&nbsp&nbsp&nbsp</div>
+                <div><span class = "md-subhead">{{supplier.type}}</span></div>
+            </div>
+            <div layout = "row" flex = "100" flex-offset = "10">
+                <div><md-icon md-svg-icon = "img/email.svg"></md-icon>&nbsp&nbsp&nbsp</div>
+                <div><span class = "md-subhead">{{supplier.email}}</span></div>
+            </div>
+            <div layout = "row" flex = "100" flex-offset = "10">
+                <div><md-icon md-svg-icon = "img/phone.svg"></md-icon>&nbsp&nbsp&nbsp</div>
+                <div><span class = "md-subhead">{{supplier.phone}}</span></div>
+            </div>
+            <div layout = "row" flex = "100" flex-offset = "10">
+                <div><md-icon md-svg-icon = "img/pin.svg"></md-icon>&nbsp&nbsp&nbsp</div>
+                <div><span class = "md-subhead">{{supplier.address}}</span></div>
+            </div>
+        </md-card-content>
+        <md-card-actions flex = "15" layout = "row" layout-align = "center center">
+            <div layout-align = "center center" flex = "100" layout = "row">
+                <md-button flex = "100" class = "md-primary md-raised" ng-click = "editSupplier(supplier.id)">Edit</md-button>
+            </div>
+        </md-card-actions>
+    </md-card>
+</div>
