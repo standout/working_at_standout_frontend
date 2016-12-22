@@ -45,3 +45,6 @@ suppliers. See [API.md](API.md) for more information about the API.
  
 ## TIME ESTIMATE
  * To complete this project it takes around 15 - 20 hours of work, mainly on the design to give a good user experience
+ 
+## LIVE ACCESS
+ * The project is hosted at : https://kushtrim-getting-started.herokuapp.com/#/
