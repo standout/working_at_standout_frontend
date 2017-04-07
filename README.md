@@ -36,3 +36,13 @@ suppliers. See [API.md](API.md) for more information about the API.
    access.
  * Include an estimate on how much time you would think it takes to develop this
    kind of app.
+
+### Anna Brun - Suppliers
+	# Start the Suppliers-Application:
+		* npm install 
+		* npm start
+		* Run index.html in your webbrowser.
+
+	## The database is the db.json.
+
+	### I think it would take around 100 hours to create this kind of application.

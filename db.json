@@ -3,14 +3,78 @@
     {
       "id": 1,
       "name": "Kalles livs",
-      "latitude": 123,
-      "longitude": 234
+      "address": "",
+      "postcode": "",
+      "city": "Växjö",
+      "phone": "",
+      "email": "",
+      "category": [
+        {
+          "name": "Milk"
+        }
+      ],
+      "latitude": 56.879004,
+      "longitude": 14.805852
     },
     {
       "id": 2,
       "name": "Konsum fjollträsk",
-      "latitude": 567,
-      "longitude": 789
+      "address": "",
+      "postcode": "",
+      "city": "Karlskrona",
+      "phone": "",
+      "email": "",
+      "category": [
+        {
+          "name": " Cheese "
+        }
+      ],
+      "latitude": 56.161224,
+      "longitude": 15.5869
+    },
+    {
+      "name": "Anna Brun",
+      "address": "Västra Prinsgatan 41A",
+      "postcode": 37135,
+      "city": "Karlskrona",
+      "phone": "+46 (0) 762404930",
+      "email": "anna.brun92@gmail.com",
+      "category": [
+        {
+          "name": "Milk"
+        },
+        {
+          "name": " Cheese "
+        },
+        {
+          "name": " Bread"
+        }
+      ],
+      "latitude": 56.15985019999999,
+      "longitude": 15.579684100000009,
+      "id": 3
+    },
+    {
+      "name": "Coop Konsum",
+      "address": "Skärgårdsvägen 5",
+      "postcode": 13530,
+      "city": "Gustavsberg",
+      "phone": "08-570 104 40",
+      "email": "",
+      "category": [
+        {
+          "name": "Fruit"
+        },
+        {
+          "name": " Juice"
+        },
+        {
+          "name": " Salt"
+        }
+      ],
+      "latitude": 59.3248726,
+      "longitude": 18.39401680000003,
+      "id": 4
     }
   ]
 }

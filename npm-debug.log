@@ -1,0 +1,267 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'json-server' ]
+2 info using npm@1.3.10
+3 info using node@v0.10.25
+4 verbose cache add [ 'json-server', null ]
+5 verbose cache add name=undefined spec="json-server" args=["json-server",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'json-server',
+6 verbose parsed url   path: 'json-server',
+6 verbose parsed url   href: 'json-server' }
+7 silly lockFile 9f215afd-json-server json-server
+8 verbose lock json-server /home/ebruann/.npm/9f215afd-json-server.lock
+9 silly lockFile 9f215afd-json-server json-server
+10 silly lockFile 9f215afd-json-server json-server
+11 verbose addNamed [ 'json-server', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 6624355a-json-server json-server@
+14 verbose lock json-server@ /home/ebruann/.npm/6624355a-json-server.lock
+15 silly addNameRange { name: 'json-server', range: '*', hasData: false }
+16 verbose url raw json-server
+17 verbose url resolving [ 'https://registry.npmjs.org/', './json-server' ]
+18 verbose url resolved https://registry.npmjs.org/json-server
+19 info trying registry request attempt 1 at 10:52:38
+20 verbose etag "7HNS36050R0PR58L30KTFTDUJ"
+21 http GET https://registry.npmjs.org/json-server
+22 http 304 https://registry.npmjs.org/json-server
+23 silly registry.get cb [ 304,
+23 silly registry.get   { date: 'Thu, 27 Oct 2016 08:52:38 GMT',
+23 silly registry.get     via: '1.1 varnish',
+23 silly registry.get     'cache-control': 'max-age=300',
+23 silly registry.get     etag: '"7HNS36050R0PR58L30KTFTDUJ"',
+23 silly registry.get     age: '0',
+23 silly registry.get     connection: 'keep-alive',
+23 silly registry.get     'x-served-by': 'cache-bma7031-BMA',
+23 silly registry.get     'x-cache': 'MISS',
+23 silly registry.get     'x-cache-hits': '0',
+23 silly registry.get     'x-timer': 'S1477558358.289573,VS0,VE502',
+23 silly registry.get     vary: 'Accept-Encoding' } ]
+24 verbose etag json-server from cache
+25 silly addNameRange number 2 { name: 'json-server', range: '*', hasData: true }
+26 silly addNameRange versions [ 'json-server',
+26 silly addNameRange   [ '0.0.0',
+26 silly addNameRange     '0.1.0',
+26 silly addNameRange     '0.1.1',
+26 silly addNameRange     '0.2.0',
+26 silly addNameRange     '0.3.0',
+26 silly addNameRange     '0.3.1',
+26 silly addNameRange     '0.3.2',
+26 silly addNameRange     '0.3.3',
+26 silly addNameRange     '0.3.4',
+26 silly addNameRange     '0.3.5',
+26 silly addNameRange     '0.3.6',
+26 silly addNameRange     '0.3.7',
+26 silly addNameRange     '0.3.8',
+26 silly addNameRange     '0.3.9',
+26 silly addNameRange     '0.3.10',
+26 silly addNameRange     '0.3.11',
+26 silly addNameRange     '0.4.0',
+26 silly addNameRange     '0.4.1',
+26 silly addNameRange     '0.4.2',
+26 silly addNameRange     '0.5.0',
+26 silly addNameRange     '0.5.1',
+26 silly addNameRange     '0.5.2',
+26 silly addNameRange     '0.5.4',
+26 silly addNameRange     '0.5.5',
+26 silly addNameRange     '0.5.6',
+26 silly addNameRange     '0.5.7',
+26 silly addNameRange     '0.5.8',
+26 silly addNameRange     '0.5.9',
+26 silly addNameRange     '0.5.10',
+26 silly addNameRange     '0.5.11',
+26 silly addNameRange     '0.5.12',
+26 silly addNameRange     '0.6.0',
+26 silly addNameRange     '0.6.1',
+26 silly addNameRange     '0.6.2',
+26 silly addNameRange     '0.6.3',
+26 silly addNameRange     '0.6.4',
+26 silly addNameRange     '0.6.5',
+26 silly addNameRange     '0.6.6',
+26 silly addNameRange     '0.6.7',
+26 silly addNameRange     '0.6.8',
+26 silly addNameRange     '0.6.9',
+26 silly addNameRange     '0.6.10',
+26 silly addNameRange     '0.7.0',
+26 silly addNameRange     '0.7.1',
+26 silly addNameRange     '0.7.2',
+26 silly addNameRange     '0.7.3',
+26 silly addNameRange     '0.7.4',
+26 silly addNameRange     '0.7.5',
+26 silly addNameRange     '0.7.6',
+26 silly addNameRange     '0.7.7',
+26 silly addNameRange     '0.7.8',
+26 silly addNameRange     '0.7.9',
+26 silly addNameRange     '0.7.10',
+26 silly addNameRange     '0.7.11',
+26 silly addNameRange     '0.7.12',
+26 silly addNameRange     '0.7.13',
+26 silly addNameRange     '0.7.14',
+26 silly addNameRange     '0.7.15',
+26 silly addNameRange     '0.7.16',
+26 silly addNameRange     '0.7.17',
+26 silly addNameRange     '0.7.18',
+26 silly addNameRange     '0.7.19',
+26 silly addNameRange     '0.7.20',
+26 silly addNameRange     '0.7.21',
+26 silly addNameRange     '0.7.23',
+26 silly addNameRange     '0.7.24',
+26 silly addNameRange     '0.7.25',
+26 silly addNameRange     '0.7.26',
+26 silly addNameRange     '0.7.27',
+26 silly addNameRange     '0.7.28',
+26 silly addNameRange     '0.8.0',
+26 silly addNameRange     '0.8.1',
+26 silly addNameRange     '0.8.2',
+26 silly addNameRange     '0.8.3',
+26 silly addNameRange     '0.8.4',
+26 silly addNameRange     '0.8.5',
+26 silly addNameRange     '0.8.6',
+26 silly addNameRange     '0.8.7',
+26 silly addNameRange     '0.8.8',
+26 silly addNameRange     '0.8.9',
+26 silly addNameRange     '0.8.10',
+26 silly addNameRange     '0.8.11',
+26 silly addNameRange     '0.8.12',
+26 silly addNameRange     '0.8.13',
+26 silly addNameRange     '0.8.14',
+26 silly addNameRange     '0.8.15',
+26 silly addNameRange     '0.8.16',
+26 silly addNameRange     '0.8.17',
+26 silly addNameRange     '0.8.18',
+26 silly addNameRange     '0.8.19',
+26 silly addNameRange     '0.8.20',
+26 silly addNameRange     '0.8.21',
+26 silly addNameRange     '0.8.22',
+26 silly addNameRange     '0.9.0-beta.1',
+26 silly addNameRange     '0.9.0-beta.2' ] ]
+27 verbose addNamed [ 'json-server', '0.8.22' ]
+28 verbose addNamed [ '0.8.22', '0.8.22' ]
+29 silly lockFile c2697cef-json-server-0-8-22 json-server@0.8.22
+30 verbose lock json-server@0.8.22 /home/ebruann/.npm/c2697cef-json-server-0-8-22.lock
+31 silly lockFile c2697cef-json-server-0-8-22 json-server@0.8.22
+32 silly lockFile c2697cef-json-server-0-8-22 json-server@0.8.22
+33 silly lockFile 6624355a-json-server json-server@
+34 silly lockFile 6624355a-json-server json-server@
+35 silly resolved [ { name: 'json-server',
+35 silly resolved     version: '0.8.22',
+35 silly resolved     description: 'Serves JSON files through REST routes.',
+35 silly resolved     main: './src/server/index.js',
+35 silly resolved     bin: { 'json-server': './bin/index.js' },
+35 silly resolved     directories: { test: 'test' },
+35 silly resolved     dependencies:
+35 silly resolved      { 'body-parser': '^1.15.2',
+35 silly resolved        chalk: '^1.1.3',
+35 silly resolved        chokidar: '^1.6.0',
+35 silly resolved        compression: '^1.6.0',
+35 silly resolved        'connect-pause': '^0.1.0',
+35 silly resolved        cors: '^2.3.0',
+35 silly resolved        errorhandler: '^1.2.0',
+35 silly resolved        express: '^4.9.5',
+35 silly resolved        lodash: '^4.11.2',
+35 silly resolved        lowdb: '^0.13.1',
+35 silly resolved        'method-override': '^2.1.2',
+35 silly resolved        morgan: '^1.3.1',
+35 silly resolved        'node-uuid': '^1.4.2',
+35 silly resolved        'object-assign': '^4.0.1',
+35 silly resolved        pluralize: '^3.0.0',
+35 silly resolved        request: '^2.72.0',
+35 silly resolved        'server-destroy': '^1.0.1',
+35 silly resolved        'underscore-db': '^0.10.0',
+35 silly resolved        'update-notifier': '^1.0.2',
+35 silly resolved        yargs: '^4.2.0' },
+35 silly resolved     devDependencies:
+35 silly resolved      { 'babel-cli': '^6.10.1',
+35 silly resolved        'babel-preset-es2015': '^6.9.0',
+35 silly resolved        'cross-env': '^1.0.8',
+35 silly resolved        husky: '^0.11.4',
+35 silly resolved        mkdirp: '^0.5.1',
+35 silly resolved        mocha: '^2.2.4',
+35 silly resolved        'os-tmpdir': '^1.0.1',
+35 silly resolved        rimraf: '^2.5.2',
+35 silly resolved        'server-ready': '^0.2.0',
+35 silly resolved        standard: '^7.1.2',
+35 silly resolved        supertest: '^1.2.0',
+35 silly resolved        'temp-write': '^2.1.0' },
+35 silly resolved     scripts:
+35 silly resolved      { test: 'npm run test:cli && npm run test:server && standard',
+35 silly resolved        'test:cli': 'cross-env NODE_ENV=test mocha -R spec test/cli/*.js',
+35 silly resolved        'test:server': 'cross-env NODE_ENV=test mocha -R spec test/server/*.js',
+35 silly resolved        start: 'node bin',
+35 silly resolved        prepush: 'npm t',
+35 silly resolved        build: 'babel src -d lib' },
+35 silly resolved     repository:
+35 silly resolved      { type: 'git',
+35 silly resolved        url: 'git://github.com/typicode/json-server.git' },
+35 silly resolved     keywords:
+35 silly resolved      [ 'JSON',
+35 silly resolved        'server',
+35 silly resolved        'fake',
+35 silly resolved        'REST',
+35 silly resolved        'API',
+35 silly resolved        'prototyping',
+35 silly resolved        'mock',
+35 silly resolved        'mocking',
+35 silly resolved        'test',
+35 silly resolved        'testing',
+35 silly resolved        'rest',
+35 silly resolved        'data',
+35 silly resolved        'dummy',
+35 silly resolved        'sandbox' ],
+35 silly resolved     author: { name: 'Typicode', email: 'typicode@gmail.com' },
+35 silly resolved     license: 'MIT',
+35 silly resolved     bugs: { url: 'https://github.com/typicode/json-server/issues' },
+35 silly resolved     homepage: 'https://github.com/typicode/json-server',
+35 silly resolved     readme: '# JSON Server [![](https://travis-ci.org/typicode/json-server.svg)](https://travis-ci.org/typicode/json-server) [![](https://badge.fury.io/js/json-server.svg)](http://badge.fury.io/js/json-server) [![](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/typicode/json-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\nGet a full fake REST API with __zero coding__ in __less than 30 seconds__ (seriously)\n\nCreated with <3 for front-end developers who need a quick back-end for prototyping and mocking.\n\n* [Egghead.io free video tutorial - Creating demo APIs with json-server](https://egghead.io/lessons/nodejs-creating-demo-apis-with-json-server)\n* [JSONPlaceholder - Live running version](http://jsonplaceholder.typicode.com)\n\nSee also:\n* :hotel: [hotel - Get local domains in seconds](https://github.com/typicode/hotel)\n* :dog: [husky - Git hooks made easy](https://github.com/typicode/husky)\n\n## Example\n\nCreate a `db.json` file\n\n```json\n{\n  "posts": [\n    { "id": 1, "title": "json-server", "author": "typicode" }\n  ],\n  "comments": [\n    { "id": 1, "body": "some comment", "postId": 1 }\n  ],\n  "profile": { "name": "typicode" }\n}\n```\n\nStart JSON Server\n\n```bash\n$ json-server --watch db.json\n```\n\nNow if you go to [http://localhost:3000/posts/1](), you\'ll get\n\n```json\n{ "id": 1, "title": "json-server", "author": "typicode" }\n```\n\nAlso when doing requests, its good to know that\n- If you make POST, PUT, PATCH or DELETE requests, changes will be automatically and safely saved to `db.json` using [lowdb](https://github.com/typicode/lowdb).\n- Your request body JSON should be object enclosed, just like the GET output. (for example `{"name": "Foobar"}`)\n- Id values are not mutable. Any `id` value in the body of your PUT or PATCH request wil be ignored. Only a value set in a POST request wil be respected, but only if not already taken.\n- A POST, PUT or PATCH request should include a `Content-Type: application/json` header to use the JSON in the request body. Otherwise it will result in a 200 OK but without changes being made to the data.\n\n## Install\n\n```bash\n$ npm install -g json-server\n```\n\n## Routes\n\nBased on the previous `db.json` file, here are all the default routes. You can also add [other routes](#add-routes) using `--routes`.\n\n### Plural routes\n\n```\nGET    /posts\nGET    /posts/1\nPOST   /posts\nPUT    /posts/1\nPATCH  /posts/1\nDELETE /posts/1\n```\n\n### Singular routes\n\n```\nGET    /profile\nPOST   /profile\nPUT    /profile\nPATCH  /profile\n```\n\n### Filter\n\nUse `.` to access deep properties\n\n```\nGET /posts?title=json-server&author=typicode\nGET /posts?id=1&id=2\nGET /comments?author.name=typicode\n```\n\n### Paginate\n\nAdd `_page` and in the `Link` header you\'ll get `first`, `prev`, `next` and `last` links\n\n```\nGET /posts?_page=7\n```\n\n_10 items are returned by default_\n\n### Sort\n\nAdd `_sort` and `_order` (ascending order by default)\n\n```\nGET /posts?_sort=views&_order=DESC\nGET /posts/1/comments?_sort=votes&_order=ASC\n```\n\n### Slice\n\nAdd `_start` and `_end` or `_limit` (an `X-Total-Count` header is included in the response)\n\n```\nGET /posts?_start=20&_end=30\nGET /posts/1/comments?_start=20&_end=30\nGET /posts/1/comments?_start=20&_limit=10\n```\n\n### Operators\n\nAdd `_gte` or `_lte` for getting a range\n\n```\nGET /posts?views_gte=10&views_lte=20\n```\n\nAdd `_ne` to exclude a value\n\n```\nGET /posts?id_ne=1\n```\n\nAdd `_like` to filter (RegExp supported)\n\n```\nGET /posts?title_like=server\n```\n\n### Full-text search\n\nAdd `q`\n\n```\nGET /posts?q=internet\n```\n\n### Relationships\n\nTo include children resources, add `_embed`\n\n```\nGET /posts?_embed=comments\nGET /posts/1?_embed=comments\n```\n\nTo include parent resource, add `_expand`\n\n```\nGET /comments?_expand=post\nGET /comments/1?_expand=post\n```\n\nTo get or create nested resources (by default one level, [add routes](#add-routes) for more)\n\n```\nGET  /posts/1/comments\nPOST /posts/1/comments\n```\n\n### Database\n\n```\nGET /db\n```\n\n### Homepage\n\nReturns default index file or serves `./public` directory\n\n```\nGET /\n```\n\n## Extras\n\n### Static file server\n\nYou can use JSON Server to serve your HTML, JS and CSS, simply create a `./public` directory\nor use `--static` to set a different static files directory.\n\n```bash\nmkdir public\necho \'hello world\' > public/index.html\njson-server db.json\n```\n\n```bash\njson-server db.json --static ./some-other-dir\n```\n\n### Alternative port\n\nYou can start JSON Server on other ports with the `--port` flag:\n\n```bash\n$ json-server --watch db.json --port 3004\n```\n\n### Access from anywhere\n\nYou can access your fake API from anywhere using CORS and JSONP.\n\n### Remote schema\n\nYou can load remote schemas.\n\n```bash\n$ json-server http://example.com/file.json\n$ json-server http://jsonplaceholder.typicode.com/db\n```\n\n### Generate random data\n\nUsing JS instead of a JSON file, you can create data programmatically.\n\n```javascript\n// index.js\nmodule.exports = function() {\n  var data = { users: [] }\n  // Create 1000 users\n  for (var i = 0; i < 1000; i++) {\n    data.users.push({ id: i, name: \'user\' + i })\n  }\n  return data\n}\n```\n\n```bash\n$ json-server index.js\n```\n\n__Tip__ use modules like [faker](https://github.com/Marak/faker.js), [casual](https://github.com/boo1ean/casual) or [chance](https://github.com/victorquinn/chancejs).\n\n### Add routes\n\nCreate a `routes.json` file. Pay attention to start every route with /.\n\n```json\n{\n  "/api/": "/",\n  "/blog/:resource/:id/show": "/:resource/:id"\n}\n```\n\nStart JSON Server with `--routes` option.\n\n```bash\njson-server db.json --routes routes.json\n```\n\nNow you can access resources using additional routes.\n\n```bash\n/api/posts\n/api/posts/1\n/blog/posts/1/show\n```\n\n### Add middlewares\n\nYou can add your middlewares from the CLI using `--middlewares` option:\n\n```js\n// first.js\nmodule.exports = function (req, res, next) {\n  res.Header(\'X-Hello\', \'World\')\n}\n```\n\n```bash\njson-server db.json --middlewares ./hello.js\njson-server db.json --middlewares ./first.js ./second.js\n```\n\n### CLI usage\n\n```\njson-server [options] <source>\n\nOptions:\n  --config, -c       Path to config file           [default: "json-server.json"]\n  --port, -p         Set port                                    [default: 3000]\n  --host, -H         Set host                               [default: "0.0.0.0"]\n  --watch, -w        Watch file(s)                                     [boolean]\n  --routes, -r       Path to routes file\n  --middlewares, -m  Paths to middleware files                           [array]\n  --static, -s       Set static files directory\n  --read-only, --ro  Allow only GET requests                           [boolean]\n  --no-cors, --nc    Disable Cross-Origin Resource Sharing             [boolean]\n  --no-gzip, --ng    Disable GZIP Content-Encoding                     [boolean]\n  --snapshots, -S    Set snapshots directory                      [default: "."]\n  --delay, -d        Add delay to responses (ms)\n  --id, -i           Set database id property (e.g. _id)         [default: "id"]\n  --quiet, -q        Suppress log messages from output                 [boolean]\n  --help, -h         Show help                                         [boolean]\n  --version, -v      Show version number                               [boolean]\n\nExamples:\n  json-server db.json\n  json-server file.js\n  json-server http://example.com/db.json\n\nhttps://github.com/typicode/json-server\n```\n\nYou can also set options in a `json-server.json` configuration file.\n\n```json\n{\n  "port": 3000\n}\n```\n\n### Module\n\nIf you need to add authentication, validation, or __any behavior__, you can use the project as a module in combination with other Express middlewares.\n\n#### Simple example\n\n```js\n// server.js\nvar jsonServer = require(\'json-server\')\nvar server = jsonServer.create()\nvar router = jsonServer.router(\'db.json\')\nvar middlewares = jsonServer.defaults()\n\nserver.use(middlewares)\nserver.use(router)\nserver.listen(3000, function () {\n  console.log(\'JSON Server is running\')\n})\n```\n\n```sh\n$ node server.js\n```\n\nFor an in-memory database, you can pass an object to `jsonServer.router()`.\nPlease note also that `jsonServer.router()` can be used in existing Express projects.\n\n#### Custom routes example\n\nLet\'s say you want a route that echoes query parameters and another one that set a timestamp on every resource created.\n\n```js\nvar jsonServer = require(\'json-server\')\nvar server = jsonServer.create()\nvar router = jsonServer.router(\'db.json\')\nvar middlewares = jsonServer.defaults()\n\n// Set default middlewares (logger, static, cors and no-cache)\nserver.use(middlewares)\n\n// Add custom routes before JSON Server router\nserver.get(\'/echo\', function (req, res) {\n  res.jsonp(req.query)\n})\n\nserver.use(function (req, res, next) {\n  if (req.method === \'POST\') {\n    req.body.createdAt = Date.now()\n  }\n  // Continue to JSON Server router\n  next()\n})\n\n// Use default router\nserver.use(router)\nserver.listen(3000, function () {\n  console.log(\'JSON Server is running\')\n})\n```\n\n#### Access control example\n\n```js\nvar jsonServer = require(\'json-server\')\nvar server = jsonServer.create()\nvar router = jsonServer.router(\'db.json\')\nvar middlewares = jsonServer.defaults()\n\nserver.use(middlewares)\nserver.use(function (req, res, next) {\n if (isAuthorized(req)) { // add your authorization logic here\n   next() // continue to JSON Server router\n } else {\n   res.sendStatus(401)\n }\n})\nserver.use(router)\nserver.listen(3000, function () {\n  console.log(\'JSON Server is running\')\n})\n```\n\n#### Custom output example\n\nTo modify responses, overwrite `router.render` method:\n\n```javascript\n// In this example, returned resources will be wrapped in a body property\nrouter.render = function (req, res) {\n  res.jsonp({\n   body: res.locals.data\n  })\n}\n```\n\n#### Rewriter example\n\nTo add rewrite rules, use `jsonServer.rewriter()`:\n\n```javascript\n// Add this before server.use(router)\nserver.use(jsonServer.rewriter({\n  \'/api/\': \'/\',\n  \'/blog/:resource/:id/show\': \'/:resource/:id\'\n}))\n```\n\n#### Mounting JSON Server on another endpoint example\n\nAlternatively, you can also mount the router on `/api`.\n\n```javascript\nserver.use(\'/api\', router)\n```\n\n### Deployment\n\nYou can deploy JSON Server. For example, [JSONPlaceholder](http://jsonplaceholder.typicode.com) is an online fake API powered by JSON Server and running on Heroku.\n\n## Links\n\n### Video\n\n* [Creating Demo APIs with json-server on egghead.io](https://egghead.io/lessons/nodejs-creating-demo-apis-with-json-server)\n\n### Articles\n\n* [Node Module Of The Week - json-server](http://nmotw.in/json-server/)\n* [Mock up your REST API with JSON Server](http://www.betterpixels.co.uk/projects/2015/05/09/mock-up-your-rest-api-with-json-server/)\n* [ng-admin: Add an AngularJS admin GUI to any RESTful API](http://marmelab.com/blog/2014/09/15/easy-backend-for-your-restful-api.html)\n* [Fast prototyping using Restangular and Json-server](http://glebbahmutov.com/blog/fast-prototyping-using-restangular-and-json-server/)\n* [Create a Mock REST API in Seconds for Prototyping your Frontend](https://coligo.io/create-mock-rest-api-with-json-server/)\n\n### Third-party tools\n\n* [Grunt JSON Server](https://github.com/tfiwm/grunt-json-server)\n* [Docker JSON Server](https://github.com/clue/docker-json-server)\n* [JSON Server GUI](https://github.com/naholyr/json-server-gui)\n* [JSON file generator](https://github.com/dfsq/json-server-init)\n\n## License\n\nMIT - [Typicode](https://github.com/typicode)\n',
+35 silly resolved     readmeFilename: 'README.md',
+35 silly resolved     _id: 'json-server@0.8.22',
+35 silly resolved     _from: 'json-server@' } ]
+36 info install json-server@0.8.22 into /usr/local/lib
+37 info installOne json-server@0.8.22
+38 info /usr/local/lib/node_modules/json-server unbuild
+39 verbose tar unpack /home/ebruann/.npm/json-server/0.8.22/package.tgz
+40 silly lockFile 6688241f-cal-lib-node-modules-json-server tar:///usr/local/lib/node_modules/json-server
+41 verbose lock tar:///usr/local/lib/node_modules/json-server /home/ebruann/.npm/6688241f-cal-lib-node-modules-json-server.lock
+42 silly lockFile a59ce78d-m-json-server-0-8-22-package-tgz tar:///home/ebruann/.npm/json-server/0.8.22/package.tgz
+43 verbose lock tar:///home/ebruann/.npm/json-server/0.8.22/package.tgz /home/ebruann/.npm/a59ce78d-m-json-server-0-8-22-package-tgz.lock
+44 silly gunzTarPerm modes [ '755', '644' ]
+45 error Error: EACCES, mkdir '/usr/local/lib/node_modules'
+45 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules']
+45 error   errno: 3,
+45 error   code: 'EACCES',
+45 error   path: '/usr/local/lib/node_modules',
+45 error   fstream_type: 'Directory',
+45 error   fstream_path: '/usr/local/lib/node_modules/json-server',
+45 error   fstream_class: 'DirWriter',
+45 error   fstream_stack:
+45 error    [ '/usr/lib/nodejs/fstream/lib/writer.js:171:23',
+45 error      '/usr/lib/nodejs/mkdirp/index.js:37:53',
+45 error      'Object.oncomplete (fs.js:107:15)' ] }
+46 error Please try running this command again as root/Administrator.
+47 error System Linux 4.2.0-42-generic
+48 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "json-server"
+49 error cwd /local/download/Suppliers
+50 error node -v v0.10.25
+51 error npm -v 1.3.10
+52 error path /usr/local/lib/node_modules
+53 error fstream_path /usr/local/lib/node_modules/json-server
+54 error fstream_type Directory
+55 error fstream_class DirWriter
+56 error code EACCES
+57 error errno 3
+58 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules'
+59 error fstream_stack /usr/lib/nodejs/fstream/lib/writer.js:171:23
+59 error fstream_stack /usr/lib/nodejs/mkdirp/index.js:37:53
+59 error fstream_stack Object.oncomplete (fs.js:107:15)
+60 verbose exit [ 3, true ]

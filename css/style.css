@@ -1,0 +1,94 @@
+html, body {
+
+ 	height				: 100%;
+ 	margin				: 0;
+  	padding				: 0;
+}
+
+#map {
+
+	height				: 100%;
+}
+
+#page-wrapper input{
+
+	margin-left 		: 3px;
+	margin-bottom 		: 15px;
+	padding 			: 5px;
+	height 				: 100%;
+	width 				: 80%;
+	cursor 				: pointer; 
+	font-size 			: 13px;
+	border 				: 1px solid;
+}
+
+#categorytitle {
+
+	margin: 		: auto; 
+
+}
+
+#page-wrapper input[name=post] {
+
+	height 				: 100%;
+	width 				: 100px;
+	float 				: left; 
+	margin-right 		: 100%;
+	margin-left 		: 5px; 
+
+}
+
+
+#page-wrapper input[name=postadd] {
+
+	height 				: 100%;
+	width 				: 130px;
+	float 				: right; 
+	margin-right 		: 20%; 
+
+}
+
+#page-wrapper input[name=exit] {
+
+	height 				: 100%;
+	width 				: 100px;
+	float 				: left; 
+	margin-left 		: 5px; 
+
+}
+
+#page-wrapper {
+
+	position 			: absolute;
+	width 				: 30%;
+	height				: 100%;
+	padding 			: 10px;
+	opacity 			: 0.9;
+	background 			: #fff;
+	left 				: 70%;
+	z-index 			: 2;
+	border-style 		: solid;
+	border-width 		: 2px;
+}
+
+#name {
+
+	font-size 			: 15px;
+	font-weight			: bold;
+	margin-top 			: 5px;
+	width 				: 150px;
+}
+
+#category {
+
+	margin-top 			: 10px;
+	padding-bottom 		: 10px;
+	width 				: 150px;
+
+}
+
+#deleteMarker {
+
+	margin-top			: 20px;
+}
+
