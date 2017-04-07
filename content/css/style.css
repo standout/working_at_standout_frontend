@@ -1,0 +1,33 @@
+/* 
+    Created on : Aug 17, 2016, 1:46:49 PM
+    Author     : Carl
+*/
+
+html, body{ 
+    margin: 0;
+    padding: 0;
+}
+html, body, #map, #edit {
+    height:100%;
+}
+#map, #edit {
+    float:left;
+    background-color: #00cccc;
+}
+#map { 
+    width: 75%;
+}
+#edit { 
+    width: 24%;
+    padding: 0 0.5%;
+}
+#edit form div{
+    display: table-row;
+}
+form  { 
+    display: table; 
+    text-align: left; 
+}
+label, input, select { 
+    display: table-cell;
+}
